@@ -530,3 +530,15 @@
   window.__sharedLive(loadState);
 })();
 </script>
+
+<script>
+/* Favicon: usa el mismo logo que ya esta en la pagina, sin modificarlo. */
+(function() {
+  var img = document.querySelector('.ee-logo-img');
+  if (!img || !img.src) return;
+  var link = document.createElement('link');
+  link.rel = 'icon';
+  link.href = img.src;
+  document.head.appendChild(link);
+})();
+</script>
