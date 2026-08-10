@@ -62,8 +62,11 @@
   .ar-tag { font-size: 11px; padding: 2px 7px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
   .ar-tag-resp { background: #33301F; color: #DAA812; }
   .ar-tag-listo { background: #123420; color: #5FCB8C; }
-  .ar-tag-pendiente { background: #3A2E10; color: #F0C64A; }
-  .ar-tag-always { background: #10233A; color: #6BAAF0; }
+  .ar-tag-always { background: #3A2E10; color: #F0C64A; }
+  .ar-tag-pendiente { background: #3E1717; color: #F0817F; }
+  .ar-team-item { flex-wrap: wrap; }
+  .ar-task-link { width: 130px; flex-shrink: 0; font-family: 'Poppins', sans-serif; font-size: 11.5px; padding: 4px 7px; border: 0.5px solid #4A4A4A; border-radius: 6px; background: #232323; color: #F2F2F2; }
+  .ar-task-open { color: #DAA812; text-decoration: none; font-size: 13px; padding: 2px 3px; flex-shrink: 0; }
 </style>
 
 <div class="ar-root">
@@ -89,6 +92,7 @@
         <option value="JM">JM</option>
       </select>
       <input type="date" id="team-cuando">
+      <input type="text" id="team-link" placeholder="Link (opcional)">
       <select id="team-status">
         <option value="pendiente">Pendiente</option>
         <option value="listo">Listo</option>
@@ -320,6 +324,7 @@
     var tareaInput = document.getElementById('team-tarea');
     var respInput = document.getElementById('team-resp');
     var cuandoInput = document.getElementById('team-cuando');
+    var linkInput = document.getElementById('team-link');
     var statusInput = document.getElementById('team-status');
     var tarea = tareaInput.value.trim();
     if (!tarea) return;
@@ -328,11 +333,13 @@
       tarea: tarea,
       resp: respInput.value,
       cuando: cuandoInput.value,
+      link: linkInput.value.trim(),
       status: statusInput.value,
       done: false
     });
     tareaInput.value = '';
     cuandoInput.value = '';
+    linkInput.value = '';
     render();
     saveState();
   };
@@ -346,6 +353,14 @@
 
   window.deleteTeamTask = function(id) {
     state.teamTasks = state.teamTasks.filter(function(x) { return x.id !== id; });
+    render();
+    saveState();
+  };
+
+  window.setTeamLink = function(id, value) {
+    var t = state.teamTasks.find(function(x) { return x.id === id; });
+    if (!t) return;
+    t.link = value.trim();
     render();
     saveState();
   };
@@ -487,11 +502,17 @@
     });
     list.innerHTML = sorted.map(function(t) {
       var dateLabel = t.cuando ? formatDateShort(t.cuando) : '';
-      return '<div class="ar-task-item">' +
+      var link = t.link || '';
+      var abrir = link
+        ? '<a class="ar-task-open" href="' + escapeAttr(hrefDe(link)) + '" target="_blank" rel="noopener noreferrer" title="Abrir link">&#8599;</a>'
+        : '';
+      return '<div class="ar-task-item ar-team-item">' +
         '<button class="ar-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>' +
         '<span class="ar-task-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.tarea) + '</span>' +
         '<span class="ar-tag ar-tag-resp">' + escapeHtml(t.resp) + '</span>' +
         '<span class="ar-tag ar-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>' +
+        '<input class="ar-task-link" type="text" placeholder="link" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
+        abrir +
         '<span class="ar-task-date">' + dateLabel + '</span>' +
         '<button class="ar-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
       '</div>';
@@ -501,6 +522,15 @@
   function formatDateShort(iso) {
     var parts = iso.split('-');
     return parts[2] + '/' + parts[1];
+  }
+
+  function escapeAttr(s) {
+    return escapeHtml(s).replace(/"/g, '&quot;');
+  }
+
+  // Si pega "arueda.cl" sin http, igual abre bien. javascript: y demas quedan fuera.
+  function hrefDe(link) {
+    return /^https?:\/\//i.test(link) ? link : 'https://' + link.replace(/^\/+/, '');
   }
 
   function escapeHtml(s) {
