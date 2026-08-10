@@ -43,6 +43,9 @@
   .ee-chip-wsp { background: #EAF3DE; color: #27500A; }
   .ee-chip-web { background: #E6F1FB; color: #0C447C; }
   .ee-chip-otro { background: #F1EFE8; color: #444441; }
+  .ee-chip-todas { background: #FBE3E1; color: #A32B24; }
+  .ee-cal-cell.ee-drop { border-color: #9D637E; background: #F7EDF1; }
+  .ee-chip.ee-dragging { opacity: 0.4; }
   .ee-modal-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
   .ee-modal { background: #FFFFFF; border-radius: 14px; padding: 20px; width: 100%; max-width: 320px; }
   .ee-modal h4 { font-family: 'Playfair Display', serif; margin: 0 0 14px; font-size: 17px; }
@@ -130,6 +133,7 @@
         <option value="wsp">Wsp</option>
         <option value="web">Web</option>
         <option value="otro">Otro</option>
+        <option value="todas">Todas</option>
       </select>
       <button class="ee-add-btn" onclick="addCalTask()">Agregar</button>
     </div>
@@ -146,6 +150,7 @@
       <span><i style="background:#97C459"></i>Wsp</span>
       <span><i style="background:#85B7EB"></i>Web</span>
       <span><i style="background:#B4B2A9"></i>Otro</span>
+      <span><i style="background:#D4655C"></i>Todas</span>
     </div>
   </div>
 
@@ -171,6 +176,7 @@
         <option value="wsp">Wsp</option>
         <option value="web">Web</option>
         <option value="otro">Otro</option>
+        <option value="todas">Todas</option>
       </select>
       <div class="ee-modal-actions">
         <button class="ee-modal-cancel" onclick="closeCalModal()">Cancelar</button>
@@ -423,6 +429,38 @@
     saveState();
   };
 
+  // Arrastrar una tarea a otro dia
+  window.__dragStart = function(ev, id) {
+    ev.dataTransfer.setData('text/plain', id);
+    ev.dataTransfer.effectAllowed = 'move';
+    ev.target.classList.add('ee-dragging');
+  };
+
+  window.__dragEnd = function(ev) {
+    ev.target.classList.remove('ee-dragging');
+  };
+
+  window.__dragOver = function(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = 'move';
+    ev.currentTarget.classList.add('ee-drop');
+  };
+
+  window.__dragLeave = function(ev) {
+    ev.currentTarget.classList.remove('ee-drop');
+  };
+
+  window.__drop = function(ev, iso) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('ee-drop');
+    var id = ev.dataTransfer.getData('text/plain');
+    var t = state.calTasks.find(function(x) { return x.id === id; });
+    if (!t || t.dia === iso) return;
+    t.dia = iso;
+    render();
+    saveState();
+  };
+
   window.shiftMonth = function(delta) {
     viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + delta, 1);
     render();
@@ -477,9 +515,9 @@
       var iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
       var dayTasks = state.calTasks.filter(function(t) { return t.dia === iso; });
       var chips = dayTasks.map(function(t) {
-        return '<span class="ee-chip ee-chip-' + t.canal + '" onclick="openCalModal(\'' + t.id + '\')" title="' + escapeHtml(t.tarea) + ' (click para editar)">' + escapeHtml(t.tarea) + '</span>';
+        return '<span class="ee-chip ee-chip-' + t.canal + '" draggable="true" ondragstart="__dragStart(event, \'' + t.id + '\')" ondragend="__dragEnd(event)" onclick="openCalModal(\'' + t.id + '\')" title="' + escapeHtml(t.tarea) + ' (click para editar, arrastra para mover)">' + escapeHtml(t.tarea) + '</span>';
       }).join('');
-      html += '<div class="ee-cal-cell"><div class="ee-cal-daynum">' + day + '</div>' + chips + '</div>';
+      html += '<div class="ee-cal-cell" ondragover="__dragOver(event)" ondragleave="__dragLeave(event)" ondrop="__drop(event, \'' + iso + '\')"><div class="ee-cal-daynum">' + day + '</div>' + chips + '</div>';
     }
 
     grid.innerHTML = html;

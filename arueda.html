@@ -32,9 +32,10 @@
   .ar-cal-daynum { font-size: 12px; color: #9A9A9A; margin-bottom: 3px; }
   .ar-chip { font-size: 10.5px; padding: 2px 6px; border-radius: 6px; margin-bottom: 3px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
   .ar-chip-rrss { background: #3A2E10; color: #F0C64A; }
-  .ar-chip-wsp { background: #123420; color: #5FCB8C; }
+  .ar-chip-mail { background: #123420; color: #5FCB8C; }
   .ar-chip-web { background: #10233A; color: #6BAAF0; }
   .ar-chip-otro { background: #3A3A3A; color: #CFCFCF; }
+  .ar-chip-todas { background: #3E1717; color: #F0817F; }
   .ar-legend { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
   .ar-legend span { font-size: 11px; color: #9A9A9A; display: flex; align-items: center; gap: 5px; }
   .ar-legend i { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
@@ -42,6 +43,19 @@
   .ar-backup-btn { font-family: 'Poppins', sans-serif; font-size: 12.5px; padding: 7px 12px; border-radius: 8px; border: 0.5px solid #4A4A4A; background: #2C2C2C; color: #F2F2F2; cursor: pointer; }
   .ar-backup-btn:hover { background: #383838; }
   #save-status-ar { display: none; font-size: 12px; color: #E8A5A5; width: 100%; }
+  .ar-cal-cell.ar-drop { border-color: #DAA812; background: #33301F; }
+  .ar-chip.ar-dragging { opacity: 0.4; }
+  .ar-modal-overlay { position: fixed; inset: 0; background: rgba(20,20,20,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+  .ar-modal { background: #2C2C2C; border: 0.5px solid #3D3D3D; border-radius: 14px; padding: 20px; width: 100%; max-width: 320px; }
+  .ar-modal h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 14px; font-size: 17px; font-weight: 600; color: #DAA812; }
+  .ar-modal label { font-size: 12px; color: #9A9A9A; display: block; margin: 10px 0 4px; }
+  .ar-modal input, .ar-modal select { width: 100%; font-family: 'Poppins', sans-serif; font-size: 14px; padding: 8px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; color: #F2F2F2; }
+  .ar-modal-actions { display: flex; gap: 8px; margin-top: 18px; }
+  .ar-modal-actions button { flex: 1; font-family: 'Poppins', sans-serif; font-size: 13px; padding: 9px; border-radius: 8px; border: none; cursor: pointer; }
+  .ar-modal-save { background: #DAA812; color: #1A1A1A; }
+  .ar-modal-save:hover { background: #C29710; }
+  .ar-modal-delete { background: #3A3A3A; color: #E8A5A5; }
+  .ar-modal-cancel { background: #3A3A3A; color: #F2F2F2; }
 </style>
 
 <div class="ar-root">
@@ -64,9 +78,10 @@
       <input type="date" id="cal-dia">
       <select id="cal-canal">
         <option value="rrss">RRSS</option>
-        <option value="wsp">Wsp</option>
+        <option value="mail">Mail</option>
         <option value="web">Web</option>
         <option value="otro">Otro</option>
+        <option value="todas">Todas</option>
       </select>
       <button class="ar-add-btn" onclick="addCalTask()">Agregar</button>
     </div>
@@ -80,9 +95,10 @@
     <div class="ar-cal-grid" id="cal-grid"></div>
     <div class="ar-legend">
       <span><i style="background:#DAA812"></i>RRSS</span>
-      <span><i style="background:#5FCB8C"></i>Wsp</span>
+      <span><i style="background:#5FCB8C"></i>Mail</span>
       <span><i style="background:#6BAAF0"></i>Web</span>
       <span><i style="background:#CFCFCF"></i>Otro</span>
+      <span><i style="background:#F0817F"></i>Todas</span>
     </div>
   </div>
 
@@ -93,6 +109,29 @@
       <input type="file" accept="application/json" onchange="importData(event)" style="display:none;">
     </label>
     <span id="save-status-ar"></span>
+  </div>
+
+  <div class="ar-modal-overlay" id="cal-modal" style="display:none;">
+    <div class="ar-modal">
+      <h4>Editar</h4>
+      <label>Tarea</label>
+      <input type="text" id="modal-tarea">
+      <label>Dia</label>
+      <input type="date" id="modal-dia">
+      <label>Canal</label>
+      <select id="modal-canal">
+        <option value="rrss">RRSS</option>
+        <option value="mail">Mail</option>
+        <option value="web">Web</option>
+        <option value="otro">Otro</option>
+        <option value="todas">Todas</option>
+      </select>
+      <div class="ar-modal-actions">
+        <button class="ar-modal-cancel" onclick="closeCalModal()">Cancelar</button>
+        <button class="ar-modal-delete" onclick="deleteFromModal()">Eliminar</button>
+        <button class="ar-modal-save" onclick="saveCalModal()">Guardar</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -260,6 +299,76 @@
     saveState();
   };
 
+  var modalEditingId = null;
+
+  window.openCalModal = function(id) {
+    var t = state.calTasks.find(function(x) { return x.id === id; });
+    if (!t) return;
+    modalEditingId = id;
+    document.getElementById('modal-tarea').value = t.tarea;
+    document.getElementById('modal-dia').value = t.dia;
+    document.getElementById('modal-canal').value = t.canal;
+    document.getElementById('cal-modal').style.display = 'flex';
+  };
+
+  window.closeCalModal = function() {
+    modalEditingId = null;
+    document.getElementById('cal-modal').style.display = 'none';
+  };
+
+  window.saveCalModal = function() {
+    var t = state.calTasks.find(function(x) { return x.id === modalEditingId; });
+    if (!t) return;
+    var tarea = document.getElementById('modal-tarea').value.trim();
+    var dia = document.getElementById('modal-dia').value;
+    if (!tarea || !dia) return;
+    t.tarea = tarea;
+    t.dia = dia;
+    t.canal = document.getElementById('modal-canal').value;
+    closeCalModal();
+    render();
+    saveState();
+  };
+
+  window.deleteFromModal = function() {
+    state.calTasks = state.calTasks.filter(function(x) { return x.id !== modalEditingId; });
+    closeCalModal();
+    render();
+    saveState();
+  };
+
+  // Arrastrar una tarea a otro dia
+  window.__dragStart = function(ev, id) {
+    ev.dataTransfer.setData('text/plain', id);
+    ev.dataTransfer.effectAllowed = 'move';
+    ev.target.classList.add('ar-dragging');
+  };
+
+  window.__dragEnd = function(ev) {
+    ev.target.classList.remove('ar-dragging');
+  };
+
+  window.__dragOver = function(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = 'move';
+    ev.currentTarget.classList.add('ar-drop');
+  };
+
+  window.__dragLeave = function(ev) {
+    ev.currentTarget.classList.remove('ar-drop');
+  };
+
+  window.__drop = function(ev, iso) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('ar-drop');
+    var id = ev.dataTransfer.getData('text/plain');
+    var t = state.calTasks.find(function(x) { return x.id === id; });
+    if (!t || t.dia === iso) return;
+    t.dia = iso;
+    render();
+    saveState();
+  };
+
   window.shiftMonth = function(delta) {
     viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + delta, 1);
     render();
@@ -319,9 +428,9 @@
       var iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
       var dayTasks = state.calTasks.filter(function(t) { return t.dia === iso; });
       var chips = dayTasks.map(function(t) {
-        return '<span class="ar-chip ar-chip-' + t.canal + '" onclick="deleteCalTask(\'' + t.id + '\')" title="' + escapeHtml(t.tarea) + ' (click para eliminar)">' + escapeHtml(t.tarea) + '</span>';
+        return '<span class="ar-chip ar-chip-' + t.canal + '" draggable="true" ondragstart="__dragStart(event, \'' + t.id + '\')" ondragend="__dragEnd(event)" onclick="openCalModal(\'' + t.id + '\')" title="' + escapeHtml(t.tarea) + ' (click para editar, arrastra para mover)">' + escapeHtml(t.tarea) + '</span>';
       }).join('');
-      html += '<div class="ar-cal-cell"><div class="ar-cal-daynum">' + day + '</div>' + chips + '</div>';
+      html += '<div class="ar-cal-cell" ondragover="__dragOver(event)" ondragleave="__dragLeave(event)" ondrop="__drop(event, \'' + iso + '\')"><div class="ar-cal-daynum">' + day + '</div>' + chips + '</div>';
     }
 
     grid.innerHTML = html;
