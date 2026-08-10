@@ -67,6 +67,12 @@
   .ar-team-item { flex-wrap: wrap; }
   .ar-task-link { width: 130px; flex-shrink: 0; font-family: 'Poppins', sans-serif; font-size: 11.5px; padding: 4px 7px; border: 0.5px solid #4A4A4A; border-radius: 6px; background: #232323; color: #F2F2F2; }
   .ar-task-open { color: #DAA812; text-decoration: none; font-size: 13px; padding: 2px 3px; flex-shrink: 0; }
+  .ar-task-edita { cursor: pointer; }
+  .ar-task-edita:hover { color: #DAA812; }
+  .ar-task-grip { cursor: grab; color: #6E6E6E; font-size: 13px; line-height: 1; padding: 2px 2px; flex-shrink: 0; user-select: none; }
+  .ar-task-grip:active { cursor: grabbing; }
+  .ar-team-item.ar-team-dragging { opacity: 0.4; }
+  .ar-team-item.ar-team-over { border-bottom-color: #DAA812; box-shadow: inset 0 -2px 0 #DAA812; }
 </style>
 
 <div class="ar-root">
@@ -92,7 +98,6 @@
         <option value="JM">JM</option>
       </select>
       <input type="date" id="team-cuando">
-      <input type="text" id="team-link" placeholder="Link (opcional)">
       <select id="team-status">
         <option value="pendiente">Pendiente</option>
         <option value="listo">Listo</option>
@@ -171,6 +176,35 @@
         <button class="ar-modal-cancel" onclick="closeCalModal()">Cancelar</button>
         <button class="ar-modal-delete" onclick="deleteFromModal()">Eliminar</button>
         <button class="ar-modal-save" onclick="saveCalModal()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ar-modal-overlay" id="team-modal" style="display:none;">
+    <div class="ar-modal">
+      <h4>Editar tarea</h4>
+      <label>Tarea</label>
+      <input type="text" id="tmodal-tarea">
+      <label>Responsable</label>
+      <select id="tmodal-resp">
+        <option value="Leonor">Leonor</option>
+        <option value="Pablo">Pablo</option>
+        <option value="JM">JM</option>
+      </select>
+      <label>Cuando</label>
+      <input type="date" id="tmodal-cuando">
+      <label>Status</label>
+      <select id="tmodal-status">
+        <option value="pendiente">Pendiente</option>
+        <option value="listo">Listo</option>
+        <option value="always">Always on</option>
+      </select>
+      <label>Link</label>
+      <input type="text" id="tmodal-link">
+      <div class="ar-modal-actions">
+        <button class="ar-modal-cancel" onclick="closeTeamModal()">Cancelar</button>
+        <button class="ar-modal-delete" onclick="deleteFromTeamModal()">Eliminar</button>
+        <button class="ar-modal-save" onclick="saveTeamModal()">Guardar</button>
       </div>
     </div>
   </div>
@@ -324,7 +358,6 @@
     var tareaInput = document.getElementById('team-tarea');
     var respInput = document.getElementById('team-resp');
     var cuandoInput = document.getElementById('team-cuando');
-    var linkInput = document.getElementById('team-link');
     var statusInput = document.getElementById('team-status');
     var tarea = tareaInput.value.trim();
     if (!tarea) return;
@@ -333,13 +366,12 @@
       tarea: tarea,
       resp: respInput.value,
       cuando: cuandoInput.value,
-      link: linkInput.value.trim(),
+      link: '',
       status: statusInput.value,
       done: false
     });
     tareaInput.value = '';
     cuandoInput.value = '';
-    linkInput.value = '';
     render();
     saveState();
   };
@@ -353,6 +385,84 @@
 
   window.deleteTeamTask = function(id) {
     state.teamTasks = state.teamTasks.filter(function(x) { return x.id !== id; });
+    render();
+    saveState();
+  };
+
+  var teamEditingId = null;
+
+  window.openTeamModal = function(id) {
+    var t = state.teamTasks.find(function(x) { return x.id === id; });
+    if (!t) return;
+    teamEditingId = id;
+    document.getElementById('tmodal-tarea').value = t.tarea;
+    document.getElementById('tmodal-resp').value = t.resp;
+    document.getElementById('tmodal-cuando').value = t.cuando || '';
+    document.getElementById('tmodal-status').value = t.status;
+    document.getElementById('tmodal-link').value = t.link || '';
+    document.getElementById('team-modal').style.display = 'flex';
+  };
+
+  window.closeTeamModal = function() {
+    teamEditingId = null;
+    document.getElementById('team-modal').style.display = 'none';
+  };
+
+  window.saveTeamModal = function() {
+    var t = state.teamTasks.find(function(x) { return x.id === teamEditingId; });
+    if (!t) return;
+    var tarea = document.getElementById('tmodal-tarea').value.trim();
+    if (!tarea) return;
+    t.tarea = tarea;
+    t.resp = document.getElementById('tmodal-resp').value;
+    t.cuando = document.getElementById('tmodal-cuando').value;
+    t.status = document.getElementById('tmodal-status').value;
+    t.link = document.getElementById('tmodal-link').value.trim();
+    closeTeamModal();
+    render();
+    saveState();
+  };
+
+  window.deleteFromTeamModal = function() {
+    state.teamTasks = state.teamTasks.filter(function(x) { return x.id !== teamEditingId; });
+    closeTeamModal();
+    render();
+    saveState();
+  };
+
+  // Arrastrar una tarea del equipo para cambiarle el orden
+  window.__teamDragStart = function(ev, id) {
+    ev.dataTransfer.setData('text/plain', id);
+    ev.dataTransfer.effectAllowed = 'move';
+    var fila = ev.target.closest('.ar-team-item');
+    if (fila) fila.classList.add('ar-team-dragging');
+  };
+
+  window.__teamDragEnd = function(ev) {
+    var fila = ev.target.closest('.ar-team-item');
+    if (fila) fila.classList.remove('ar-team-dragging');
+  };
+
+  window.__teamDragOver = function(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = 'move';
+    ev.currentTarget.classList.add('ar-team-over');
+  };
+
+  window.__teamDragLeave = function(ev) {
+    ev.currentTarget.classList.remove('ar-team-over');
+  };
+
+  window.__teamDrop = function(ev, destinoId) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('ar-team-over');
+    var origenId = ev.dataTransfer.getData('text/plain');
+    if (!origenId || origenId === destinoId) return;
+    var desde = state.teamTasks.findIndex(function(x) { return x.id === origenId; });
+    var hasta = state.teamTasks.findIndex(function(x) { return x.id === destinoId; });
+    if (desde < 0 || hasta < 0) return;
+    var movida = state.teamTasks.splice(desde, 1)[0];
+    state.teamTasks.splice(hasta, 0, movida);
     render();
     saveState();
   };
@@ -497,23 +607,24 @@
       list.innerHTML = '<p class="ar-empty">' + (teamFilter ? 'Sin tareas para ' + escapeHtml(teamFilter) + '.' : 'Sin tareas todavia.') + '</p>';
       return;
     }
-    var sorted = items.slice().sort(function(a, b) {
-      return (a.cuando || '9999').localeCompare(b.cuando || '9999');
-    });
-    list.innerHTML = sorted.map(function(t) {
+    // Sin orden automatico: manda el orden en que Pablo las dejo arrastrando.
+    list.innerHTML = items.map(function(t) {
       var dateLabel = t.cuando ? formatDateShort(t.cuando) : '';
       var link = t.link || '';
       var abrir = link
         ? '<a class="ar-task-open" href="' + escapeAttr(hrefDe(link)) + '" target="_blank" rel="noopener noreferrer" title="Abrir link">&#8599;</a>'
         : '';
-      return '<div class="ar-task-item ar-team-item">' +
+      return '<div class="ar-task-item ar-team-item"' +
+          ' ondragover="__teamDragOver(event)" ondragleave="__teamDragLeave(event)" ondrop="__teamDrop(event, \'' + t.id + '\')">' +
+        '<span class="ar-task-grip" draggable="true" title="Arrastra para cambiar el orden"' +
+          ' ondragstart="__teamDragStart(event, \'' + t.id + '\')" ondragend="__teamDragEnd(event)">&#8942;&#8942;</span>' +
         '<button class="ar-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>' +
-        '<span class="ar-task-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.tarea) + '</span>' +
+        '<span class="ar-task-text ar-task-edita' + (t.done ? ' done' : '') + '" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.tarea) + '</span>' +
         '<span class="ar-tag ar-tag-resp">' + escapeHtml(t.resp) + '</span>' +
         '<span class="ar-tag ar-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>' +
-        '<input class="ar-task-link" type="text" placeholder="link" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
-        abrir +
         '<span class="ar-task-date">' + dateLabel + '</span>' +
+        '<input class="ar-task-link" type="text" placeholder="LINK" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
+        abrir +
         '<button class="ar-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
       '</div>';
     }).join('');
