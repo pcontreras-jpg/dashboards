@@ -56,6 +56,14 @@
   .ar-modal-save:hover { background: #C29710; }
   .ar-modal-delete { background: #3A3A3A; color: #E8A5A5; }
   .ar-modal-cancel { background: #3A3A3A; color: #F2F2F2; }
+  .ar-filter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .ar-filter-row label { font-family: 'Poppins', sans-serif; font-size: 12px; color: #9A9A9A; }
+  .ar-filter-row select { font-family: 'Poppins', sans-serif; font-size: 13px; padding: 6px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; color: #F2F2F2; }
+  .ar-tag { font-size: 11px; padding: 2px 7px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
+  .ar-tag-resp { background: #33301F; color: #DAA812; }
+  .ar-tag-listo { background: #123420; color: #5FCB8C; }
+  .ar-tag-pendiente { background: #3A2E10; color: #F0C64A; }
+  .ar-tag-always { background: #10233A; color: #6BAAF0; }
 </style>
 
 <div class="ar-root">
@@ -69,6 +77,35 @@
       <button class="ar-add-btn" onclick="addTask()">Agregar</button>
     </div>
     <div id="task-list"></div>
+  </div>
+
+  <div class="ar-section-title">Tareas del equipo</div>
+  <div class="ar-card">
+    <div class="ar-form-row">
+      <input type="text" id="team-tarea" placeholder="Tarea">
+      <select id="team-resp">
+        <option value="Leonor">Leonor</option>
+        <option value="Pablo">Pablo</option>
+        <option value="JM">JM</option>
+      </select>
+      <input type="date" id="team-cuando">
+      <select id="team-status">
+        <option value="pendiente">Pendiente</option>
+        <option value="listo">Listo</option>
+        <option value="always">Always on</option>
+      </select>
+      <button class="ar-add-btn" onclick="addTeamTask()">Agregar</button>
+    </div>
+    <div class="ar-filter-row">
+      <label for="team-filtro">Responsable</label>
+      <select id="team-filtro" onchange="filterTeam(this.value)">
+        <option value="">Todos</option>
+        <option value="Leonor">Leonor</option>
+        <option value="Pablo">Pablo</option>
+        <option value="JM">JM</option>
+      </select>
+    </div>
+    <div id="team-list"></div>
   </div>
 
   <div class="ar-section-title">Calendario</div>
@@ -194,7 +231,8 @@
 
 (function() {
   var STORAGE_KEY = 'ar-dashboard-data';
-  var state = { tasks: [], calTasks: [] };
+  var state = { tasks: [], calTasks: [], teamTasks: [] };
+  var teamFilter = '';
   var viewDate = new Date();
 
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -244,7 +282,7 @@
     reader.onload = function(e) {
       try {
         var parsed = JSON.parse(e.target.result);
-        state = Object.assign({ tasks: [], calTasks: [] }, parsed);
+        state = Object.assign({ tasks: [], calTasks: [], teamTasks: [] }, parsed);
         render();
         saveState();
       } catch (err) { alert('Archivo invalido'); }
@@ -276,6 +314,45 @@
     state.tasks = state.tasks.filter(function(x) { return x.id !== id; });
     render();
     saveState();
+  };
+
+  window.addTeamTask = function() {
+    var tareaInput = document.getElementById('team-tarea');
+    var respInput = document.getElementById('team-resp');
+    var cuandoInput = document.getElementById('team-cuando');
+    var statusInput = document.getElementById('team-status');
+    var tarea = tareaInput.value.trim();
+    if (!tarea) return;
+    state.teamTasks.push({
+      id: uid(),
+      tarea: tarea,
+      resp: respInput.value,
+      cuando: cuandoInput.value,
+      status: statusInput.value,
+      done: false
+    });
+    tareaInput.value = '';
+    cuandoInput.value = '';
+    render();
+    saveState();
+  };
+
+  window.toggleTeamTask = function(id) {
+    var t = state.teamTasks.find(function(x) { return x.id === id; });
+    if (t) t.done = !t.done;
+    render();
+    saveState();
+  };
+
+  window.deleteTeamTask = function(id) {
+    state.teamTasks = state.teamTasks.filter(function(x) { return x.id !== id; });
+    render();
+    saveState();
+  };
+
+  window.filterTeam = function(value) {
+    teamFilter = value;
+    renderTeamTasks();
   };
 
   window.addCalTask = function() {
@@ -394,6 +471,33 @@
     }).join('');
   }
 
+  var STATUS_LABEL = { pendiente: 'Pendiente', listo: 'Listo', always: 'Always on' };
+
+  function renderTeamTasks() {
+    var list = document.getElementById('team-list');
+    var items = state.teamTasks.filter(function(t) {
+      return !teamFilter || t.resp === teamFilter;
+    });
+    if (items.length === 0) {
+      list.innerHTML = '<p class="ar-empty">' + (teamFilter ? 'Sin tareas para ' + escapeHtml(teamFilter) + '.' : 'Sin tareas todavia.') + '</p>';
+      return;
+    }
+    var sorted = items.slice().sort(function(a, b) {
+      return (a.cuando || '9999').localeCompare(b.cuando || '9999');
+    });
+    list.innerHTML = sorted.map(function(t) {
+      var dateLabel = t.cuando ? formatDateShort(t.cuando) : '';
+      return '<div class="ar-task-item">' +
+        '<button class="ar-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>' +
+        '<span class="ar-task-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.tarea) + '</span>' +
+        '<span class="ar-tag ar-tag-resp">' + escapeHtml(t.resp) + '</span>' +
+        '<span class="ar-tag ar-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>' +
+        '<span class="ar-task-date">' + dateLabel + '</span>' +
+        '<button class="ar-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
+      '</div>';
+    }).join('');
+  }
+
   function formatDateShort(iso) {
     var parts = iso.split('-');
     return parts[2] + '/' + parts[1];
@@ -438,6 +542,7 @@
 
   function render() {
     renderTasks();
+    renderTeamTasks();
     renderCalendar();
   }
 
