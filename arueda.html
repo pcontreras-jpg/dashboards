@@ -59,6 +59,12 @@
   .ar-filter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
   .ar-filter-row label { font-family: 'Poppins', sans-serif; font-size: 12px; color: #9A9A9A; }
   .ar-filter-row select { font-family: 'Poppins', sans-serif; font-size: 13px; padding: 6px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; color: #F2F2F2; }
+  .ar-filter-checks { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .ar-filter-checks .ar-check { display: inline-flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; color: #F2F2F2; padding: 5px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; cursor: pointer; }
+  .ar-filter-checks .ar-check input { accent-color: #DAA812; width: 14px; height: 14px; cursor: pointer; margin: 0; }
+  .ar-filter-checks .ar-check.on { border-color: #DAA812; color: #DAA812; }
+  .ar-filter-checks .ar-filter-all { font-family: 'Poppins', sans-serif; font-size: 12px; padding: 6px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #2A2A2A; color: #9A9A9A; cursor: pointer; }
+  .ar-filter-checks .ar-filter-all:hover { color: #F2F2F2; border-color: #6A6A6A; }
   .ar-tag { font-size: 11px; padding: 2px 7px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
   .ar-tag-resp { background: #33301F; color: #DAA812; }
   .ar-tag-listo { background: #123420; color: #5FCB8C; }
@@ -96,18 +102,19 @@
       <button class="ar-add-btn" onclick="addTeamTask()">Agregar</button>
     </div>
     <div class="ar-filter-row">
-      <label for="team-filtro">Responsable</label>
-      <select id="team-filtro" onchange="filterTeam(this.value)">
-        <option value="">Todos</option>
-        <option value="Leonor">Leonor</option>
-        <option value="Pablo">Pablo</option>
-        <option value="JM">JM</option>
-      </select>
+      <label>Responsable</label>
+      <div class="ar-filter-checks" id="team-filtro">
+        <label class="ar-check on"><input type="checkbox" value="Leonor" checked onchange="filterTeam()">Leonor</label>
+        <label class="ar-check on"><input type="checkbox" value="Pablo" checked onchange="filterTeam()">Pablo</label>
+        <label class="ar-check on"><input type="checkbox" value="JM" checked onchange="filterTeam()">JM</label>
+        <button type="button" class="ar-filter-all" onclick="filterTeamAll(true)">Todos</button>
+        <button type="button" class="ar-filter-all" onclick="filterTeamAll(false)">Ninguno</button>
+      </div>
     </div>
     <div id="team-list"></div>
   </div>
 
-  <div class="ar-section-title">Temas</div>
+  <div class="ar-section-title">Temas para contenido</div>
   <div class="ar-card">
     <div class="ar-form-row">
       <input type="text" id="task-input" placeholder="Nuevo tema">
@@ -285,7 +292,7 @@
 (function() {
   var STORAGE_KEY = 'ar-dashboard-data';
   var state = { tasks: [], calTasks: [], teamTasks: [] };
-  var teamFilter = '';
+  var teamFilter = null;
   var viewDate = new Date();
 
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -563,9 +570,24 @@
     saveState();
   };
 
-  window.filterTeam = function(value) {
-    teamFilter = value;
+  function teamFilterBoxes() {
+    return document.querySelectorAll('#team-filtro input[type=checkbox]');
+  }
+
+  window.filterTeam = function() {
+    var boxes = teamFilterBoxes();
+    teamFilter = [];
+    for (var i = 0; i < boxes.length; i++) {
+      boxes[i].parentNode.classList.toggle('on', boxes[i].checked);
+      if (boxes[i].checked) teamFilter.push(boxes[i].value);
+    }
     renderTeamTasks();
+  };
+
+  window.filterTeamAll = function(marcar) {
+    var boxes = teamFilterBoxes();
+    for (var i = 0; i < boxes.length; i++) boxes[i].checked = marcar;
+    window.filterTeam();
   };
 
   window.addCalTask = function() {
@@ -690,10 +712,13 @@
   function renderTeamTasks() {
     var list = document.getElementById('team-list');
     var items = state.teamTasks.filter(function(t) {
-      return !teamFilter || t.resp === teamFilter;
+      return !teamFilter || teamFilter.indexOf(t.resp) !== -1;
     });
     if (items.length === 0) {
-      list.innerHTML = '<p class="ar-empty">' + (teamFilter ? 'Sin tareas para ' + escapeHtml(teamFilter) + '.' : 'Sin tareas todavia.') + '</p>';
+      var vacio = 'Sin tareas todavia.';
+      if (teamFilter && teamFilter.length === 0) vacio = 'No hay ningun responsable marcado.';
+      else if (teamFilter && teamFilter.length < teamFilterBoxes().length) vacio = 'Sin tareas para ' + escapeHtml(teamFilter.join(', ')) + '.';
+      list.innerHTML = '<p class="ar-empty">' + vacio + '</p>';
       return;
     }
     // Sin orden automatico: manda el orden en que Pablo las dejo arrastrando.
