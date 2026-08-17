@@ -208,6 +208,21 @@
       </div>
     </div>
   </div>
+
+  <div class="ar-modal-overlay" id="tema-modal" style="display:none;">
+    <div class="ar-modal">
+      <h4>Editar tema</h4>
+      <label>Tema</label>
+      <input type="text" id="temamodal-texto">
+      <label>Fecha</label>
+      <input type="date" id="temamodal-fecha">
+      <div class="ar-modal-actions">
+        <button class="ar-modal-cancel" onclick="closeTemaModal()">Cancelar</button>
+        <button class="ar-modal-delete" onclick="deleteFromTemaModal()">Eliminar</button>
+        <button class="ar-modal-save" onclick="saveTemaModal()">Guardar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -350,6 +365,79 @@
 
   window.deleteTask = function(id) {
     state.tasks = state.tasks.filter(function(x) { return x.id !== id; });
+    render();
+    saveState();
+  };
+
+  // Arrastrar un tema para cambiarle el orden
+  window.__temaDragStart = function(ev, id) {
+    ev.dataTransfer.setData('text/plain', id);
+    ev.dataTransfer.effectAllowed = 'move';
+    var fila = ev.target.closest('.ar-tema-item');
+    if (fila) fila.classList.add('ar-team-dragging');
+  };
+
+  window.__temaDragEnd = function(ev) {
+    var fila = ev.target.closest('.ar-tema-item');
+    if (fila) fila.classList.remove('ar-team-dragging');
+  };
+
+  window.__temaDragOver = function(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = 'move';
+    ev.currentTarget.classList.add('ar-team-over');
+  };
+
+  window.__temaDragLeave = function(ev) {
+    ev.currentTarget.classList.remove('ar-team-over');
+  };
+
+  window.__temaDrop = function(ev, destinoId) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('ar-team-over');
+    var origenId = ev.dataTransfer.getData('text/plain');
+    if (!origenId || origenId === destinoId) return;
+    var desde = state.tasks.findIndex(function(x) { return x.id === origenId; });
+    var hasta = state.tasks.findIndex(function(x) { return x.id === destinoId; });
+    if (desde < 0 || hasta < 0) return;
+    var movido = state.tasks.splice(desde, 1)[0];
+    state.tasks.splice(hasta, 0, movido);
+    render();
+    saveState();
+  };
+
+  // Editar un tema: click en el texto abre el modal
+  var temaEditingId = null;
+
+  window.openTemaModal = function(id) {
+    var t = state.tasks.find(function(x) { return x.id === id; });
+    if (!t) return;
+    temaEditingId = id;
+    document.getElementById('temamodal-texto').value = t.text;
+    document.getElementById('temamodal-fecha').value = t.date || '';
+    document.getElementById('tema-modal').style.display = 'flex';
+  };
+
+  window.closeTemaModal = function() {
+    temaEditingId = null;
+    document.getElementById('tema-modal').style.display = 'none';
+  };
+
+  window.saveTemaModal = function() {
+    var t = state.tasks.find(function(x) { return x.id === temaEditingId; });
+    if (!t) return;
+    var texto = document.getElementById('temamodal-texto').value.trim();
+    if (!texto) return;
+    t.text = texto;
+    t.date = document.getElementById('temamodal-fecha').value;
+    closeTemaModal();
+    render();
+    saveState();
+  };
+
+  window.deleteFromTemaModal = function() {
+    state.tasks = state.tasks.filter(function(x) { return x.id !== temaEditingId; });
+    closeTemaModal();
     render();
     saveState();
   };
@@ -582,14 +670,15 @@
       list.innerHTML = '<p class="ar-empty">Sin temas todavia.</p>';
       return;
     }
-    var sorted = state.tasks.slice().sort(function(a, b) {
-      return (a.date || '9999').localeCompare(b.date || '9999');
-    });
-    list.innerHTML = sorted.map(function(t) {
+    // Sin orden automatico: manda el orden en que Pablo los dejo arrastrando.
+    list.innerHTML = state.tasks.map(function(t) {
       var dateLabel = t.date ? formatDateShort(t.date) : '';
-      return '<div class="ar-task-item">' +
+      return '<div class="ar-task-item ar-tema-item"' +
+          ' ondragover="__temaDragOver(event)" ondragleave="__temaDragLeave(event)" ondrop="__temaDrop(event, \'' + t.id + '\')">' +
+        '<span class="ar-task-grip" draggable="true" title="Arrastra para cambiar el orden"' +
+          ' ondragstart="__temaDragStart(event, \'' + t.id + '\')" ondragend="__temaDragEnd(event)">&#8942;&#8942;</span>' +
         '<button class="ar-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>' +
-        '<span class="ar-task-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.text) + '</span>' +
+        '<span class="ar-task-text ar-task-edita' + (t.done ? ' done' : '') + '" onclick="openTemaModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.text) + '</span>' +
         '<span class="ar-task-date">' + dateLabel + '</span>' +
         '<button class="ar-task-del" onclick="deleteTask(\'' + t.id + '\')">&#10005;</button>' +
       '</div>';
