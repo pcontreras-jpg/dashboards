@@ -63,6 +63,7 @@
   .ar-filter-checks .ar-check { display: inline-flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; color: #F2F2F2; padding: 5px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; cursor: pointer; }
   .ar-filter-checks .ar-check input { accent-color: #DAA812; width: 14px; height: 14px; cursor: pointer; margin: 0; }
   .ar-filter-checks .ar-check.on { border-color: #DAA812; color: #DAA812; }
+  .ar-filter-checks .ar-check-always { margin-left: 8px; }
   .ar-filter-checks .ar-filter-all { font-family: 'Poppins', sans-serif; font-size: 12px; padding: 6px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #2A2A2A; color: #9A9A9A; cursor: pointer; }
   .ar-filter-checks .ar-filter-all:hover { color: #F2F2F2; border-color: #6A6A6A; }
   .ar-tag { font-size: 11px; padding: 2px 7px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
@@ -79,6 +80,7 @@
   .ar-task-grip:active { cursor: grabbing; }
   .ar-team-item.ar-team-dragging { opacity: 0.4; }
   .ar-team-item.ar-team-over { border-bottom-color: #DAA812; box-shadow: inset 0 -2px 0 #DAA812; }
+  .ar-subtitle { color: #8A8A8A; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 16px; padding-top: 12px; border-top: 0.5px solid #3A3A3A; }
 </style>
 
 <div class="ar-root">
@@ -109,19 +111,14 @@
         <label class="ar-check on"><input type="checkbox" value="JM" checked onchange="filterTeam()">JM</label>
         <button type="button" class="ar-filter-all" onclick="filterTeamAll(true)">Todos</button>
         <button type="button" class="ar-filter-all" onclick="filterTeamAll(false)">Ninguno</button>
+        <label class="ar-check ar-check-always"><input type="checkbox" id="chk-always" onchange="toggleAlways()">Always on</label>
       </div>
     </div>
     <div id="team-list"></div>
-  </div>
-
-  <div class="ar-section-title">Temas para contenido</div>
-  <div class="ar-card">
-    <div class="ar-form-row">
-      <input type="text" id="task-input" placeholder="Nuevo tema">
-      <input type="date" id="task-date">
-      <button class="ar-add-btn" onclick="addTask()">Agregar</button>
+    <div id="team-always-wrap" style="display:none;">
+      <div class="ar-subtitle">Always on</div>
+      <div id="team-always-list"></div>
     </div>
-    <div id="task-list"></div>
   </div>
 
   <div class="ar-section-title">Calendario</div>
@@ -153,6 +150,16 @@
       <span><i style="background:#CFCFCF"></i>Otro</span>
       <span><i style="background:#F0817F"></i>Todas</span>
     </div>
+  </div>
+
+  <div class="ar-section-title">Temas para contenido</div>
+  <div class="ar-card">
+    <div class="ar-form-row">
+      <input type="text" id="task-input" placeholder="Nuevo tema">
+      <input type="date" id="task-date">
+      <button class="ar-add-btn" onclick="addTask()">Agregar</button>
+    </div>
+    <div id="task-list"></div>
   </div>
 
   <div class="ar-backup-bar">
@@ -571,7 +578,7 @@
   };
 
   function teamFilterBoxes() {
-    return document.querySelectorAll('#team-filtro input[type=checkbox]');
+    return document.querySelectorAll("#team-filtro input[type=checkbox]:not(#chk-always)");
   }
 
   window.filterTeam = function() {
@@ -588,6 +595,18 @@
     var boxes = teamFilterBoxes();
     for (var i = 0; i < boxes.length; i++) boxes[i].checked = marcar;
     window.filterTeam();
+  };
+
+  // El check "Always on" no filtra responsables: solo abre el bloque de abajo.
+  function verAlways() {
+    var chk = document.getElementById('chk-always');
+    return !!(chk && chk.checked);
+  }
+
+  window.toggleAlways = function() {
+    var chk = document.getElementById('chk-always');
+    chk.parentNode.classList.toggle('on', chk.checked);
+    renderTeamTasks();
   };
 
   window.addCalTask = function() {
@@ -711,37 +730,47 @@
 
   function renderTeamTasks() {
     var list = document.getElementById('team-list');
-    var items = state.teamTasks.filter(function(t) {
+    var alwaysWrap = document.getElementById('team-always-wrap');
+    var alwaysList = document.getElementById('team-always-list');
+    var visibles = state.teamTasks.filter(function(t) {
       return !teamFilter || teamFilter.indexOf(t.resp) !== -1;
     });
+    // Las "Always on" no son tareas que se cierren: van en su propio bloque abajo.
+    var items = visibles.filter(function(t) { return t.status !== 'always'; });
+    var siempre = visibles.filter(function(t) { return t.status === 'always'; });
     if (items.length === 0) {
       var vacio = 'Sin tareas todavia.';
       if (teamFilter && teamFilter.length === 0) vacio = 'No hay ningun responsable marcado.';
       else if (teamFilter && teamFilter.length < teamFilterBoxes().length) vacio = 'Sin tareas para ' + escapeHtml(teamFilter.join(', ')) + '.';
       list.innerHTML = '<p class="ar-empty">' + vacio + '</p>';
-      return;
+    } else {
+      // Sin orden automatico: manda el orden en que Pablo las dejo arrastrando.
+      list.innerHTML = items.map(filaTeam).join('');
     }
-    // Sin orden automatico: manda el orden en que Pablo las dejo arrastrando.
-    list.innerHTML = items.map(function(t) {
-      var dateLabel = t.cuando ? formatDateShort(t.cuando) : '';
-      var link = t.link || '';
-      var abrir = link
-        ? '<a class="ar-task-open" href="' + escapeAttr(hrefDe(link)) + '" target="_blank" rel="noopener noreferrer" title="Abrir link">&#8599;</a>'
-        : '';
-      return '<div class="ar-task-item ar-team-item"' +
-          ' ondragover="__teamDragOver(event)" ondragleave="__teamDragLeave(event)" ondrop="__teamDrop(event, \'' + t.id + '\')">' +
-        '<span class="ar-task-grip" draggable="true" title="Arrastra para cambiar el orden"' +
-          ' ondragstart="__teamDragStart(event, \'' + t.id + '\')" ondragend="__teamDragEnd(event)">&#8942;&#8942;</span>' +
-        '<button class="ar-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>' +
-        '<span class="ar-task-text ar-task-edita' + (t.done ? ' done' : '') + '" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.tarea) + '</span>' +
-        '<span class="ar-tag ar-tag-resp">' + escapeHtml(t.resp) + '</span>' +
-        '<span class="ar-tag ar-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>' +
-        '<span class="ar-task-date">' + dateLabel + '</span>' +
-        '<input class="ar-task-link" type="text" placeholder="LINK" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
-        abrir +
-        '<button class="ar-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
-      '</div>';
-    }).join('');
+    alwaysWrap.style.display = (verAlways() && siempre.length) ? '' : 'none';
+    alwaysList.innerHTML = siempre.map(filaTeam).join('');
+  }
+
+  function filaTeam(t) {
+    var esAlways = t.status === 'always';
+    var dateLabel = t.cuando ? formatDateShort(t.cuando) : '';
+    var link = t.link || '';
+    var abrir = link
+      ? '<a class="ar-task-open" href="' + escapeAttr(hrefDe(link)) + '" target="_blank" rel="noopener noreferrer" title="Abrir link">&#8599;</a>'
+      : '';
+    return '<div class="ar-task-item ar-team-item"' +
+        ' ondragover="__teamDragOver(event)" ondragleave="__teamDragLeave(event)" ondrop="__teamDrop(event, \'' + t.id + '\')">' +
+      '<span class="ar-task-grip" draggable="true" title="Arrastra para cambiar el orden"' +
+        ' ondragstart="__teamDragStart(event, \'' + t.id + '\')" ondragend="__teamDragEnd(event)">&#8942;&#8942;</span>' +
+      (esAlways ? '' : '<button class="ar-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>') +
+      '<span class="ar-task-text ar-task-edita' + (!esAlways && t.done ? ' done' : '') + '" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.tarea) + '</span>' +
+      '<span class="ar-tag ar-tag-resp">' + escapeHtml(t.resp) + '</span>' +
+      (esAlways ? '' : '<span class="ar-tag ar-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>') +
+      (esAlways ? '' : '<span class="ar-task-date">' + dateLabel + '</span>') +
+      '<input class="ar-task-link" type="text" placeholder="LINK" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
+      abrir +
+      '<button class="ar-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
+    '</div>';
   }
 
   function formatDateShort(iso) {
