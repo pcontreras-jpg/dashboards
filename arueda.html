@@ -50,6 +50,8 @@
   .ar-modal h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 14px; font-size: 17px; font-weight: 600; color: #DAA812; }
   .ar-modal label { font-size: 12px; color: #9A9A9A; display: block; margin: 10px 0 4px; }
   .ar-modal input, .ar-modal select { width: 100%; font-family: 'Poppins', sans-serif; font-size: 14px; padding: 8px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; color: #F2F2F2; }
+  .ar-modal textarea { width: 100%; font-family: 'Poppins', sans-serif; font-size: 13px; line-height: 1.45; padding: 8px 10px; border: 0.5px solid #4A4A4A; border-radius: 8px; background: #232323; color: #F2F2F2; resize: vertical; }
+  .ar-task-note { flex-basis: 100%; margin: 2px 0 2px 26px; font-size: 12px; line-height: 1.45; color: #9A9A9A; white-space: pre-wrap; cursor: pointer; }
   .ar-modal-actions { display: flex; gap: 8px; margin-top: 18px; }
   .ar-modal-actions button { flex: 1; font-family: 'Poppins', sans-serif; font-size: 13px; padding: 9px; border-radius: 8px; border: none; cursor: pointer; }
   .ar-modal-save { background: #DAA812; color: #1A1A1A; }
@@ -215,6 +217,8 @@
       </select>
       <label>Link</label>
       <input type="text" id="tmodal-link">
+      <label>Detalle</label>
+      <textarea id="tmodal-detalle" rows="4" placeholder="Comentarios o explicacion de la tarea"></textarea>
       <div class="ar-modal-actions">
         <button class="ar-modal-cancel" onclick="closeTeamModal()">Cancelar</button>
         <button class="ar-modal-delete" onclick="deleteFromTeamModal()">Eliminar</button>
@@ -469,6 +473,7 @@
       resp: respInput.value,
       cuando: cuandoInput.value,
       link: '',
+      detalle: '',
       status: statusInput.value,
       done: false
     });
@@ -502,6 +507,7 @@
     document.getElementById('tmodal-cuando').value = t.cuando || '';
     document.getElementById('tmodal-status').value = t.status;
     document.getElementById('tmodal-link').value = t.link || '';
+    document.getElementById('tmodal-detalle').value = t.detalle || '';
     document.getElementById('team-modal').style.display = 'flex';
   };
 
@@ -520,6 +526,7 @@
     t.cuando = document.getElementById('tmodal-cuando').value;
     t.status = document.getElementById('tmodal-status').value;
     t.link = document.getElementById('tmodal-link').value.trim();
+    t.detalle = document.getElementById('tmodal-detalle').value.trim();
     closeTeamModal();
     render();
     saveState();
@@ -770,6 +777,7 @@
       '<input class="ar-task-link" type="text" placeholder="LINK" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
       abrir +
       '<button class="ar-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
+      (t.detalle ? '<div class="ar-task-note" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.detalle) + '</div>' : '') +
     '</div>';
   }
 
