@@ -17,6 +17,8 @@
   .ee-form-row input, .ee-form-row select { font-family: 'Poppins', sans-serif; font-size: 14px; padding: 8px 10px; border: 0.5px solid #D9C3CA; border-radius: 8px; background: #FAF5F4; color: #1A1A1A; }
   .ee-form-row input[type="text"] { flex: 1; min-width: 140px; }
   .ee-form-row input[type="date"] { min-width: 140px; }
+  .ee-form-row select { min-width: 200px; }
+  .ee-monto { font-family: 'Poppins', sans-serif; font-weight: 500; color: #1A1A1A; align-self: center; min-width: 80px; text-align: right; }
   .ee-add-btn { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 8px; border: none; background: #9D637E; color: #FFFFFF; cursor: pointer; }
   .ee-add-btn:hover { background: #82506A; }
   .ee-task-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid #F0E4E8; }
@@ -65,6 +67,9 @@
   .ee-client-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid #F0E4E8; font-size: 13px; flex-wrap: wrap; }
   .ee-client-item:last-child { border-bottom: none; }
   .ee-client-item span { flex: 1; min-width: 90px; }
+  .ee-client-item span.ee-grip { flex: none; min-width: 0; cursor: grab; color: #9D637E; padding: 0 4px; touch-action: none; user-select: none; letter-spacing: -3px; }
+  .ee-client-item.ee-dragging { background: #FAF5F4; opacity: 0.85; }
+  .ee-client-item.ee-dragging span.ee-grip { cursor: grabbing; }
   .ee-backup-bar { display: flex; gap: 8px; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 0.5px solid #E9DEE2; flex-wrap: wrap; }
   .ee-backup-btn { font-family: 'Poppins', sans-serif; font-size: 12.5px; padding: 7px 12px; border-radius: 8px; border: 0.5px solid #D9C3CA; background: #FFFFFF; color: #1A1A1A; cursor: pointer; }
   .ee-backup-btn:hover { background: #F6EEF1; }
@@ -88,7 +93,16 @@
         <div class="ee-form-row">
           <input type="text" id="citas-nombre" placeholder="Nombre">
           <input type="date" id="citas-fecha">
-          <input type="text" id="citas-telefono" placeholder="Telefono">
+          <select id="citas-servicio" onchange="updateCitaMonto()">
+            <option value="">Servicio</option>
+            <option value="Colorimetria">Colorimetria</option>
+            <option value="Closet Detox">Closet Detox</option>
+            <option value="Tour de Compras">Tour de Compras</option>
+            <option value="Pack 1">Pack 1</option>
+            <option value="Pack 2">Pack 2</option>
+            <option value="Pack Transformación Total">Pack Transformación Total</option>
+          </select>
+          <span class="ee-monto" id="citas-monto">$0</span>
           <button class="ee-add-btn" onclick="addCita()">Agregar</button>
         </div>
         <div id="citas-list"><p class="ee-empty">Sin citas todavia.</p></div>
@@ -97,7 +111,7 @@
     <div class="ee-kpi-card">
       <div class="ee-kpi-row" onclick="togglePanel(&#39;contactar&#39;)" style="cursor:pointer;">
         <div>
-          <p class="ee-kpi-label">Clientes por contactar</p>
+          <p class="ee-kpi-label">Citas por cerrar</p>
           <span class="ee-kpi-value" id="kpi-clientes">0</span>
         </div>
         <span class="ee-kpi-toggle" id="toggle-contactar">▾</span>
@@ -105,11 +119,11 @@
       <div class="ee-kpi-panel" id="panel-contactar" style="display:none;">
         <div class="ee-form-row">
           <input type="text" id="contactar-nombre" placeholder="Nombre">
-          <input type="text" id="contactar-telefono" placeholder="Telefono">
-          <input type="text" id="contactar-mail" placeholder="Mail">
+          <input type="text" id="contactar-comentario" placeholder="Comentario">
+          <input type="date" id="contactar-fecha">
           <button class="ee-add-btn" onclick="addContactar()">Agregar</button>
         </div>
-        <div id="contactar-list"><p class="ee-empty">Sin clientes todavia.</p></div>
+        <div id="contactar-list"><p class="ee-empty">Sin citas por cerrar todavia.</p></div>
       </div>
     </div>
   </div>
@@ -313,13 +327,32 @@
     toggle.classList.toggle('open', !open);
   };
 
+  var SERVICIOS = {
+    'Colorimetria': 75000,
+    'Closet Detox': 75000,
+    'Tour de Compras': 130000,
+    'Pack 1': 120000,
+    'Pack 2': 190000,
+    'Pack Transformación Total': 220000
+  };
+
+  function formatMonto(n) {
+    return '$' + String(Math.round(n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  window.updateCitaMonto = function() {
+    var servicio = document.getElementById('citas-servicio').value;
+    document.getElementById('citas-monto').textContent = formatMonto(SERVICIOS[servicio]);
+  };
+
   window.addCita = function() {
     var nombre = document.getElementById('citas-nombre');
     var fecha = document.getElementById('citas-fecha');
-    var telefono = document.getElementById('citas-telefono');
+    var servicio = document.getElementById('citas-servicio');
     if (!nombre.value.trim()) return;
-    state.citasList.push({ id: uid(), nombre: nombre.value.trim(), fecha: fecha.value, telefono: telefono.value.trim() });
-    nombre.value = ''; fecha.value = ''; telefono.value = '';
+    state.citasList.push({ id: uid(), nombre: nombre.value.trim(), fecha: fecha.value, servicio: servicio.value, monto: SERVICIOS[servicio.value] || 0 });
+    nombre.value = ''; fecha.value = ''; servicio.value = '';
+    updateCitaMonto();
     render();
     saveState();
   };
@@ -332,11 +365,11 @@
 
   window.addContactar = function() {
     var nombre = document.getElementById('contactar-nombre');
-    var telefono = document.getElementById('contactar-telefono');
-    var mail = document.getElementById('contactar-mail');
+    var comentario = document.getElementById('contactar-comentario');
+    var fecha = document.getElementById('contactar-fecha');
     if (!nombre.value.trim()) return;
-    state.contactarList.push({ id: uid(), nombre: nombre.value.trim(), telefono: telefono.value.trim(), mail: mail.value.trim() });
-    nombre.value = ''; telefono.value = ''; mail.value = '';
+    state.contactarList.push({ id: uid(), nombre: nombre.value.trim(), comentario: comentario.value.trim(), fecha: fecha.value });
+    nombre.value = ''; comentario.value = ''; fecha.value = '';
     render();
     saveState();
   };
@@ -534,7 +567,8 @@
       return '<div class="ee-client-item">' +
         '<span>' + escapeHtml(c.nombre) + '</span>' +
         '<span>' + (c.fecha ? formatDateShort(c.fecha) : '') + '</span>' +
-        '<span>' + escapeHtml(c.telefono) + '</span>' +
+        '<span>' + escapeHtml(c.servicio || c.telefono || '') + '</span>' +
+        '<span class="ee-monto">' + (c.servicio ? formatMonto(c.monto) : '') + '</span>' +
         '<button class="ee-task-del" onclick="deleteCita(\'' + c.id + '\')">&#10005;</button>' +
       '</div>';
     }).join('');
@@ -544,17 +578,57 @@
     document.getElementById('kpi-clientes').textContent = state.contactarList.length;
     var list = document.getElementById('contactar-list');
     if (state.contactarList.length === 0) {
-      list.innerHTML = '<p class="ee-empty">Sin clientes todavia.</p>';
+      list.innerHTML = '<p class="ee-empty">Sin citas por cerrar todavia.</p>';
       return;
     }
     list.innerHTML = state.contactarList.map(function(c) {
-      return '<div class="ee-client-item">' +
+      return '<div class="ee-client-item" data-id="' + c.id + '">' +
+        '<span class="ee-grip" title="Arrastra para mover" onpointerdown="__gripDown(event)">&#8942;&#8942;</span>' +
         '<span>' + escapeHtml(c.nombre) + '</span>' +
-        '<span>' + escapeHtml(c.telefono) + '</span>' +
-        '<span>' + escapeHtml(c.mail) + '</span>' +
+        '<span>' + escapeHtml(c.comentario || '') + '</span>' +
+        '<span>' + (c.fecha ? formatDateShort(c.fecha) : '') + '</span>' +
         '<button class="ee-task-del" onclick="deleteContactar(\'' + c.id + '\')">&#10005;</button>' +
       '</div>';
     }).join('');
+  }
+
+  // Reordenar "Citas por cerrar": se toma la fila por la manilla y se arrastra (mouse o dedo).
+  var gripItem = null;
+  window.__gripDown = function(e) {
+    gripItem = e.target.closest('.ee-client-item');
+    if (!gripItem) return;
+    e.preventDefault();
+    gripItem.classList.add('ee-dragging');
+    document.addEventListener('pointermove', gripMove);
+    document.addEventListener('pointerup', gripUp);
+  };
+  function gripMove(e) {
+    if (!gripItem) return;
+    var list = document.getElementById('contactar-list');
+    var items = Array.prototype.slice.call(list.querySelectorAll('.ee-client-item'));
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      if (it === gripItem) continue;
+      var r = it.getBoundingClientRect();
+      if (e.clientY > r.top && e.clientY < r.bottom) {
+        if (e.clientY < r.top + r.height / 2) list.insertBefore(gripItem, it);
+        else list.insertBefore(gripItem, it.nextSibling);
+        break;
+      }
+    }
+  }
+  function gripUp() {
+    document.removeEventListener('pointermove', gripMove);
+    document.removeEventListener('pointerup', gripUp);
+    if (!gripItem) return;
+    gripItem.classList.remove('ee-dragging');
+    gripItem = null;
+    var ids = Array.prototype.map.call(document.querySelectorAll('#contactar-list .ee-client-item'), function(el) { return el.getAttribute('data-id'); });
+    var byId = {};
+    state.contactarList.forEach(function(c) { byId[c.id] = c; });
+    state.contactarList = ids.map(function(id) { return byId[id]; }).filter(Boolean);
+    render();
+    saveState();
   }
 
   function render() {
