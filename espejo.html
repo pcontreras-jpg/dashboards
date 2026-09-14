@@ -73,6 +73,10 @@
   .ee-client-item span.ee-grip { flex: none; min-width: 0; cursor: grab; color: #9D637E; padding: 0 4px; touch-action: none; user-select: none; letter-spacing: -3px; }
   .ee-client-item.ee-dragging { background: #FAF5F4; opacity: 0.85; }
   .ee-client-item.ee-dragging span.ee-grip { cursor: grabbing; }
+  .ee-crm-field { flex-shrink: 0; font-family: 'Poppins', sans-serif; font-size: 12.5px; padding: 5px 8px; border: 0.5px solid #D9C3CA; border-radius: 6px; background: #FAF5F4; color: #1A1A1A; }
+  select.ee-crm-field { min-width: 140px; }
+  .ee-client-item.ee-vencida { background: #FDF1F0; }
+  .ee-client-item.ee-vencida .ee-crm-fecha { border-color: #D4655C; color: #A32B24; font-weight: 600; }
   .ee-team-item { flex-wrap: wrap; }
   .ee-team-item.ee-team-dragging { opacity: 0.4; }
   .ee-team-item.ee-team-over { border-bottom-color: #9D637E; box-shadow: inset 0 -2px 0 #9D637E; }
@@ -147,7 +151,12 @@
         <div class="ee-form-row">
           <input type="text" id="contactar-nombre" placeholder="Nombre">
           <input type="text" id="contactar-comentario" placeholder="Comentario">
-          <input type="date" id="contactar-fecha">
+          <select id="contactar-tarea" style="min-width:160px;">
+            <option value="Contactar">Contactar</option>
+            <option value="Agendar">Agendar</option>
+            <option value="Enviar propuesta">Enviar propuesta</option>
+          </select>
+          <input type="date" id="contactar-fecha" title="Fecha de la tarea">
           <button class="ee-add-btn" onclick="addContactar()">Agregar</button>
         </div>
         <div id="contactar-list"><p class="ee-empty">Sin citas por cerrar todavia.</p></div>
@@ -434,10 +443,11 @@
   window.addContactar = function() {
     var nombre = document.getElementById('contactar-nombre');
     var comentario = document.getElementById('contactar-comentario');
+    var tarea = document.getElementById('contactar-tarea');
     var fecha = document.getElementById('contactar-fecha');
     if (!nombre.value.trim()) return;
-    state.contactarList.push({ id: uid(), nombre: nombre.value.trim(), comentario: comentario.value.trim(), fecha: fecha.value });
-    nombre.value = ''; comentario.value = ''; fecha.value = '';
+    state.contactarList.push({ id: uid(), nombre: nombre.value.trim(), comentario: comentario.value.trim(), tarea: tarea.value, fecha: fecha.value });
+    nombre.value = ''; comentario.value = ''; tarea.value = 'Contactar'; fecha.value = '';
     render();
     saveState();
   };
@@ -831,16 +841,34 @@
       list.innerHTML = '<p class="ee-empty">Sin citas por cerrar todavia.</p>';
       return;
     }
+    var hoy = new Date();
+    var hoyIso = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0') + '-' + String(hoy.getDate()).padStart(2, '0');
+    var TAREAS_CRM = ['Contactar', 'Agendar', 'Enviar propuesta'];
     list.innerHTML = state.contactarList.map(function(c) {
-      return '<div class="ee-client-item" data-id="' + c.id + '">' +
+      var vencida = c.fecha && c.fecha < hoyIso;
+      var opciones = (c.tarea && TAREAS_CRM.indexOf(c.tarea) === -1 ? [c.tarea] : []).concat(TAREAS_CRM);
+      var select = '<select class="ee-crm-field" onchange="setContactarField(\'' + c.id + '\', \'tarea\', this.value)">' +
+        (c.tarea ? '' : '<option value="" selected>Tarea</option>') +
+        opciones.map(function(o) { return '<option value="' + escapeAttr(o) + '"' + (o === c.tarea ? ' selected' : '') + '>' + escapeHtml(o) + '</option>'; }).join('') +
+        '</select>';
+      return '<div class="ee-client-item' + (vencida ? ' ee-vencida' : '') + '" data-id="' + c.id + '">' +
         '<span class="ee-grip" title="Arrastra para mover" onpointerdown="__gripDown(event)">&#8942;&#8942;</span>' +
         '<span>' + escapeHtml(c.nombre) + '</span>' +
         '<span>' + escapeHtml(c.comentario || '') + '</span>' +
-        '<span>' + (c.fecha ? formatDateShort(c.fecha) : '') + '</span>' +
+        select +
+        '<input type="date" class="ee-crm-field ee-crm-fecha" value="' + escapeAttr(c.fecha || '') + '" title="' + (vencida ? 'Fecha vencida' : 'Fecha de la tarea') + '" onchange="setContactarField(\'' + c.id + '\', \'fecha\', this.value)">' +
         '<button class="ee-task-del" onclick="deleteContactar(\'' + c.id + '\')">&#10005;</button>' +
       '</div>';
     }).join('');
   }
+
+  window.setContactarField = function(id, field, value) {
+    var c = state.contactarList.find(function(x) { return x.id === id; });
+    if (!c) return;
+    c[field] = value;
+    render();
+    saveState();
+  };
 
   // Reordenar "Citas por cerrar": se toma la fila por la manilla y se arrastra (mouse o dedo).
   var gripItem = null;
