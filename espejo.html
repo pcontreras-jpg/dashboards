@@ -167,9 +167,6 @@
       </select>
       <button class="ee-add-btn" onclick="addTeamTask()">Agregar</button>
     </div>
-    <div class="ee-filter-row">
-      <label class="ee-check"><input type="checkbox" id="chk-always" onchange="toggleAlways()">Always on</label>
-    </div>
     <div id="team-list"></div>
     <div id="team-always-wrap" style="display:none;">
       <div class="ee-subtitle">Always on</div>
@@ -571,18 +568,6 @@
     saveState();
   };
 
-  // El check "Always on" solo abre el bloque de abajo.
-  function verAlways() {
-    var chk = document.getElementById('chk-always');
-    return !!(chk && chk.checked);
-  }
-
-  window.toggleAlways = function() {
-    var chk = document.getElementById('chk-always');
-    chk.parentNode.classList.toggle('on', chk.checked);
-    renderTeamTasks();
-  };
-
   window.addTask = function() {
     var input = document.getElementById('task-input');
     var text = input.value.trim();
@@ -732,7 +717,7 @@
       // Sin orden automatico: manda el orden en que se dejaron arrastrando.
       list.innerHTML = items.map(filaTeam).join('');
     }
-    alwaysWrap.style.display = (verAlways() && siempre.length) ? '' : 'none';
+    alwaysWrap.style.display = siempre.length ? '' : 'none';
     alwaysList.innerHTML = siempre.map(filaTeam).join('');
   }
 
