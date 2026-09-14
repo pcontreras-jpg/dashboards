@@ -92,6 +92,8 @@
   .ee-task-open { color: #9D637E; text-decoration: none; font-size: 13px; padding: 2px 3px; flex-shrink: 0; }
   .ee-task-note { flex-basis: 100%; margin: 2px 0 2px 26px; font-size: 12px; line-height: 1.45; color: #8A6B74; white-space: pre-wrap; cursor: pointer; }
   .ee-filter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .ee-filter-checks { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .ee-filter-checks .ee-check { text-transform: capitalize; }
   .ee-check { display: inline-flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; color: #1A1A1A; padding: 5px 10px; border: 0.5px solid #D9C3CA; border-radius: 8px; background: #FAF5F4; cursor: pointer; }
   .ee-check input { accent-color: #9D637E; width: 14px; height: 14px; cursor: pointer; margin: 0; }
   .ee-check.on { border-color: #9D637E; color: #9D637E; }
@@ -118,8 +120,8 @@
       </div>
       <div class="ee-kpi-panel" id="panel-citas" style="display:none;">
         <div class="ee-filter-row">
-          <span class="ee-kpi-label" style="margin:0;">Mes</span>
-          <input type="month" id="citas-mes" class="ee-task-link" style="width:160px;" onchange="renderCitas()">
+          <span class="ee-kpi-label" style="margin:0;">Meses</span>
+          <div class="ee-filter-checks" id="citas-meses"></div>
         </div>
         <div class="ee-form-row">
           <input type="text" id="citas-nombre" placeholder="Nombre">
@@ -806,15 +808,35 @@
     grid.innerHTML = html;
   }
 
+  var citasMeses = null;
+
+  window.toggleCitaMes = function(m, marcado) {
+    if (!citasMeses) citasMeses = [];
+    citasMeses = citasMeses.filter(function(x) { return x !== m; });
+    if (marcado) citasMeses.push(m);
+    renderCitas();
+  };
+
   function renderCitas() {
-    // Filtro por mes: por defecto el mes actual. Las citas sin fecha se muestran en todos los meses.
-    var mesInput = document.getElementById('citas-mes');
-    if (!mesInput.value) {
-      var hoy = new Date();
-      mesInput.value = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0');
-    }
-    var mes = mesInput.value;
-    var delMes = state.citasList.filter(function(c) { return !c.fecha || c.fecha.slice(0, 7) === mes; });
+    // Filtro por meses: se pueden marcar varios; por defecto el mes actual.
+    // Las citas sin fecha se muestran siempre.
+    var hoy = new Date();
+    var mesActual = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0');
+    if (!citasMeses) citasMeses = [mesActual];
+    var meses = [mesActual];
+    state.citasList.forEach(function(c) {
+      var m = c.fecha ? c.fecha.slice(0, 7) : '';
+      if (m && meses.indexOf(m) === -1) meses.push(m);
+    });
+    meses.sort().reverse();
+    document.getElementById('citas-meses').innerHTML = meses.map(function(m) {
+      var on = citasMeses.indexOf(m) !== -1;
+      var partes = m.split('-');
+      var label = MESES[Number(partes[1]) - 1].slice(0, 3) + ' ' + partes[0];
+      return '<label class="ee-check' + (on ? ' on' : '') + '"><input type="checkbox"' + (on ? ' checked' : '') +
+        ' onchange="toggleCitaMes(\'' + m + '\', this.checked)">' + label + '</label>';
+    }).join('');
+    var delMes = state.citasList.filter(function(c) { return !c.fecha || citasMeses.indexOf(c.fecha.slice(0, 7)) !== -1; });
     document.getElementById('kpi-citas').textContent = delMes.length;
     var list = document.getElementById('citas-list');
     var total = delMes.reduce(function(s, c) { return s + (c.servicio ? (Number(c.monto) || 0) : 0); }, 0);
