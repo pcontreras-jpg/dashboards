@@ -111,6 +111,10 @@
         <span class="ee-kpi-toggle" id="toggle-citas">▾</span>
       </div>
       <div class="ee-kpi-panel" id="panel-citas" style="display:none;">
+        <div class="ee-filter-row">
+          <span class="ee-kpi-label" style="margin:0;">Mes</span>
+          <input type="month" id="citas-mes" class="ee-task-link" style="width:160px;" onchange="renderCitas()">
+        </div>
         <div class="ee-form-row">
           <input type="text" id="citas-nombre" placeholder="Nombre">
           <input type="date" id="citas-fecha">
@@ -806,13 +810,21 @@
   }
 
   function renderCitas() {
-    document.getElementById('kpi-citas').textContent = state.citasList.length;
+    // Filtro por mes: por defecto el mes actual. Las citas sin fecha se muestran en todos los meses.
+    var mesInput = document.getElementById('citas-mes');
+    if (!mesInput.value) {
+      var hoy = new Date();
+      mesInput.value = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0');
+    }
+    var mes = mesInput.value;
+    var delMes = state.citasList.filter(function(c) { return !c.fecha || c.fecha.slice(0, 7) === mes; });
+    document.getElementById('kpi-citas').textContent = delMes.length;
     var list = document.getElementById('citas-list');
-    if (state.citasList.length === 0) {
-      list.innerHTML = '<p class="ee-empty">Sin citas todavia.</p>';
+    if (delMes.length === 0) {
+      list.innerHTML = '<p class="ee-empty">Sin citas este mes.</p>';
       return;
     }
-    list.innerHTML = state.citasList.map(function(c) {
+    list.innerHTML = delMes.map(function(c) {
       return '<div class="ee-client-item">' +
         '<span>' + escapeHtml(c.nombre) + '</span>' +
         '<span>' + (c.fecha ? formatDateShort(c.fecha) : '') + '</span>' +
