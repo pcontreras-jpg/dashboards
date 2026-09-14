@@ -75,6 +75,7 @@
   .ee-client-item.ee-dragging span.ee-grip { cursor: grabbing; }
   .ee-crm-field { flex-shrink: 0; font-family: 'Poppins', sans-serif; font-size: 12.5px; padding: 5px 8px; border: 0.5px solid #D9C3CA; border-radius: 6px; background: #FAF5F4; color: #1A1A1A; }
   select.ee-crm-field { min-width: 140px; }
+  .ee-crm-nombre { flex: 1; min-width: 120px; }
   .ee-client-item.ee-vencida { background: #FDF1F0; }
   .ee-client-item.ee-vencida .ee-crm-fecha { border-color: #D4655C; color: #A32B24; font-weight: 600; }
   .ee-team-item { flex-wrap: wrap; }
@@ -846,15 +847,33 @@
       return;
     }
     list.innerHTML = delMes.map(function(c) {
+      var opciones = (c.servicio && !SERVICIOS.hasOwnProperty(c.servicio) ? [c.servicio] : []).concat(Object.keys(SERVICIOS));
+      var select = '<select class="ee-crm-field" onchange="setCitaField(\'' + c.id + '\', \'servicio\', this.value)">' +
+        (c.servicio ? '' : '<option value="" selected>Servicio</option>') +
+        opciones.map(function(o) { return '<option value="' + escapeAttr(o) + '"' + (o === c.servicio ? ' selected' : '') + '>' + escapeHtml(o) + '</option>'; }).join('') +
+        '</select>';
       return '<div class="ee-client-item">' +
-        '<span>' + escapeHtml(c.nombre) + '</span>' +
-        '<span>' + (c.fecha ? formatDateShort(c.fecha) : '') + '</span>' +
-        '<span>' + escapeHtml(c.servicio || c.telefono || '') + '</span>' +
+        '<input type="text" class="ee-crm-field ee-crm-nombre" value="' + escapeAttr(c.nombre) + '" onchange="setCitaField(\'' + c.id + '\', \'nombre\', this.value)">' +
+        '<input type="date" class="ee-crm-field" value="' + escapeAttr(c.fecha || '') + '" onchange="setCitaField(\'' + c.id + '\', \'fecha\', this.value)">' +
+        select +
         '<span class="ee-monto">' + (c.servicio ? formatMonto(c.monto) : '') + '</span>' +
         '<button class="ee-task-del" onclick="deleteCita(\'' + c.id + '\')">&#10005;</button>' +
       '</div>';
     }).join('') + totalHtml;
   }
+
+  window.setCitaField = function(id, field, value) {
+    var c = state.citasList.find(function(x) { return x.id === id; });
+    if (!c) return;
+    if (field === 'nombre') {
+      value = value.trim();
+      if (!value) { render(); return; }
+    }
+    c[field] = value;
+    if (field === 'servicio') c.monto = SERVICIOS[value] || 0;
+    render();
+    saveState();
+  };
 
   function renderContactar() {
     document.getElementById('kpi-clientes').textContent = state.contactarList.length;
