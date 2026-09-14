@@ -46,6 +46,7 @@
   .ee-chip-web { background: #E6F1FB; color: #0C447C; }
   .ee-chip-otro { background: #F1EFE8; color: #444441; }
   .ee-chip-todas { background: #FBE3E1; color: #A32B24; }
+  .ee-chip-citas { background: #F1E6F6; color: #5E2A70; }
   .ee-cal-cell.ee-drop { border-color: #9D637E; background: #F7EDF1; }
   .ee-chip.ee-dragging { opacity: 0.4; }
   .ee-modal-overlay { position: fixed; inset: 0; background: rgba(26,26,26,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
@@ -70,6 +71,26 @@
   .ee-client-item span.ee-grip { flex: none; min-width: 0; cursor: grab; color: #9D637E; padding: 0 4px; touch-action: none; user-select: none; letter-spacing: -3px; }
   .ee-client-item.ee-dragging { background: #FAF5F4; opacity: 0.85; }
   .ee-client-item.ee-dragging span.ee-grip { cursor: grabbing; }
+  .ee-team-item { flex-wrap: wrap; }
+  .ee-team-item.ee-team-dragging { opacity: 0.4; }
+  .ee-team-item.ee-team-over { border-bottom-color: #9D637E; box-shadow: inset 0 -2px 0 #9D637E; }
+  .ee-task-grip { cursor: grab; color: #B4A2A9; font-size: 13px; line-height: 1; padding: 2px 2px; flex-shrink: 0; user-select: none; }
+  .ee-task-grip:active { cursor: grabbing; }
+  .ee-task-edita { cursor: pointer; }
+  .ee-task-edita:hover { color: #9D637E; }
+  .ee-tag { font-size: 11px; padding: 2px 7px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
+  .ee-tag-pendiente { background: #FBE3E1; color: #A32B24; }
+  .ee-tag-listo { background: #EAF3DE; color: #27500A; }
+  .ee-tag-always { background: #FBF1DC; color: #7A5A10; }
+  .ee-task-link { width: 130px; flex-shrink: 0; font-family: 'Poppins', sans-serif; font-size: 11.5px; padding: 4px 7px; border: 0.5px solid #D9C3CA; border-radius: 6px; background: #FAF5F4; color: #1A1A1A; }
+  .ee-task-open { color: #9D637E; text-decoration: none; font-size: 13px; padding: 2px 3px; flex-shrink: 0; }
+  .ee-task-note { flex-basis: 100%; margin: 2px 0 2px 26px; font-size: 12px; line-height: 1.45; color: #8A6B74; white-space: pre-wrap; cursor: pointer; }
+  .ee-filter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .ee-check { display: inline-flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; color: #1A1A1A; padding: 5px 10px; border: 0.5px solid #D9C3CA; border-radius: 8px; background: #FAF5F4; cursor: pointer; }
+  .ee-check input { accent-color: #9D637E; width: 14px; height: 14px; cursor: pointer; margin: 0; }
+  .ee-check.on { border-color: #9D637E; color: #9D637E; }
+  .ee-subtitle { color: #8A6B74; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 16px; padding-top: 12px; border-top: 0.5px solid #F0E4E8; }
+  .ee-modal textarea { width: 100%; font-family: 'Poppins', sans-serif; font-size: 14px; padding: 8px 10px; border: 0.5px solid #D9C3CA; border-radius: 8px; background: #FAF5F4; color: #1A1A1A; resize: vertical; }
   .ee-backup-bar { display: flex; gap: 8px; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 0.5px solid #E9DEE2; flex-wrap: wrap; }
   .ee-backup-btn { font-family: 'Poppins', sans-serif; font-size: 12.5px; padding: 7px 12px; border-radius: 8px; border: 0.5px solid #D9C3CA; background: #FFFFFF; color: #1A1A1A; cursor: pointer; }
   .ee-backup-btn:hover { background: #F6EEF1; }
@@ -128,6 +149,28 @@
     </div>
   </div>
 
+  <div class="ee-section-title">Tareas</div>
+  <div class="ee-card">
+    <div class="ee-form-row">
+      <input type="text" id="team-tarea" placeholder="Tarea">
+      <input type="date" id="team-cuando">
+      <select id="team-status">
+        <option value="pendiente">Pendiente</option>
+        <option value="listo">Listo</option>
+        <option value="always">Always on</option>
+      </select>
+      <button class="ee-add-btn" onclick="addTeamTask()">Agregar</button>
+    </div>
+    <div class="ee-filter-row">
+      <label class="ee-check"><input type="checkbox" id="chk-always" onchange="toggleAlways()">Always on</label>
+    </div>
+    <div id="team-list"></div>
+    <div id="team-always-wrap" style="display:none;">
+      <div class="ee-subtitle">Always on</div>
+      <div id="team-always-list"></div>
+    </div>
+  </div>
+
   <div class="ee-section-title">Calendario</div>
   <div class="ee-card">
     <div class="ee-form-row">
@@ -137,8 +180,7 @@
         <option value="rrss">RRSS</option>
         <option value="wsp">Wsp</option>
         <option value="web">Web</option>
-        <option value="otro">Otro</option>
-        <option value="todas">Todas</option>
+        <option value="citas">Citas</option>
       </select>
       <button class="ee-add-btn" onclick="addCalTask()">Agregar</button>
     </div>
@@ -154,8 +196,7 @@
       <span><i style="background:#ED93B1"></i>RRSS</span>
       <span><i style="background:#97C459"></i>Wsp</span>
       <span><i style="background:#85B7EB"></i>Web</span>
-      <span><i style="background:#B4B2A9"></i>Otro</span>
-      <span><i style="background:#D4655C"></i>Todas</span>
+      <span><i style="background:#B98BC9"></i>Citas</span>
     </div>
   </div>
 
@@ -177,6 +218,31 @@
     <span id="save-status"></span>
   </div>
 
+  <div class="ee-modal-overlay" id="team-modal" style="display:none;">
+    <div class="ee-modal">
+      <h4>Editar tarea</h4>
+      <label>Tarea</label>
+      <input type="text" id="tmodal-tarea">
+      <label>Cuando</label>
+      <input type="date" id="tmodal-cuando">
+      <label>Status</label>
+      <select id="tmodal-status">
+        <option value="pendiente">Pendiente</option>
+        <option value="listo">Listo</option>
+        <option value="always">Always on</option>
+      </select>
+      <label>Link</label>
+      <input type="text" id="tmodal-link">
+      <label>Detalle</label>
+      <textarea id="tmodal-detalle" rows="4" placeholder="Comentarios o explicacion de la tarea"></textarea>
+      <div class="ee-modal-actions">
+        <button class="ee-modal-cancel" onclick="closeTeamModal()">Cancelar</button>
+        <button class="ee-modal-delete" onclick="deleteFromTeamModal()">Eliminar</button>
+        <button class="ee-modal-save" onclick="saveTeamModal()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="ee-modal-overlay" id="cal-modal" style="display:none;">
     <div class="ee-modal">
       <h4>Editar</h4>
@@ -189,8 +255,7 @@
         <option value="rrss">RRSS</option>
         <option value="wsp">Wsp</option>
         <option value="web">Web</option>
-        <option value="otro">Otro</option>
-        <option value="todas">Todas</option>
+        <option value="citas">Citas</option>
       </select>
       <div class="ee-modal-actions">
         <button class="ee-modal-cancel" onclick="closeCalModal()">Cancelar</button>
@@ -260,7 +325,7 @@
 <script>
 (function() {
   var STORAGE_KEY = 'ee-dashboard-data';
-  var state = { citasList: [], contactarList: [], tasks: [], calTasks: [] };
+  var state = { citasList: [], contactarList: [], tasks: [], calTasks: [], teamTasks: [] };
   var viewDate = new Date();
 
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -310,7 +375,7 @@
     reader.onload = function(e) {
       try {
         var parsed = JSON.parse(e.target.result);
-        state = Object.assign({ citasList: [], contactarList: [], tasks: [], calTasks: [] }, parsed);
+        state = Object.assign({ citasList: [], contactarList: [], tasks: [], calTasks: [], teamTasks: [] }, parsed);
         render();
         saveState();
       } catch (err) { alert('Archivo invalido'); }
@@ -378,6 +443,138 @@
     state.contactarList = state.contactarList.filter(function(x) { return x.id !== id; });
     render();
     saveState();
+  };
+
+  window.addTeamTask = function() {
+    var tareaInput = document.getElementById('team-tarea');
+    var cuandoInput = document.getElementById('team-cuando');
+    var statusInput = document.getElementById('team-status');
+    var tarea = tareaInput.value.trim();
+    if (!tarea) return;
+    state.teamTasks.push({
+      id: uid(),
+      tarea: tarea,
+      cuando: cuandoInput.value,
+      link: '',
+      detalle: '',
+      status: statusInput.value,
+      done: false
+    });
+    tareaInput.value = '';
+    cuandoInput.value = '';
+    render();
+    saveState();
+  };
+
+  window.toggleTeamTask = function(id) {
+    var t = state.teamTasks.find(function(x) { return x.id === id; });
+    if (t) t.done = !t.done;
+    render();
+    saveState();
+  };
+
+  window.deleteTeamTask = function(id) {
+    state.teamTasks = state.teamTasks.filter(function(x) { return x.id !== id; });
+    render();
+    saveState();
+  };
+
+  var teamEditingId = null;
+
+  window.openTeamModal = function(id) {
+    var t = state.teamTasks.find(function(x) { return x.id === id; });
+    if (!t) return;
+    teamEditingId = id;
+    document.getElementById('tmodal-tarea').value = t.tarea;
+    document.getElementById('tmodal-cuando').value = t.cuando || '';
+    document.getElementById('tmodal-status').value = t.status;
+    document.getElementById('tmodal-link').value = t.link || '';
+    document.getElementById('tmodal-detalle').value = t.detalle || '';
+    document.getElementById('team-modal').style.display = 'flex';
+  };
+
+  window.closeTeamModal = function() {
+    teamEditingId = null;
+    document.getElementById('team-modal').style.display = 'none';
+  };
+
+  window.saveTeamModal = function() {
+    var t = state.teamTasks.find(function(x) { return x.id === teamEditingId; });
+    if (!t) return;
+    var tarea = document.getElementById('tmodal-tarea').value.trim();
+    if (!tarea) return;
+    t.tarea = tarea;
+    t.cuando = document.getElementById('tmodal-cuando').value;
+    t.status = document.getElementById('tmodal-status').value;
+    t.link = document.getElementById('tmodal-link').value.trim();
+    t.detalle = document.getElementById('tmodal-detalle').value.trim();
+    closeTeamModal();
+    render();
+    saveState();
+  };
+
+  window.deleteFromTeamModal = function() {
+    state.teamTasks = state.teamTasks.filter(function(x) { return x.id !== teamEditingId; });
+    closeTeamModal();
+    render();
+    saveState();
+  };
+
+  // Arrastrar una tarea para cambiarle el orden
+  window.__teamDragStart = function(ev, id) {
+    ev.dataTransfer.setData('text/plain', id);
+    ev.dataTransfer.effectAllowed = 'move';
+    var fila = ev.target.closest('.ee-team-item');
+    if (fila) fila.classList.add('ee-team-dragging');
+  };
+
+  window.__teamDragEnd = function(ev) {
+    var fila = ev.target.closest('.ee-team-item');
+    if (fila) fila.classList.remove('ee-team-dragging');
+  };
+
+  window.__teamDragOver = function(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = 'move';
+    ev.currentTarget.classList.add('ee-team-over');
+  };
+
+  window.__teamDragLeave = function(ev) {
+    ev.currentTarget.classList.remove('ee-team-over');
+  };
+
+  window.__teamDrop = function(ev, destinoId) {
+    ev.preventDefault();
+    ev.currentTarget.classList.remove('ee-team-over');
+    var origenId = ev.dataTransfer.getData('text/plain');
+    if (!origenId || origenId === destinoId) return;
+    var desde = state.teamTasks.findIndex(function(x) { return x.id === origenId; });
+    var hasta = state.teamTasks.findIndex(function(x) { return x.id === destinoId; });
+    if (desde < 0 || hasta < 0) return;
+    var movida = state.teamTasks.splice(desde, 1)[0];
+    state.teamTasks.splice(hasta, 0, movida);
+    render();
+    saveState();
+  };
+
+  window.setTeamLink = function(id, value) {
+    var t = state.teamTasks.find(function(x) { return x.id === id; });
+    if (!t) return;
+    t.link = value.trim();
+    render();
+    saveState();
+  };
+
+  // El check "Always on" solo abre el bloque de abajo.
+  function verAlways() {
+    var chk = document.getElementById('chk-always');
+    return !!(chk && chk.checked);
+  }
+
+  window.toggleAlways = function() {
+    var chk = document.getElementById('chk-always');
+    chk.parentNode.classList.toggle('on', chk.checked);
+    renderTeamTasks();
   };
 
   window.addTask = function() {
@@ -514,6 +711,58 @@
     }).join('');
   }
 
+  var STATUS_LABEL = { pendiente: 'Pendiente', listo: 'Listo', always: 'Always on' };
+
+  function renderTeamTasks() {
+    var list = document.getElementById('team-list');
+    var alwaysWrap = document.getElementById('team-always-wrap');
+    var alwaysList = document.getElementById('team-always-list');
+    // Las "Always on" no son tareas que se cierren: van en su propio bloque abajo.
+    var items = state.teamTasks.filter(function(t) { return t.status !== 'always'; });
+    var siempre = state.teamTasks.filter(function(t) { return t.status === 'always'; });
+    if (items.length === 0) {
+      list.innerHTML = '<p class="ee-empty">Sin tareas todavia.</p>';
+    } else {
+      // Sin orden automatico: manda el orden en que se dejaron arrastrando.
+      list.innerHTML = items.map(filaTeam).join('');
+    }
+    alwaysWrap.style.display = (verAlways() && siempre.length) ? '' : 'none';
+    alwaysList.innerHTML = siempre.map(filaTeam).join('');
+  }
+
+  function filaTeam(t) {
+    var esAlways = t.status === 'always';
+    var dateLabel = t.cuando ? formatDateShort(t.cuando) : '';
+    var link = t.link || '';
+    var abrir = link
+      ? '<a class="ee-task-open" href="' + escapeAttr(hrefDe(link)) + '" target="_blank" rel="noopener noreferrer" title="Abrir link">&#8599;</a>'
+      : '';
+    return '<div class="ee-task-item ee-team-item"' +
+        ' ondragover="__teamDragOver(event)" ondragleave="__teamDragLeave(event)" ondrop="__teamDrop(event, \'' + t.id + '\')">' +
+      '<span class="ee-task-grip" draggable="true" title="Arrastra para cambiar el orden"' +
+        ' ondragstart="__teamDragStart(event, \'' + t.id + '\')" ondragend="__teamDragEnd(event)">&#8942;&#8942;</span>' +
+      (esAlways ? '' : '<button class="ee-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>') +
+      '<span class="ee-task-text ee-task-edita' + (!esAlways && t.done ? ' done' : '') + '" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.tarea) + '</span>' +
+      (esAlways ? '' : '<span class="ee-tag ee-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>') +
+      (esAlways ? '' : '<span class="ee-task-date">' + dateLabel + '</span>') +
+      '<input class="ee-task-link" type="text" placeholder="LINK" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
+      abrir +
+      '<button class="ee-task-del" onclick="deleteTeamTask(\'' + t.id + '\')">&#10005;</button>' +
+      (t.detalle ? '<div class="ee-task-note" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.detalle) + '</div>' : '') +
+    '</div>';
+  }
+
+  function escapeAttr(s) {
+    return escapeHtml(s).replace(/"/g, '&quot;');
+  }
+
+  // Si pegan un link sin http, igual abre bien. javascript: y demas quedan fuera.
+  function hrefDe(link) {
+    if (/^https?:\/\//i.test(link)) return link;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(link)) return '#';
+    return 'https://' + link;
+  }
+
   function formatDateShort(iso) {
     var parts = iso.split('-');
     return parts[2] + '/' + parts[1];
@@ -634,6 +883,7 @@
   function render() {
     renderCitas();
     renderContactar();
+    renderTeamTasks();
     renderTasks();
     renderCalendar();
   }
