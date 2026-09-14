@@ -893,7 +893,7 @@
       return '<div class="ee-client-item' + (vencida ? ' ee-vencida' : '') + '" data-id="' + c.id + '">' +
         '<span class="ee-grip" title="Arrastra para mover" onpointerdown="__gripDown(event)">&#8942;&#8942;</span>' +
         '<span>' + escapeHtml(c.nombre) + '</span>' +
-        '<span>' + escapeHtml(c.comentario || '') + '</span>' +
+        '<input type="text" class="ee-crm-field ee-crm-nombre" placeholder="Comentario" value="' + escapeAttr(c.comentario || '') + '" onchange="setContactarField(\'' + c.id + '\', \'comentario\', this.value.trim())">' +
         select +
         '<input type="date" class="ee-crm-field ee-crm-fecha" value="' + escapeAttr(c.fecha || '') + '" title="' + (vencida ? 'Fecha vencida' : 'Fecha de la tarea') + '" onchange="setContactarField(\'' + c.id + '\', \'fecha\', this.value)">' +
         '<button class="ee-task-del" onclick="deleteContactar(\'' + c.id + '\')">&#10005;</button>' +
