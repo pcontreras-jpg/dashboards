@@ -22,6 +22,14 @@
   .ee-monto { font-family: 'Poppins', sans-serif; font-weight: 500; color: #1A1A1A; align-self: center; min-width: 80px; text-align: right; }
   .ee-citas-total { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 10px; border-top: 1px solid #D9C3CA; font-size: 14px; font-weight: 600; }
   .ee-citas-total .ee-monto { font-weight: 600; }
+  .ee-citas-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; font-size: 14px; font-weight: 600; }
+  .ee-meta-input { width: 130px; text-align: right; font-weight: 600; }
+  .ee-cumple { display: flex; align-items: center; gap: 10px; }
+  .ee-cumple-pct { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+  .ee-cumple.ok .ee-monto { color: #3B7D23; }
+  .ee-cumple.ok .ee-cumple-pct { background: #EAF3DE; color: #3B7D23; }
+  .ee-cumple.bajo .ee-monto { color: #A32B24; }
+  .ee-cumple.bajo .ee-cumple-pct { background: #FDF1F0; color: #A32B24; }
   .ee-add-btn { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 8px; border: none; background: #9D637E; color: #FFFFFF; cursor: pointer; }
   .ee-add-btn:hover { background: #82506A; }
   .ee-task-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid #F0E4E8; }
@@ -342,7 +350,7 @@
 <script>
 (function() {
   var STORAGE_KEY = 'ee-dashboard-data';
-  var state = { citasList: [], contactarList: [], tasks: [], calTasks: [], teamTasks: [] };
+  var state = { citasList: [], contactarList: [], tasks: [], calTasks: [], teamTasks: [], metas: {} };
   var viewDate = new Date();
 
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -392,7 +400,7 @@
     reader.onload = function(e) {
       try {
         var parsed = JSON.parse(e.target.result);
-        state = Object.assign({ citasList: [], contactarList: [], tasks: [], calTasks: [], teamTasks: [] }, parsed);
+        state = Object.assign({ citasList: [], contactarList: [], tasks: [], calTasks: [], teamTasks: [], metas: {} }, parsed);
         render();
         saveState();
       } catch (err) { alert('Archivo invalido'); }
@@ -853,6 +861,14 @@
 
   var citasMeses = null;
 
+  window.setMeta = function(mes, valor) {
+    if (!state.metas) state.metas = {};
+    var n = Number(String(valor).replace(/\D/g, '')) || 0;
+    if (n) state.metas[mes] = n; else delete state.metas[mes];
+    renderCitas();
+    saveState();
+  };
+
   window.toggleCitaMes = function(m, marcado) {
     if (!citasMeses) citasMeses = [];
     citasMeses = citasMeses.filter(function(x) { return x !== m; });
@@ -884,6 +900,23 @@
     var list = document.getElementById('citas-list');
     var total = delMes.reduce(function(s, c) { return s + (c.servicio ? (Number(c.monto) || 0) : 0); }, 0);
     var totalHtml = '<div class="ee-citas-total"><span>Total del mes</span><span class="ee-monto">' + formatMonto(total) + '</span></div>';
+    // Meta: se guarda por mes. Con un mes marcado se edita; con varios se suman sus metas.
+    if (!state.metas) state.metas = {};
+    var unMes = citasMeses.length === 1;
+    var meta = citasMeses.reduce(function(s, m) { return s + (Number(state.metas[m]) || 0); }, 0);
+    var metaInput = unMes
+      ? '<input type="text" inputmode="numeric" class="ee-crm-field ee-meta-input" placeholder="$0" value="' + (meta ? formatMonto(meta) : '') + '" onchange="setMeta(\'' + citasMeses[0] + '\', this.value)">'
+      : '<span class="ee-monto" title="Suma de las metas de los meses marcados">' + formatMonto(meta) + '</span>';
+    totalHtml += '<div class="ee-citas-meta"><span>Meta del Mes</span>' + metaInput + '</div>';
+    if (meta > 0) {
+      var dif = total - meta;
+      var pct = Math.round(total / meta * 100);
+      totalHtml += '<div class="ee-citas-meta"><span>Cumplimiento</span>' +
+        '<span class="ee-cumple ' + (dif < 0 ? 'bajo' : 'ok') + '">' +
+          '<span class="ee-monto">' + (dif < 0 ? '-' : '+') + formatMonto(Math.abs(dif)) + '</span>' +
+          '<span class="ee-cumple-pct">' + pct + '%</span>' +
+        '</span></div>';
+    }
     if (delMes.length === 0) {
       list.innerHTML = '<p class="ee-empty">Sin citas este mes.</p>' + totalHtml;
       return;
