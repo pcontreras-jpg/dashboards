@@ -33,10 +33,9 @@
   .ee-task-date { font-size: 12px; color: #8A6B74; white-space: nowrap; }
   .ee-task-del { border: none; background: none; color: #B4A2A9; cursor: pointer; font-size: 15px; padding: 2px 4px; }
   .ee-task-del:hover { color: #9D637E; }
-  .ee-task-move { display: flex; flex-direction: column; flex-shrink: 0; }
-  .ee-task-move button { border: none; background: none; color: #B4A2A9; cursor: pointer; font-size: 10px; line-height: 1; padding: 1px 3px; }
-  .ee-task-move button:hover { color: #9D637E; }
-  .ee-task-move button:disabled { opacity: 0.3; cursor: default; color: #B4A2A9; }
+  .ee-idea-grip { flex-shrink: 0; cursor: grab; color: #9D637E; padding: 0 4px; touch-action: none; user-select: none; letter-spacing: -3px; }
+  .ee-task-item.ee-idea-dragging { background: #FAF5F4; opacity: 0.85; }
+  .ee-task-item.ee-idea-dragging .ee-idea-grip { cursor: grabbing; }
   .ee-empty { color: #B4A2A9; font-size: 13px; padding: 6px 0; }
   .ee-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .ee-cal-nav { display: flex; gap: 6px; }
@@ -607,17 +606,44 @@
     saveState();
   };
 
-  // Subir (-1) o bajar (+1) una idea en la lista.
-  window.moveTask = function(id, delta) {
-    var i = state.tasks.findIndex(function(x) { return x.id === id; });
-    var j = i + delta;
-    if (i < 0 || j < 0 || j >= state.tasks.length) return;
-    var t = state.tasks[i];
-    state.tasks[i] = state.tasks[j];
-    state.tasks[j] = t;
+  // Reordenar "Ideas": se toma la idea por la manilla y se arrastra (mouse o dedo).
+  var ideaItem = null;
+  window.__ideaDown = function(e) {
+    ideaItem = e.target.closest('.ee-task-item');
+    if (!ideaItem) return;
+    e.preventDefault();
+    ideaItem.classList.add('ee-idea-dragging');
+    document.addEventListener('pointermove', ideaMove);
+    document.addEventListener('pointerup', ideaUp);
+  };
+  function ideaMove(e) {
+    if (!ideaItem) return;
+    var list = document.getElementById('task-list');
+    var items = Array.prototype.slice.call(list.querySelectorAll('.ee-task-item'));
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      if (it === ideaItem) continue;
+      var r = it.getBoundingClientRect();
+      if (e.clientY > r.top && e.clientY < r.bottom) {
+        if (e.clientY < r.top + r.height / 2) list.insertBefore(ideaItem, it);
+        else list.insertBefore(ideaItem, it.nextSibling);
+        break;
+      }
+    }
+  }
+  function ideaUp() {
+    document.removeEventListener('pointermove', ideaMove);
+    document.removeEventListener('pointerup', ideaUp);
+    if (!ideaItem) return;
+    ideaItem.classList.remove('ee-idea-dragging');
+    ideaItem = null;
+    var ids = Array.prototype.map.call(document.querySelectorAll('#task-list .ee-task-item'), function(el) { return el.getAttribute('data-id'); });
+    var byId = {};
+    state.tasks.forEach(function(t) { byId[t.id] = t; });
+    state.tasks = ids.map(function(id) { return byId[id]; }).filter(Boolean);
     render();
     saveState();
-  };
+  }
 
   window.addCalTask = function() {
     var tareaInput = document.getElementById('cal-tarea');
@@ -721,13 +747,9 @@
       list.innerHTML = '<p class="ee-empty">Sin ideas todavia.</p>';
       return;
     }
-    var ultimo = state.tasks.length - 1;
-    list.innerHTML = state.tasks.map(function(t, i) {
-      return '<div class="ee-task-item">' +
-        '<span class="ee-task-move">' +
-          '<button onclick="moveTask(\'' + t.id + '\', -1)" title="Subir"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>' +
-          '<button onclick="moveTask(\'' + t.id + '\', 1)" title="Bajar"' + (i === ultimo ? ' disabled' : '') + '>&#9660;</button>' +
-        '</span>' +
+    list.innerHTML = state.tasks.map(function(t) {
+      return '<div class="ee-task-item" data-id="' + t.id + '">' +
+        '<span class="ee-idea-grip" title="Arrastra para mover" onpointerdown="__ideaDown(event)">&#8942;&#8942;</span>' +
         '<button class="ee-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>' +
         '<span class="ee-task-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.text) + '</span>' +
         '<button class="ee-task-del" onclick="deleteTask(\'' + t.id + '\')">&#10005;</button>' +
