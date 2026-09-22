@@ -101,6 +101,7 @@
   .ee-tag-pendiente { background: #FBE3E1; color: #A32B24; }
   .ee-tag-listo { background: #EAF3DE; color: #27500A; }
   .ee-tag-always { background: #FBF1DC; color: #7A5A10; }
+  .ee-tag-resp { background: #F0E4E8; color: #7A4258; }
   .ee-task-link { width: 130px; flex-shrink: 0; font-family: 'Poppins', sans-serif; font-size: 11.5px; padding: 4px 7px; border: 0.5px solid #D9C3CA; border-radius: 6px; background: #FAF5F4; color: #1A1A1A; }
   .ee-task-open { color: #9D637E; text-decoration: none; font-size: 13px; padding: 2px 3px; flex-shrink: 0; }
   .ee-task-note { flex-basis: 100%; margin: 2px 0 2px 26px; font-size: 12px; line-height: 1.45; color: #8A6B74; white-space: pre-wrap; cursor: pointer; }
@@ -182,12 +183,24 @@
     <div class="ee-form-row">
       <input type="text" id="team-tarea" placeholder="Tarea">
       <input type="date" id="team-cuando">
+      <select id="team-responsable">
+        <option value="">Responsable</option>
+        <option value="Leo">Leo</option>
+        <option value="Pablo">Pablo</option>
+      </select>
       <select id="team-status">
         <option value="pendiente">Pendiente</option>
         <option value="listo">Listo</option>
         <option value="always">Always on</option>
       </select>
       <button class="ee-add-btn" onclick="addTeamTask()">Agregar</button>
+    </div>
+    <div class="ee-form-row">
+      <select id="team-filtro-responsable" onchange="setTeamFiltroResponsable(this.value)">
+        <option value="">Todos los responsables</option>
+        <option value="Leo">Solo Leo</option>
+        <option value="Pablo">Solo Pablo</option>
+      </select>
     </div>
     <div id="team-list"></div>
     <div id="team-always-wrap" style="display:none;">
@@ -250,6 +263,12 @@
       <input type="text" id="tmodal-tarea">
       <label>Cuando</label>
       <input type="date" id="tmodal-cuando">
+      <label>Responsable</label>
+      <select id="tmodal-responsable">
+        <option value="">Sin responsable</option>
+        <option value="Leo">Leo</option>
+        <option value="Pablo">Pablo</option>
+      </select>
       <label>Status</label>
       <select id="tmodal-status">
         <option value="pendiente">Pendiente</option>
@@ -475,12 +494,14 @@
     var tareaInput = document.getElementById('team-tarea');
     var cuandoInput = document.getElementById('team-cuando');
     var statusInput = document.getElementById('team-status');
+    var responsableInput = document.getElementById('team-responsable');
     var tarea = tareaInput.value.trim();
     if (!tarea) return;
     state.teamTasks.push({
       id: uid(),
       tarea: tarea,
       cuando: cuandoInput.value,
+      responsable: responsableInput.value,
       link: '',
       detalle: '',
       status: statusInput.value,
@@ -513,6 +534,7 @@
     teamEditingId = id;
     document.getElementById('tmodal-tarea').value = t.tarea;
     document.getElementById('tmodal-cuando').value = t.cuando || '';
+    document.getElementById('tmodal-responsable').value = t.responsable || '';
     document.getElementById('tmodal-status').value = t.status;
     document.getElementById('tmodal-link').value = t.link || '';
     document.getElementById('tmodal-detalle').value = t.detalle || '';
@@ -531,6 +553,7 @@
     if (!tarea) return;
     t.tarea = tarea;
     t.cuando = document.getElementById('tmodal-cuando').value;
+    t.responsable = document.getElementById('tmodal-responsable').value;
     t.status = document.getElementById('tmodal-status').value;
     t.link = document.getElementById('tmodal-link').value.trim();
     t.detalle = document.getElementById('tmodal-detalle').value.trim();
@@ -767,15 +790,30 @@
 
   var STATUS_LABEL = { pendiente: 'Pendiente', listo: 'Listo', always: 'Always on' };
 
+  // Filtro de responsable: es solo de la vista, no se guarda ni se comparte.
+  var teamFiltroResponsable = '';
+
+  window.setTeamFiltroResponsable = function(valor) {
+    teamFiltroResponsable = valor;
+    renderTeamTasks();
+  };
+
+  function pasaFiltroResponsable(t) {
+    if (!teamFiltroResponsable) return true;
+    return (t.responsable || '') === teamFiltroResponsable;
+  }
+
   function renderTeamTasks() {
     var list = document.getElementById('team-list');
     var alwaysWrap = document.getElementById('team-always-wrap');
     var alwaysList = document.getElementById('team-always-list');
     // Las "Always on" no son tareas que se cierren: van en su propio bloque abajo.
-    var items = state.teamTasks.filter(function(t) { return t.status !== 'always'; });
-    var siempre = state.teamTasks.filter(function(t) { return t.status === 'always'; });
+    var items = state.teamTasks.filter(function(t) { return t.status !== 'always' && pasaFiltroResponsable(t); });
+    var siempre = state.teamTasks.filter(function(t) { return t.status === 'always' && pasaFiltroResponsable(t); });
     if (items.length === 0) {
-      list.innerHTML = '<p class="ee-empty">Sin tareas todavia.</p>';
+      list.innerHTML = teamFiltroResponsable
+        ? '<p class="ee-empty">Sin tareas de ' + escapeHtml(teamFiltroResponsable) + '.</p>'
+        : '<p class="ee-empty">Sin tareas todavia.</p>';
     } else {
       // Sin orden automatico: manda el orden en que se dejaron arrastrando.
       list.innerHTML = items.map(filaTeam).join('');
@@ -797,6 +835,7 @@
         ' ondragstart="__teamDragStart(event, \'' + t.id + '\')" ondragend="__teamDragEnd(event)">&#8942;&#8942;</span>' +
       (esAlways ? '' : '<button class="ee-task-check' + (t.done ? ' done' : '') + '" onclick="toggleTeamTask(\'' + t.id + '\')">' + (t.done ? '&#10003;' : '') + '</button>') +
       '<span class="ee-task-text ee-task-edita' + (!esAlways && t.done ? ' done' : '') + '" onclick="openTeamModal(\'' + t.id + '\')" title="Click para editar">' + escapeHtml(t.tarea) + '</span>' +
+      (t.responsable ? '<span class="ee-tag ee-tag-resp">' + escapeHtml(t.responsable) + '</span>' : '') +
       (esAlways ? '' : '<span class="ee-tag ee-tag-' + t.status + '">' + (STATUS_LABEL[t.status] || t.status) + '</span>') +
       (esAlways ? '' : '<span class="ee-task-date">' + dateLabel + '</span>') +
       '<input class="ee-task-link" type="text" placeholder="LINK" value="' + escapeAttr(link) + '" onchange="setTeamLink(\'' + t.id + '\', this.value)">' +
