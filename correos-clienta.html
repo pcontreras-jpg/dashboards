@@ -77,6 +77,31 @@
   <span class="sello">Seis salen solos · dos los mandas tú con un botón</span>
 </header>
 
+<div class="caja alerta">
+  <h3>Lo que falta para activarlos</h3>
+  <p><b>Objetivo:</b> que los correos a las clientas salgan solos desde <b>tuefectoespejo@gmail.com</b>, firmados por Leo. Si la clienta responde, la respuesta llega a ese mismo Gmail.</p>
+  <p><b>Estado:</b> el sitio ya está programado para mandar los dos primeros correos (<b>encuesta recibida</b> y <b>resultado del test</b>) y los avisos a Leo. Falta solo la clave de Gmail para que empiecen a salir.</p>
+  <ol>
+    <li><b>Leo, 2 minutos:</b> entra con tuefectoespejo@gmail.com a <a href="https://myaccount.google.com/security">myaccount.google.com/security</a>. Si la <i>Verificación en 2 pasos</i> está apagada, actívala. Después entra a <a href="https://myaccount.google.com/apppasswords">myaccount.google.com/apppasswords</a>, escribe el nombre "Sitio Efecto Espejo" y toca <i>Crear</i>. Google muestra una clave de 16 letras: <b>mándasela a Pablo por WhatsApp</b>. No la pongas en este dashboard, porque es público. No es tu clave de Gmail: sirve solo para que el sitio mande correos, y la puedes borrar cuando quieras desde esa misma página.</li>
+    <li><b>Pablo:</b> le pega la clave a Claude con el texto de abajo.</li>
+    <li><b>Claude:</b> guarda la clave como secreto en Cloudflare, publica y prueba los tres correos (test, encuesta y aviso a Leo) con el correo de Pablo antes de dejarlos andando.</li>
+    <li><b>Leo, después:</b> revisa los ocho textos de esta página y corrige lo que no suene a ti.</li>
+  </ol>
+  <p style="margin:14px 0 6px"><b>Texto para Claude</b> (Pablo lo copia y lo pega en Claude con la clave):</p>
+  <div class="hueco" style="font-size:13px;line-height:1.55;white-space:pre-line">Leo ya creó la clave de aplicación de Gmail de tuefectoespejo@gmail.com: [PEGAR LA CLAVE AQUÍ].
+Cárgala como secreto GMAIL_CLAVE del worker efecto-espejo-b (proyecto C:\Users\Pablo\efecto-espejo-web) y publica el sitio.
+Después prueba en vivo con mi correo pcontreras@trymaba.com: 1) el test gratis, 2) una encuesta de prueba y 3) un aviso de Isi a Leo. Revisa los registros del worker y confírmame que los tres salieron desde tuefectoespejo@gmail.com. Si algo falla, dime qué fue y cómo lo arreglas.
+Al terminar, marca como hecha la tarea "Crear clave de Gmail para los correos" en el dashboard de Espejo y actualiza la sección "Lo que falta para activarlos" de correos-clienta.html.</div>
+</div>
+
+<h2>Cómo se ven</h2>
+<p class="sub">Diseño propuesto, con los colores, las tipografías y el logo de la marca. Estos son los dos correos que ya están listos, tal como le llegarían a una clienta de ejemplo. Los otros seis usan la misma plantilla.</p>
+<div class="looks" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+  <div class="look" style="padding:0;overflow:hidden"><iframe src="correo-ejemplo-encuesta.html" title="Ejemplo: encuesta recibida" style="width:100%;height:760px;border:0;display:block" loading="lazy"></iframe></div>
+  <div class="look" style="padding:0;overflow:hidden"><iframe src="correo-ejemplo-test.html" title="Ejemplo: resultado del test" style="width:100%;height:760px;border:0;display:block" loading="lazy"></iframe></div>
+</div>
+<p class="sub" style="margin-top:8px">Si no se ven bien en el celular, ábrelos aparte: <a href="correo-ejemplo-encuesta.html">encuesta recibida</a> · <a href="correo-ejemplo-test.html">resultado del test</a>.</p>
+
 <h2>Los correos, en el orden en que los vive la clienta</h2>
 <p class="sub">Los textos son una propuesta. Cámbiales lo que quieras: la voz tiene que ser la tuya.</p>
 
@@ -225,45 +250,33 @@
 </div>
 
 <h2>Cómo los automatizamos</h2>
-<p class="sub">Explicado en simple. Revisado en la documentación oficial de Cloudflare y de Resend el 23 de septiembre de 2026.</p>
+<p class="sub">Explicado en simple.</p>
 
 <div class="fases">
   <div class="fase">
-    <div class="alto"><span class="num">1</span><h3>El correo de hoy no sirve para clientas</h3></div>
-    <p>Hoy el sitio te avisa a ti con el correo interno de Cloudflare (Email Routing). Ese mecanismo solo puede escribirle a direcciones verificadas de antemano en tu cuenta, es decir, a ti. No puede escribirle a una clienta nueva cuyo correo nadie verificó.</p>
+    <div class="alto"><span class="num">1</span><h3>Salen desde el Gmail de la marca</h3><span class="etq auto">Decidido</span></div>
+    <p>El sitio manda los correos conectándose a <b>tuefectoespejo@gmail.com</b> con una clave de aplicación de Google. A la clienta le llegan desde ese Gmail, con el nombre "Leo · Efecto Espejo", y si responde, la respuesta cae en esa misma bandeja. Sin costo y sin cuentas nuevas.</p>
+    <p>Límite: Gmail permite unos 500 correos al día desde una cuenta normal. Efecto Espejo está muy lejos de eso.</p>
+    <p>Si algún correo no sale, queda registrado en el sitio. Los avisos a Leo tienen respaldo: si Gmail falla, salen por el correo interno de Cloudflare.</p>
   </div>
 
   <div class="fase">
-    <div class="alto"><span class="num">2</span><h3>La opción nueva de Cloudflare existe, pero está en prueba</h3></div>
-    <p>Cloudflare lanzó en 2026 un servicio para mandar correos a cualquier persona (Email Sending). Hoy está en beta, exige pasar la cuenta al plan pagado de Workers (desde 5 dólares al mes) e incluye 3.000 correos al mes. Funciona, pero preferimos no apoyar la entrega de tus guías en algo que Cloudflare todavía no da por terminado.</p>
-  </div>
-
-  <div class="fase">
-    <div class="alto"><span class="num">3</span><h3>Recomendación: Resend, plan gratis</h3><span class="etq auto">Recomendado</span></div>
-    <p>Resend es un servicio hecho justamente para que un sitio mande correos. Su plan gratis incluye <strong>3.000 correos al mes, con tope de 100 al día</strong>, y hasta 3 dominios. Para los boletines de novedades tiene además un plan de marketing gratis <strong>hasta 1.000 contactos</strong>.</p>
-    <p>Estimación nuestra: con unas decenas de clientas al mes, estos ocho correos suman unos pocos cientos de envíos. El plan gratis alcanza de sobra. Si algún día no alcanza, el plan siguiente cuesta 20 dólares al mes por 50.000 correos.</p>
-    <p>Si más adelante Cloudflare saca su servicio de la etapa de prueba, se puede cambiar sin tocar los textos.</p>
-  </div>
-
-  <div class="fase">
-    <div class="alto"><span class="num">4</span><h3>Lo que hay que configurar</h3></div>
+    <div class="alto"><span class="num">2</span><h3>Ya programados</h3><span class="etq auto">Se activan con la clave</span></div>
     <ol>
-      <li>Crear la cuenta de Resend a nombre de Efecto Espejo.</li>
-      <li>Agregar el dominio. Resend recomienda usar un subdominio para cuidar la reputación del dominio principal, por ejemplo <em>correo.efectoespejo.cl</em>. Los correos saldrían como "Leo, de Efecto Espejo" desde esa dirección, y las respuestas llegarían a tu correo.</li>
-      <li>Copiar en Cloudflare los registros que entrega Resend (unos de tipo TXT y uno MX, que le dicen al mundo que Resend puede mandar a nombre de efectoespejo.cl). Como el dominio ya está en Cloudflare, es rápido. Van con la nube gris, sin el proxy de Cloudflare, o la verificación no pasa.</li>
-      <li>Guardar la llave de Resend como dato secreto dentro del sitio, para que pueda mandar.</li>
-      <li>Conectar cada correo a su momento: los que salen al instante (bienvenida, test, encuesta recibida) se disparan cuando la clienta envía el formulario; los de los botones, cuando tú los aprietas.</li>
+      <li><b>Encuesta recibida (correo 4):</b> sale al tiro cuando la clienta envía la encuesta, con el plazo de un par de días hábiles y el resumen de lo que respondió.</li>
+      <li><b>Resultado del test (correo 2):</b> sale al tiro con su resultado y su mini paleta de colores.</li>
+      <li><b>Avisos a Leo:</b> encuesta nueva y preguntas que Isi no supo responder.</li>
     </ol>
   </div>
 
   <div class="fase">
-    <div class="alto"><span class="num">5</span><h3>Los que salen después: un despertador en el sitio</h3></div>
+    <div class="alto"><span class="num">3</span><h3>Los que salen después: un despertador en el sitio</h3></div>
     <p>La encuesta sin terminar (24 horas), el seguimiento de la guía (8 días) y el recordatorio de cita (día anterior) se mandan con un despertador del mismo sitio (Cron Triggers de Cloudflare). Cada hora el sitio revisa: "¿quién dejó la encuesta hace más de 24 horas?", "¿a quién le entregué la guía hace 8 días?", "¿quién tiene cita mañana?", y manda lo que corresponde. Cada envío queda marcado para no repetirlo nunca.</p>
     <p>Esto no tiene costo extra: funciona en el plan que el sitio tiene hoy.</p>
   </div>
 
   <div class="fase">
-    <div class="alto"><span class="num">6</span><h3>Lo que hay que construir en el sitio</h3></div>
+    <div class="alto"><span class="num">4</span><h3>Lo que hay que construir en el sitio</h3></div>
     <ol>
       <li>Que la encuesta pida el correo al principio y guarde lo avanzado también en el sitio, no solo en el teléfono de la clienta (sin esto no hay correo 3).</li>
       <li>Un link propio por clienta para su guía, sin la clave del panel (sin esto no hay correo 6).</li>
@@ -277,14 +290,13 @@
 <h2>Qué tienes que hacer tú, Leo</h2>
 <ol>
   <li>Leer los ocho textos y corregir lo que no suene a ti. Basta con cambios sueltos, no hace falta reescribirlos.</li>
-  <li>Decirnos a qué correo quieres que te lleguen las respuestas de las clientas.</li>
   <li>Contarnos cuál es tu servicio siguiente después de la guía, para completar el correo 7.</li>
   <li>Contarnos cómo agendas hoy las citas presenciales, para ver si el correo 8 va ahora o más adelante.</li>
-  <li>Aprobar la cuenta de Resend a nombre de Efecto Espejo (es gratis) y darnos acceso a la configuración del dominio en Cloudflare, o hacerlo juntas en una llamada corta.</li>
+  <li>Crear la clave de Gmail (arriba, en "Lo que falta para activarlos").</li>
 </ol>
 
 <div class="pie">
-  <p>Documento preparado el 23 de septiembre de 2026. Cupos y precios de Cloudflare y Resend revisados ese día en sus sitios oficiales; el volumen de correos al mes es una estimación nuestra.</p>
+  <p>Documento preparado el 23 de septiembre de 2026. El límite diario de Gmail es el que publica Google para cuentas personales.</p>
   <p class="firma">Efecto Espejo</p>
 </div>
 
