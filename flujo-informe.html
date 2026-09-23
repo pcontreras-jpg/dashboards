@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cómo se hace la Guía de Estilo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --negro:#1A1A1A; --crema:#FAF5F4; --fucsia:#9D637E; --fucsia-hondo:#7E4A63;
+    --fucsia-suave:#F1E4E9; --texto-2:#5E5057; --linea:#E7D9DE; --papel:#FFFFFF;
+    --ok:#3F7A4B; --ok-fondo:#EAF3DE; --manual:#A35A2A; --manual-fondo:#FBF1DC;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--crema); color:var(--negro);
+    font-family:Poppins,Arial,sans-serif; font-weight:300; font-size:15px; line-height:1.65;
+  }
+  .envoltura{max-width:920px; margin:0 auto; padding:0 16px 80px}
+  header.tapa{padding:56px 0 28px; border-bottom:1px solid var(--linea); margin-bottom:36px}
+  .ceja{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fucsia); font-weight:500; margin:0 0 10px}
+  h1{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:40px; line-height:1.15; margin:0 0 12px; letter-spacing:-.01em}
+  .bajada{font-size:17px; color:var(--texto-2); margin:0; max-width:64ch}
+  .sello{display:inline-block; margin-top:18px; font-size:12px; color:var(--texto-2); background:var(--fucsia-suave); border-radius:99px; padding:6px 14px}
+  h2{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:27px; margin:44px 0 6px; letter-spacing:-.01em}
+  h2 + .sub{color:var(--texto-2); margin:0 0 20px; font-size:14px}
+  h3{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:20px; margin:0 0 6px}
+  p{margin:0 0 12px}
+  a{color:var(--fucsia-hondo)}
+  .fases{display:grid; gap:14px}
+  .fase{background:var(--papel); border:1px solid var(--linea); border-radius:14px; padding:20px 22px}
+  .fase .alto{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+  .num{font-family:'Playfair Display',Georgia,serif; font-size:13px; color:#fff; background:var(--fucsia);
+       width:26px; height:26px; border-radius:50%; display:inline-grid; place-items:center; flex:0 0 auto}
+  .etq{font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:99px; font-weight:500}
+  .etq.auto{background:var(--ok-fondo); color:var(--ok)}
+  .etq.mano{background:var(--manual-fondo); color:var(--manual)}
+  .quien{font-size:12px; color:var(--texto-2); letter-spacing:.03em}
+  .detalle{margin-top:12px; border-top:1px dashed var(--linea); padding-top:12px}
+  .dato{display:flex; gap:10px; padding:5px 0; font-size:14px; border-bottom:1px solid #F5EDEF}
+  .dato:last-child{border-bottom:0}
+  .dato b{flex:0 0 190px; font-weight:500; color:var(--texto-2); font-size:13px}
+  ul{margin:0 0 12px; padding-left:20px}
+  li{margin-bottom:7px}
+  .caja{background:var(--fucsia-suave); border-radius:14px; padding:20px 22px; margin:18px 0}
+  .caja.alerta{background:#FBE9E6}
+  .caja h3{margin-bottom:8px}
+  .colores{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 2px}
+  .colores i{width:26px; height:26px; border-radius:6px; display:block; border:1px solid rgba(0,0,0,.08)}
+  .looks{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:10px 0 4px}
+  .look{background:var(--papel); border:1px solid var(--linea); border-radius:12px; padding:14px 16px}
+  .look b{display:block; font-weight:500; font-size:14px; margin-bottom:3px}
+  .look span{font-size:13px; color:var(--texto-2)}
+  .hueco{border:1px dashed var(--fucsia); border-radius:8px; padding:8px 10px; font-size:12px; color:var(--fucsia-hondo); margin-top:8px; background:#fff}
+  .fricciones{counter-reset:f}
+  .friccion{background:var(--papel); border:1px solid var(--linea); border-left:3px solid var(--fucsia); border-radius:12px; padding:16px 18px; margin-bottom:10px}
+  .friccion h3{font-size:17px}
+  .visto{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); font-weight:500}
+  .pie{margin-top:52px; padding-top:20px; border-top:1px solid var(--linea); font-size:13px; color:var(--texto-2)}
+  .firma{font-family:Allura,cursive; font-size:30px; color:var(--fucsia); line-height:1}
+  @media (max-width:640px){
+    h1{font-size:30px} h2{font-size:23px}
+    .dato{flex-direction:column; gap:0} .dato b{flex:none}
+  }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+<header class="tapa">
+  <p class="ceja">Efecto Espejo · Cómo funciona por dentro</p>
+  <h1>Cómo se hace la Guía de Estilo Personal</h1>
+  <p class="bajada">Todo el viaje, desde que la clienta entra a la encuesta hasta que recibe su guía: qué hace el sitio solo, qué hace la inteligencia artificial, con qué datos, y en qué momentos alguien tiene que meter mano.</p>
+  <span class="sello">Probado de punta a punta en el sitio en vivo el 22 de septiembre de 2026, con una clienta simulada</span>
+</header>
+
+<h2>El viaje en seis fases</h2>
+<p class="sub">Tres pasan solas. Tres dependen de Leo.</p>
+
+<div class="fases">
+
+  <div class="fase">
+    <div class="alto"><span class="num">1</span><h3>La clienta llena la encuesta</h3><span class="etq mano">Ella</span></div>
+    <p>Ocho pasos, unos 15 minutos. Al final sube una foto de su rostro (obligatoria) y, si quiere, una de cuerpo entero.</p>
+    <div class="detalle">
+      <div class="dato"><b>Dónde queda</b><span>Las respuestas van a la base del sitio (D1, tabla <em>encuestas</em>) y las fotos a un almacén aparte (KV). Nada se guarda en su teléfono.</span></div>
+      <div class="dato"><b>La foto pasa por un filtro</b><span>Antes de enviarla, una IA la revisa y le dice al instante si sirve: luz, maquillaje, pelo en la cara, filtros. Si no sirve, igual la deja seguir.</span></div>
+      <div class="dato"><b>Qué ve al terminar</b><span>"Ya tengo todo lo que necesito para preparar tu Guía de Estilo Personal. Te escribo apenas esté lista." No recibe ningún correo ni copia de sus respuestas.</span></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">2</span><h3>El sitio analiza la foto y las medidas</h3><span class="etq auto">Automático</span><span class="quien">sin que nadie apriete nada</span></div>
+    <p>Apenas la clienta envía, el sitio sigue trabajando en segundo plano: analiza la foto del rostro, la de cuerpo si la hay, calcula la silueta con las medidas, deja la ficha en "lista para revisar" y le manda un correo a Leo.</p>
+    <div class="detalle">
+      <div class="dato"><b>Qué propone la IA</b><span>Forma del rostro, subtono, contraste, intensidad, estación de color (una de 12) más una alternativa, nivel de confianza, una explicación de por qué, y advertencias sobre la foto.</span></div>
+      <div class="dato"><b>La silueta no la decide la IA</b><span>Se calcula con una fórmula sobre los contornos de hombros, cintura y caderas. Si además subió foto de cuerpo, la IA propone una silueta y el sitio avisa si coincide o no con la de las medidas.</span></div>
+      <div class="dato"><b>Cuánto demora</b><span>En la prueba, la ficha ya estaba analizada y "lista para revisar" cuando entramos al panel, minutos después del envío.</span></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">3</span><h3>Leo decide</h3><span class="etq mano">Leo</span><span class="quien">insustituible: sin esto la guía no se puede preparar</span></div>
+    <p>En el panel ve el draping digital (los 12 grupos de color sobre la foto real de la clienta), la propuesta de la IA y todas sus respuestas. Elige estación, forma de rostro, silueta, nombre del estilo y sus notas, y guarda.</p>
+    <div class="detalle">
+      <div class="dato"><b>Regla del sistema</b><span>Si falta la estación, el rostro o la silueta, el sitio se niega a preparar la guía: "Primero guarda tu decisión".</span></div>
+      <div class="dato"><b>Qué manda</b><span>Lo que Leo elige, no lo que propuso la IA. Puede contradecirla entera.</span></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">4</span><h3>La IA escribe la guía</h3><span class="etq auto">Automático</span><span class="quien">Leo aprieta un botón</span></div>
+    <p>"Preparar guía con IA" toma la encuesta completa, la decisión de Leo y la paleta de colores de esa estación, y escribe el texto: el perfil de la clienta, su estilo, su esencia, la frase, tres looks de día a día, tres de oficina y el armario cápsula.</p>
+    <div class="detalle">
+      <div class="dato"><b>Cuánto demora</b><span>El propio botón avisa "hasta 1 minuto". En la prueba tardó menos.</span></div>
+      <div class="dato"><b>Se puede rehacer</b><span>Si el resultado no convence, "Volver a preparar con IA" lo escribe de nuevo. Y todos los textos son editables a mano antes de entregar.</span></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">5</span><h3>Las fotos de los looks</h3><span class="etq mano">Leo, a mano</span><span class="quien">el trabajo pesado que queda</span></div>
+    <p>La guía se arma con seis looks y cada uno tiene su recuadro de imagen. Esas imágenes <strong>no se generan solas</strong>: el sitio escribe el prompt de cada look, Leo lo copia, lo pega en ChatGPT, genera la imagen y la sube al panel, una por una.</p>
+    <div class="detalle">
+      <div class="dato"><b>Qué lleva el prompt</b><span>Lo arma el sitio con la edad de la clienta, su color de pelo y de ojos, su estatura, su silueta y las prendas del look. Pide una mujer chilena real, no una modelo, y prohíbe texto y logos.</span></div>
+      <div class="dato"><b>Si no se suben</b><span>La guía sale igual, pero con los seis recuadros en blanco. Es exactamente lo que pasó en la prueba.</span></div>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">6</span><h3>La entrega</h3><span class="etq mano">Leo, a mano</span></div>
+    <p>Leo abre "Ver guía y guardar PDF", imprime el documento a PDF y se lo manda ella misma a la clienta por WhatsApp o correo.</p>
+    <div class="detalle">
+      <div class="dato"><b>El sitio no envía nada</b><span>No hay ningún correo automático hacia la clienta en todo el flujo. El único correo que existe es el aviso a Leo.</span></div>
+      <div class="dato"><b>El link no se puede compartir</b><span>La dirección de la guía lleva la clave del panel dentro. Si se la manda a la clienta, le está entregando el acceso a las fichas de todas las demás.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<h2>Quién pone qué en el informe</h2>
+<p class="sub">La IA escribe menos de lo que parece. La mitad de la guía es material fijo de la marca.</p>
+
+<div class="caja">
+  <h3>Material fijo del sitio (no lo inventa nadie)</h3>
+  <p>Vive escrito en el código y es siempre igual para todas las clientas: las <strong>12 estaciones de color con sus 192 colores exactos</strong> (nombre y código), las <strong>6 formas de rostro</strong> con lo que favorece y lo que no, cejas, anteojos y maquillaje, y las <strong>5 siluetas</strong> con sus prendas recomendadas, su fórmula y su dibujo.</p>
+</div>
+
+<div class="caja">
+  <h3>Lo que escribe la IA</h3>
+  <p>Solo los textos personalizados: perfil, nombre y descripción del estilo, esencia, cómo lograrlo, detalles, la frase, los seis looks y el armario cápsula. Los colores de los looks <strong>están obligados a salir de la paleta de la estación</strong>: el prompt le entrega la lista cerrada de colores permitidos con sus códigos.</p>
+</div>
+
+<div class="caja">
+  <h3>Lo que decide una persona</h3>
+  <p>La estación final, la forma de rostro, la silueta, el nombre del estilo y las notas. Más la edición libre de todos los textos y las seis imágenes.</p>
+</div>
+
+<h2>Las inteligencias que usa, una por una</h2>
+<p class="sub">Todas corren en Cloudflare Workers AI, dentro del mismo sitio. No hay cuenta de OpenAI ni de ChatGPT conectada: ChatGPT solo se usa a mano, para las imágenes.</p>
+
+<div class="fases">
+  <div class="fase">
+    <div class="alto"><h3>Revisar si la foto sirve</h3></div>
+    <div class="dato"><b>Modelo</b><span>Llama 3.2 11B Vision (<code>@cf/meta/llama-3.2-11b-vision-instruct</code>)</span></div>
+    <div class="dato"><b>Tope de respuesta</b><span>150 tokens · temperatura 0,1 (casi sin improvisación)</span></div>
+    <div class="dato"><b>Cuándo corre</b><span>Al momento, mientras la clienta está en la encuesta. Ante la duda deja pasar la foto.</span></div>
+  </div>
+  <div class="fase">
+    <div class="alto"><h3>Analizar el rostro (colorimetría y visagismo)</h3></div>
+    <div class="dato"><b>Modelo</b><span>Llama 3.2 11B Vision</span></div>
+    <div class="dato"><b>Tope de respuesta</b><span>500 tokens · temperatura 0,2</span></div>
+    <div class="dato"><b>Qué recibe</b><span>La foto más el color de ojos y de pelo que la clienta declaró</span></div>
+  </div>
+  <div class="fase">
+    <div class="alto"><h3>Analizar el cuerpo (opcional)</h3></div>
+    <div class="dato"><b>Modelo</b><span>Llama 3.2 11B Vision</span></div>
+    <div class="dato"><b>Tope de respuesta</b><span>300 tokens · temperatura 0,2</span></div>
+    <div class="dato"><b>Regla de marca</b><span>El prompt le prohíbe hablar de inseguridad, defectos, disimular, adelgazar o equilibrar. Solo proporciones, en neutro.</span></div>
+  </div>
+  <div class="fase">
+    <div class="alto"><h3>Escribir la guía</h3></div>
+    <div class="dato"><b>Modelo</b><span>Llama 3.3 70B rápido (<code>@cf/meta/llama-3.3-70b-instruct-fp8-fast</code>)</span></div>
+    <div class="dato"><b>Tope de respuesta</b><span>1.800 tokens · temperatura 0,5</span></div>
+    <div class="dato"><b>Qué recibe</b><span>La encuesta completa recortada a 6.000 caracteres, la decisión de Leo, la lista cerrada de colores de la estación y las prendas de esa silueta</span></div>
+    <div class="dato"><b>Qué devuelve</b><span>Un bloque de datos con 12 campos y los 6 looks, cada uno con sus prendas, tres colores y el lugar de la foto</span></div>
+  </div>
+  <div class="fase">
+    <div class="alto"><h3>Isi, la asistente del chat</h3></div>
+    <div class="dato"><b>Modelo</b><span>Llama 3.3 70B rápido · 400 tokens · temperatura 0,4</span></div>
+    <div class="dato"><b>Fuera del flujo del informe</b><span>Responde dudas en el sitio y, cuando no sabe, pide el contacto y le avisa a Leo por correo.</span></div>
+  </div>
+</div>
+
+<h2>El informe de ejemplo</h2>
+<p class="sub">Esta es la prueba real de hoy. La clienta es inventada; todo lo demás lo produjo el sitio.</p>
+
+<div class="caja">
+  <h3>Lo que entró</h3>
+  <p>Mujer de 41 años, Santiago, trabajo híbrido, código semi formal, con hijos. Se pone 6 de 10 en cómo se viste hoy. Dice que termina usando siempre lo mismo, que no sabe qué prendas la favorecen y que compra ropa que después no usa. Medidas: estatura 165, hombros 98, cintura 76, caderas 102. Ojos café oscuro, pelo negro. Foto de rostro, sin foto de cuerpo.</p>
+</div>
+
+<div class="caja">
+  <h3>Lo que propuso la IA sola</h3>
+  <p><strong>Estación:</strong> Light Spring, con Warm Spring como alternativa · <strong>Subtono:</strong> cálido · <strong>Contraste:</strong> bajo · <strong>Intensidad:</strong> media · <strong>Rostro:</strong> ovalado · <strong>Confianza:</strong> media.</p>
+  <p>Su explicación: piel clara, ojos oscuros y pelo oscuro pero no muy oscuro. Y una advertencia honesta: la luz de la foto es fuerte y puede alterar cómo se ve la piel.</p>
+  <p><strong>Silueta por medidas (fórmula, sin IA):</strong> rectángulo — hombros 4% más angostos que caderas, cintura 22% más angosta que la medida menor.</p>
+</div>
+
+<div class="caja">
+  <h3>La decisión (en la prueba la tomé yo, haciendo de Leo)</h3>
+  <p>Light Spring · rostro ovalado · silueta rectángulo · estilo "Clásico moderno".</p>
+</div>
+
+<div class="caja">
+  <h3>Lo que escribió la IA con eso</h3>
+  <p><em>Perfil:</em> "…una mujer activa y dedicada a su familia y trabajo, que busca sentirse segura y confiada en su apariencia. Con una rutina híbrida que combina días en la oficina y trabajo desde casa, necesita un estilo que se adapte a sus necesidades."</p>
+  <p><em>Esencia:</em> "…seguridad, madurez y confianza en sí misma… una mujer equilibrada y segura, que valora la calidad y la durabilidad en sus prendas."</p>
+  <div class="colores">
+    <i style="background:#F9E79F"></i><i style="background:#E6D3B3"></i><i style="background:#F7D9A8"></i>
+    <i style="background:#E7A5B5"></i><i style="background:#C8A57E"></i><i style="background:#FBF3E4"></i>
+    <i style="background:#9ED3C4"></i><i style="background:#B4D7A8"></i><i style="background:#8A7F72"></i><i style="background:#F2C6B4"></i>
+  </div>
+  <div class="looks">
+    <div class="look"><b>Mañana en el parque</b><span>Blusa amarillo mantequilla y jeans beige claro</span></div>
+    <div class="look"><b>Caminata con amigos</b><span>Sweater durazno claro y pantalones beige claro</span></div>
+    <div class="look"><b>Almuerzo con amigas</b><span>Vestido rosa chicle suave y tacos camel claro</span></div>
+    <div class="look"><b>Día en la oficina</b><span>Blazer marfil y blusa aguamarina</span></div>
+    <div class="look"><b>Reunión importante</b><span>Vestido verde menta cálido y zapatos taupe cálido</span></div>
+    <div class="look"><b>Trabajo desde casa</b><span>Sweater salmón claro y pantalones beige claro</span></div>
+  </div>
+  <div class="hueco">Los seis recuadros de imagen salieron en blanco: nadie generó ni subió las fotos.</div>
+</div>
+
+<div class="caja">
+  <h3>El documento final que sale</h3>
+  <p>Portada con el nombre y el perfil · estilo personal y esencia · su paleta de color completa con los códigos · la foto de la clienta con las 12 estaciones · visagismo: qué le favorece, qué usar con cuidado, cejas, anteojos y maquillaje · morfología con sus tres medidas dibujadas y las cinco siluetas · prendas que la favorecen y su fórmula · los seis looks · el armario cápsula. Con un botón para guardarlo como PDF.</p>
+</div>
+
+<h2>Qué falta para que salga solo</h2>
+<ul>
+  <li><strong>Las imágenes de los looks.</strong> Es el único paso realmente pesado que queda a mano: seis prompts, seis generaciones en ChatGPT, seis subidas. Mientras no se automatice, ninguna guía sale sin que Leo se siente a hacerlo.</li>
+  <li><strong>El envío a la clienta.</strong> Hoy no existe. El sitio podría mandarle su guía por correo al terminarla, con un link propio y sin clave.</li>
+  <li><strong>Un link para la clienta.</strong> El que hay lleva la clave del panel adentro, así que no se puede compartir.</li>
+  <li><strong>El aviso a Leo puede fallar mudo.</strong> Si el correo no sale, el error se descarta en silencio: nadie se entera de que llegó una clienta nueva. Conviene que quede registrado o que el panel muestre las encuestas sin leer.</li>
+  <li><strong>La decisión de Leo debería seguir siendo humana</strong>, pero puede acelerarse: dejar precargada la propuesta de la IA para que solo la confirme cuando está de acuerdo.</li>
+</ul>
+
+<h2>Fricciones que se encuentra la clienta</h2>
+<p class="sub">Las cuatro primeras las vivimos en la prueba de hoy.</p>
+
+<div class="fricciones">
+  <div class="friccion">
+    <h3>La encuesta es larga y no perdona <span class="visto">· visto en la prueba</span></h3>
+    <p>Son 8 pasos y más de 40 preguntas obligatorias. El paso 2 por sí solo tiene diez, y cuatro de ellas son listas de 22 prendas cada una para marcar. La promesa dice 15 minutos.</p>
+  </div>
+  <div class="friccion">
+    <h3>Si cierra la pestaña, pierde todo <span class="visto">· confirmado</span></h3>
+    <p>No se guarda nada a medio camino. Una clienta que la empieza en el celular y la deja para después vuelve a partir de cero.</p>
+  </div>
+  <div class="friccion">
+    <h3>El aviso de lo que falta aparece abajo <span class="visto">· visto en la prueba</span></h3>
+    <p>Al intentar avanzar sin responder algo, el mensaje sale al pie del paso ("Te falta responder: …") y hay que ir a buscar cuál pregunta era.</p>
+  </div>
+  <div class="friccion">
+    <h3>La foto del rostro es el cuello de botella <span class="visto">· visto en la prueba</span></h3>
+    <p>Es obligatoria y siempre pasa por un ajustador de óvalo que carga un detector de caras pesado desde internet y necesita cámara. En un teléfono antiguo, con mala señal o sin dar permiso a la cámara, ahí se cae la encuesta. Además la instrucción es exigente: sin maquillaje, sin pelo en la cara, sin accesorios, con luz de mediodía y fondo blanco.</p>
+  </div>
+  <div class="friccion">
+    <h3>Las medidas exigen huincha</h3>
+    <p>Pide tres contornos en centímetros, obligatorios, con instrucciones de dónde pasar la huincha. Quien no la tenga a mano abandona en el paso 7 de 8.</p>
+  </div>
+  <div class="friccion">
+    <h3>La foto de cuerpo pide traje de baño</h3>
+    <p>Es opcional, pero el texto sugiere traje de baño o ropa ajustada. Para muchas mujeres eso es un freno, y es justamente la foto que mejora el diagnóstico de silueta.</p>
+  </div>
+  <div class="friccion">
+    <h3>Después de enviar, silencio</h3>
+    <p>No le llega ningún correo: ni confirmación, ni copia de sus respuestas, ni plazo. La pantalla dice "te escribo apenas esté lista", sin decir cuándo. Si Leo se demora, la clienta no tiene dónde mirar.</p>
+  </div>
+</div>
+
+<div class="pie">
+  <p>Documento preparado el 22 de septiembre de 2026 a partir de una prueba real en www.efectoespejo.cl. Los datos de la clienta del ejemplo son inventados; los diagnósticos, textos y looks los produjo el sitio.</p>
+  <p class="firma">Efecto Espejo</p>
+</div>
+
+</div>
+</body>
+</html>
