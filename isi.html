@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Proyecto Isi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --negro:#1A1A1A; --crema:#FAF5F4; --fucsia:#9D637E; --fucsia-hondo:#7E4A63;
+    --fucsia-suave:#F1E4E9; --texto-2:#5E5057; --linea:#E7D9DE; --papel:#FFFFFF;
+    --ok:#3F7A4B; --ok-fondo:#EAF3DE; --manual:#A35A2A; --manual-fondo:#FBF1DC;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--crema); color:var(--negro);
+    font-family:Poppins,Arial,sans-serif; font-weight:300; font-size:15px; line-height:1.65;
+  }
+  .envoltura{max-width:920px; margin:0 auto; padding:0 16px 80px}
+  header.tapa{padding:56px 0 28px; border-bottom:1px solid var(--linea); margin-bottom:36px}
+  .ceja{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fucsia); font-weight:500; margin:0 0 10px}
+  h1{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:40px; line-height:1.15; margin:0 0 12px; letter-spacing:-.01em}
+  .bajada{font-size:17px; color:var(--texto-2); margin:0; max-width:64ch}
+  .sello{display:inline-block; margin-top:18px; font-size:12px; color:var(--texto-2); background:var(--fucsia-suave); border-radius:99px; padding:6px 14px}
+  h2{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:27px; margin:44px 0 6px; letter-spacing:-.01em}
+  h2 + .sub{color:var(--texto-2); margin:0 0 20px; font-size:14px}
+  h3{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:20px; margin:0 0 6px}
+  p{margin:0 0 12px}
+  a{color:var(--fucsia-hondo)}
+  .fases{display:grid; gap:14px}
+  .fase{background:var(--papel); border:1px solid var(--linea); border-radius:14px; padding:20px 22px}
+  .fase .alto{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+  .num{font-family:'Playfair Display',Georgia,serif; font-size:13px; color:#fff; background:var(--fucsia);
+       width:26px; height:26px; border-radius:50%; display:inline-grid; place-items:center; flex:0 0 auto}
+  .etq{font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:99px; font-weight:500}
+  .etq.auto{background:var(--ok-fondo); color:var(--ok)}
+  .etq.mano{background:var(--manual-fondo); color:var(--manual)}
+  .quien{font-size:12px; color:var(--texto-2); letter-spacing:.03em}
+  .detalle{margin-top:12px; border-top:1px dashed var(--linea); padding-top:12px}
+  .dato{display:flex; gap:10px; padding:5px 0; font-size:14px; border-bottom:1px solid #F5EDEF}
+  .dato:last-child{border-bottom:0}
+  .dato b{flex:0 0 190px; font-weight:500; color:var(--texto-2); font-size:13px}
+  ul{margin:0 0 12px; padding-left:20px}
+  ol{margin:0 0 12px; padding-left:22px}
+  li{margin-bottom:7px}
+  .caja{background:var(--fucsia-suave); border-radius:14px; padding:20px 22px; margin:18px 0}
+  .caja.alerta{background:#FBE9E6}
+  .caja h3{margin-bottom:8px}
+  .hueco{border:1px dashed var(--fucsia); border-radius:8px; padding:8px 10px; font-size:12px; color:var(--fucsia-hondo); margin-top:8px; background:#fff}
+  .friccion{background:var(--papel); border:1px solid var(--linea); border-left:3px solid var(--fucsia); border-radius:12px; padding:16px 18px; margin-bottom:10px}
+  .friccion h3{font-size:17px}
+  .visto{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); font-weight:500}
+  .pie{margin-top:52px; padding-top:20px; border-top:1px solid var(--linea); font-size:13px; color:var(--texto-2)}
+  .firma{font-family:Allura,cursive; font-size:30px; color:var(--fucsia); line-height:1}
+  .regla{background:#fff; border:1px dashed var(--fucsia); border-radius:10px; padding:14px 16px; font-size:14px; white-space:pre-line; margin:8px 0 12px}
+  @media (max-width:640px){
+    h1{font-size:30px} h2{font-size:23px}
+    .dato{flex-direction:column; gap:0} .dato b{flex:none}
+  }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+<header class="tapa">
+  <p class="ceja">Efecto Espejo · Proyecto Isi</p>
+  <h1>Isi, la asistente del sitio: cómo está y cómo la mejoramos</h1>
+  <p class="bajada">Cada pregunta de Pablo, con lo que pasa hoy y lo que proponemos hacer. La idea de fondo: no construir todo de nuevo, sino apoyar a Isi en lo que MABA ya sabe hacer.</p>
+  <span class="sello">Revisado sobre el código del sitio en vivo y el de MABA, septiembre de 2026</span>
+</header>
+
+<div class="caja">
+  <h3>En una línea</h3>
+  <p>Recomendamos dar de alta a Efecto Espejo como un cliente más de MABA: Isi sigue viéndose igual en el sitio, pero por dentro responde el agente de MABA, que ya guarda las conversaciones, aprende de Leo, escala por WhatsApp y agenda en su calendario. Mientras eso se arma, esta semana se le ponen a Isi las dos reglas que más urgen: no hacer de psicóloga y llevar cada conversación a agendar o a Leo.</p>
+</div>
+
+<h2>Las ocho preguntas</h2>
+<p class="sub">En cada una: qué pasa hoy (verificado en el código) y qué haríamos.</p>
+
+<div class="fases">
+
+  <div class="fase">
+    <div class="alto"><span class="num">1</span><h3>¿Cómo vemos las conversaciones?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>No se ven. Isi no guarda ninguna conversación: el historial vive en el navegador de la clienta y se pierde al cerrar la pestaña. Lo único que queda son las preguntas que Isi decide pasarle a Leo, y esas quedan en una tabla que nadie puede abrir.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>Con MABA: todas las conversaciones quedan en la bandeja de entrada del panel, en vivo. Leo puede leerlas mientras ocurren y, si quiere, escribir ella: Isi se pausa sola cuando responde una persona.</li>
+      <li>Agregar en el chat una línea breve de aviso: "Esta conversación queda guardada para que Leo pueda ayudarte mejor".</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">2</span><h3>¿Cómo es el escalamiento?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>Cuando Isi no sabe, le pide a la clienta su nombre y WhatsApp o correo, y le manda un correo a Leo. Tres problemas: si el correo falla, nadie se entera; el correo dice "enséñaselo en tu panel", pero esa pantalla no existe; y no hay aviso por WhatsApp.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>Con MABA: Isi usa la función de "escalar a una persona" que ya existe. A Leo le llega un WhatsApp (o correo) con el nombre y la pregunta, y en el panel aparece la tarea "Atender a…" hasta que la cierre. Tiene una pausa de 30 minutos para no avisarle dos veces por lo mismo.</li>
+      <li>Arreglo inmediato mientras tanto: sacar del correo la frase del panel que no existe y dejar registrado cuando un aviso no sale.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">3</span><h3>¿Cómo se le enseña?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>Todo lo que Isi sabe (servicios, precios, comunas, blog) está escrito fijo dentro del programa. Para cambiar un precio hay que editar el código y volver a publicar el sitio. Leo no puede enseñarle nada por su cuenta.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>Con MABA, Leo tiene cuatro formas de enseñarle, todas desde el panel y sin tocar código:
+        <ol>
+          <li><strong>Base de conocimiento:</strong> servicios, precios y preguntas frecuentes que Leo edita cuando quiera.</li>
+          <li><strong>"Preguntas que no supo":</strong> cada vez que Isi no sabe algo, la pregunta aparece en una lista; Leo la responde una vez y queda aprendida.</li>
+          <li><strong>Lecciones propuestas:</strong> MABA sugiere mejoras sacadas de las conversaciones y Leo las aprueba o las descarta.</li>
+          <li><strong>Entrenamiento libre:</strong> Leo le escribe instrucciones en palabras simples ("cuando pregunten por novias, di que…").</li>
+        </ol>
+      </li>
+      <li>Para partir, cargamos nosotros en MABA todo lo que Isi sabe hoy, para que no pierda nada.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">4</span><h3>¿Cómo la limitamos a derivar a agendar o a hablar con Leo?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>Isi no tiene un objetivo de cierre: responde y conversa. "Agendar" es solo pasar el link de la página de contacto, y ella misma decide cuándo pasarle algo a Leo. No ve la agenda de Leo.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>Darle una meta clara: toda conversación termina en uno de tres destinos. El test gratis si está explorando, agendar si quiere una asesoría, o Leo si es algo que solo ella puede resolver.</li>
+      <li>Un tope: después de unos cuatro mensajes sin avanzar a ninguno de los tres destinos, Isi ofrece agendar o hablar con Leo (el número exacto es estimación; se ajusta mirando conversaciones reales).</li>
+      <li>Con MABA, "agendar" pasa a ser real: Isi ve la disponibilidad del Google Calendar de Leo, ofrece horas, y la clienta reserva en una página propia de agenda, con recordatorios automáticos.</li>
+      <li>En MABA, el "foco temático" y las reglas SIEMPRE / NUNCA las configura Leo desde el panel, así que si mañana quiere cambiar el límite, lo hace ella.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">5</span><h3>¿Cómo evitamos que haga psicología a las clientas?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>No existe ninguna regla que se lo impida. Sus reglas prohíben consejos médicos y de dieta, pero nada dice sobre lo emocional, y su tono está definido como "empática". Si una clienta cuenta que se siente mal con su cuerpo tras una separación, Isi puede ponerse a aconsejarla.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>Agregar esta regla al texto de instrucciones de Isi (sirve igual en el sitio de hoy y en MABA):</li>
+    </ol>
+    <div class="regla">TEMAS EMOCIONALES O PERSONALES DELICADOS
+- No eres psicóloga ni terapeuta, y no das consejos sobre emociones, relaciones, autoestima ni salud mental.
+- Si la clienta cuenta algo emocional o personal delicado (inseguridad con su cuerpo, una separación, un duelo, ansiedad, tristeza, un trastorno alimentario), responde con una sola frase breve y cálida de empatía. No aconsejes, no analices y no le hagas preguntas sobre lo que siente.
+- Enseguida ofrécele dos caminos: conversar con Leo o agendar su asesoría en www.efectoespejo.cl/contacto/. Termina con [[LEO]].
+- Si dice que está en riesgo o que piensa hacerse daño, deja de lado el estilo: dile con cariño que busque ayuda ahora y entrégale la línea de prevención del suicidio *4141 (gratis, las 24 horas) o Salud Responde 600 360 7777. Termina con [[LEO]].
+- Nunca sigas conversando sobre el tema emocional más de un mensaje. Tu terreno es la imagen, el estilo y Efecto Espejo.</div>
+    <ol start="2">
+      <li>Cambiar su tono de "empática" a "cálida, pero enfocada en estilo", para que no se lea como invitación a contenerla.</li>
+      <li>En MABA, la misma regla va como regla NUNCA, y estos casos llegan a Leo como escalamiento para que ella decida si escribe.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">6</span><h3>¿Estamos en el mismo repositorio que MABA?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>No. MABA vive en su propio repositorio de Steve Tech en GitHub. El sitio de Efecto Espejo ni siquiera tiene control de versiones: su único respaldo son copias de archivos. Además usan infraestructura distinta (base de datos, claves de IA, WhatsApp, Google).</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>No hace falta juntarlos. Si Efecto Espejo entra como cliente de MABA, el sitio solo "le habla" a MABA por internet, igual que cualquier otro cliente. Cada uno sigue en su lado.</li>
+      <li>Sí conviene poner el sitio de Efecto Espejo en su propio repositorio privado, para tener historial de cambios y poder volver atrás. Hoy un error borra trabajo sin retorno.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">7</span><h3>JM habla de Vercel: ¿qué gracia tiene?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>El sitio e Isi corren en Cloudflare, en la cuenta de Leo, y funcionan bien. MABA corre en Vercel. Vercel en sí es solo "dónde está alojado": no le da a Isi nada nuevo.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>La gracia no es Vercel, es MABA. Lo que JM propone, entendemos, es que Isi funcione con el motor de MABA, que ya está en Vercel. Eso sí tiene valor.</li>
+      <li>Mudar el sitio completo a Vercel no lo recomendamos: sería trabajo sin beneficio para la clienta. El sitio se queda en Cloudflare y solo el chat se conecta a MABA.</li>
+      <li>Un tema de costo que hay que resolver igual: la cuota gratis de IA de Cloudflare alcanza para unos 70 mensajes de Isi al día (estimación). Pasado eso, en el plan gratis Isi deja de responder sin avisar. El plan pagado cuesta US$5 al mes y lo recomendamos ya, se vaya o no a MABA.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">8</span><h3>¿Cómo aprovechamos MABA?</h3></div>
+    <p><span class="etq mano">Hoy</span></p>
+    <p>Isi y MABA no se conocen. Todo lo que a Isi le falta (ver conversaciones, aprender, escalar bien, agendar, WhatsApp) MABA ya lo tiene funcionando con otros clientes.</p>
+    <p><span class="etq auto">Propuesta</span></p>
+    <ol>
+      <li>Crear en MABA un agente para Efecto Espejo, con el nombre Isi, su conocimiento, sus reglas de marca (body positive y la nueva regla emocional), su escalamiento a Leo y su agenda.</li>
+      <li>Cambiar el chat del sitio para que en vez de preguntarle a la IA de Cloudflare le pregunte a ese agente. La clienta ve exactamente la misma burbuja de Isi.</li>
+      <li>Dejar la IA de hoy como respaldo: si MABA no responde, contesta la versión actual para que el chat nunca quede mudo.</li>
+      <li>Más adelante, darle a Isi su propia línea de WhatsApp desde MABA (una línea aparte, no el WhatsApp personal de Leo).</li>
+    </ol>
+    <div class="hueco">Por confirmar con JM: si MABA ya permite que un chat de un sitio externo converse con un agente, o si hay que agregar esa conexión. De eso depende cuánto demora la etapa 3.</div>
+  </div>
+
+</div>
+
+<h2>Las dos vías, lado a lado</h2>
+<p class="sub">Para que la decisión quede clara.</p>
+
+<div class="caja">
+  <h3>Vía A · Efecto Espejo como cliente de MABA (recomendada)</h3>
+  <ol>
+    <li><strong>Qué se gana:</strong> conversaciones visibles, aprendizaje desde el panel, escalamiento por WhatsApp, agenda real y reglas que Leo cambia sola. Todo ya existe.</li>
+    <li><strong>Trabajo:</strong> configurar el agente y conectar el chat del sitio. Del orden de días, no semanas (estimación, depende de lo que confirme JM).</li>
+    <li><strong>Además:</strong> cada mejora que MABA haga para sus clientes le llega también a Isi, y Efecto Espejo sirve como caso real de MABA.</li>
+    <li><strong>A cuidar:</strong> las conversaciones de las clientas quedan en la base de datos de MABA (Steve Tech); lo resolvemos con el aviso en el chat. Y el costo de IA de MABA por mensaje es mayor que el de Cloudflare (estimación; hay que medirlo con JM).</li>
+  </ol>
+</div>
+
+<div class="caja">
+  <h3>Vía B · Construir todo dentro del sitio en Cloudflare</h3>
+  <ol>
+    <li><strong>Qué se gana:</strong> todo queda en la cuenta de Leo, sin depender de MABA.</li>
+    <li><strong>Trabajo:</strong> hacer desde cero lo que MABA ya tiene: guardar conversaciones, pantalla para leerlas, base de conocimiento editable, preguntas que no supo, aviso por WhatsApp y conexión al calendario. Varias semanas (estimación).</li>
+    <li><strong>A cuidar:</strong> sería un segundo sistema que mantener, y cada mejora habría que hacerla dos veces.</li>
+    <li><strong>Cuándo tendría sentido:</strong> solo si MABA no puede conectarse a un chat externo o si Leo no quiere sus datos fuera de su cuenta.</li>
+  </ol>
+</div>
+
+<h2>Plan por etapas</h2>
+<p class="sub">De lo más urgente a lo que puede esperar.</p>
+
+<ol>
+  <li><strong>Esta semana, en el sitio actual (sin esperar a MABA):</strong> agregar la regla emocional y la meta de los tres destinos, pasar al plan pagado de Cloudflare (US$5 al mes), arreglar el correo a Leo para que no falle en silencio ni mencione un panel que no existe, y poner el sitio en un repositorio privado.</li>
+  <li><strong>Conversación con JM:</strong> confirmar que un chat externo puede hablar con un agente MABA, cuánto cuesta por conversación y cuánto trabajo es la conexión.</li>
+  <li><strong>Alta de Efecto Espejo en MABA:</strong> crear el agente Isi, cargar todo lo que sabe hoy, las reglas de marca, el foco temático, el escalamiento al WhatsApp de Leo y su Google Calendar. Darle a Leo acceso al panel.</li>
+  <li><strong>Conectar el chat del sitio a MABA,</strong> con la IA actual como respaldo.</li>
+  <li><strong>Dos semanas de marcha blanca:</strong> Leo revisa la bandeja de conversaciones y responde las preguntas que Isi no supo. Ajustamos el tope de mensajes y las reglas con lo que se vea.</li>
+  <li><strong>Después:</strong> la línea de WhatsApp propia de Isi.</li>
+</ol>
+
+<h2>Qué necesitamos decidir</h2>
+<p class="sub">Cada decisión con nuestra recomendación.</p>
+
+<ol>
+  <li><strong>¿Vía A (MABA) o vía B (todo en Cloudflare)?</strong> Recomendamos A: más valor, mucho menos trabajo, y lo que falta ya está probado con otros clientes.</li>
+  <li><strong>¿Pasamos hoy al plan pagado de Cloudflare?</strong> Sí. Son US$5 al mes y evita que Isi quede muda en un día con muchas visitas. Vale para ambas vías, porque el resto del sitio también usa esa IA.</li>
+  <li><strong>¿Aplicamos ya la regla de temas emocionales en el sitio actual?</strong> Sí, esta semana. Es el riesgo más delicado para una marca body positive y no depende de MABA.</li>
+  <li><strong>¿Dónde le llegan los escalamientos a Leo?</strong> Recomendamos WhatsApp, con correo de respaldo: es donde ella mira de verdad.</li>
+  <li><strong>¿Leo toma conversaciones en vivo o solo las revisa?</strong> Al principio, solo revisar y responder las preguntas que Isi no supo. Tomar en vivo queda disponible si le acomoda.</li>
+  <li><strong>¿Aceptamos que las conversaciones queden en MABA?</strong> Recomendamos que sí, con el aviso visible en el chat.</li>
+  <li><strong>¿Cómo queda Efecto Espejo dentro de MABA: cliente de pago o piloto sin cobro?</strong> Sugerimos piloto sin cobro, a cambio de usarlo como caso de MABA. Es una idea nuestra, a conversar con JM.</li>
+  <li><strong>¿WhatsApp propio de Isi ahora o después?</strong> Después de la marcha blanca: primero que funcione bien en el sitio.</li>
+</ol>
+
+<div class="pie">
+  <p>Documento preparado el 23 de septiembre de 2026</p>
+  <p class="firma">Efecto Espejo</p>
+</div>
+
+</div>
+</body>
+</html>

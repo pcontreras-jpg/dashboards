@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Correos a la clienta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --negro:#1A1A1A; --crema:#FAF5F4; --fucsia:#9D637E; --fucsia-hondo:#7E4A63;
+    --fucsia-suave:#F1E4E9; --texto-2:#5E5057; --linea:#E7D9DE; --papel:#FFFFFF;
+    --ok:#3F7A4B; --ok-fondo:#EAF3DE; --manual:#A35A2A; --manual-fondo:#FBF1DC;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--crema); color:var(--negro);
+    font-family:Poppins,Arial,sans-serif; font-weight:300; font-size:15px; line-height:1.65;
+  }
+  .envoltura{max-width:920px; margin:0 auto; padding:0 16px 80px}
+  header.tapa{padding:56px 0 28px; border-bottom:1px solid var(--linea); margin-bottom:36px}
+  .ceja{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fucsia); font-weight:500; margin:0 0 10px}
+  h1{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:40px; line-height:1.15; margin:0 0 12px; letter-spacing:-.01em}
+  .bajada{font-size:17px; color:var(--texto-2); margin:0; max-width:64ch}
+  .sello{display:inline-block; margin-top:18px; font-size:12px; color:var(--texto-2); background:var(--fucsia-suave); border-radius:99px; padding:6px 14px}
+  h2{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:27px; margin:44px 0 6px; letter-spacing:-.01em}
+  h2 + .sub{color:var(--texto-2); margin:0 0 20px; font-size:14px}
+  h3{font-family:'Playfair Display',Georgia,serif; font-weight:500; font-size:20px; margin:0 0 6px}
+  p{margin:0 0 12px}
+  a{color:var(--fucsia-hondo)}
+  .fases{display:grid; gap:14px}
+  .fase{background:var(--papel); border:1px solid var(--linea); border-radius:14px; padding:20px 22px}
+  .fase .alto{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+  .num{font-family:'Playfair Display',Georgia,serif; font-size:13px; color:#fff; background:var(--fucsia);
+       width:26px; height:26px; border-radius:50%; display:inline-grid; place-items:center; flex:0 0 auto}
+  .etq{font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:99px; font-weight:500}
+  .etq.auto{background:var(--ok-fondo); color:var(--ok)}
+  .etq.mano{background:var(--manual-fondo); color:var(--manual)}
+  .quien{font-size:12px; color:var(--texto-2); letter-spacing:.03em}
+  .detalle{margin-top:12px; border-top:1px dashed var(--linea); padding-top:12px}
+  .dato{display:flex; gap:10px; padding:5px 0; font-size:14px; border-bottom:1px solid #F5EDEF}
+  .dato:last-child{border-bottom:0}
+  .dato b{flex:0 0 190px; font-weight:500; color:var(--texto-2); font-size:13px}
+  ul{margin:0 0 12px; padding-left:20px}
+  li{margin-bottom:7px}
+  .caja{background:var(--fucsia-suave); border-radius:14px; padding:20px 22px; margin:18px 0}
+  .caja.alerta{background:#FBE9E6}
+  .caja h3{margin-bottom:8px}
+  .colores{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 2px}
+  .colores i{width:26px; height:26px; border-radius:6px; display:block; border:1px solid rgba(0,0,0,.08)}
+  .looks{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:10px 0 4px}
+  .look{background:var(--papel); border:1px solid var(--linea); border-radius:12px; padding:14px 16px}
+  .look b{display:block; font-weight:500; font-size:14px; margin-bottom:3px}
+  .look span{font-size:13px; color:var(--texto-2)}
+  .hueco{border:1px dashed var(--fucsia); border-radius:8px; padding:8px 10px; font-size:12px; color:var(--fucsia-hondo); margin-top:8px; background:#fff}
+  .fricciones{counter-reset:f}
+  .friccion{background:var(--papel); border:1px solid var(--linea); border-left:3px solid var(--fucsia); border-radius:12px; padding:16px 18px; margin-bottom:10px}
+  .friccion h3{font-size:17px}
+  .visto{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); font-weight:500}
+  .pie{margin-top:52px; padding-top:20px; border-top:1px solid var(--linea); font-size:13px; color:var(--texto-2)}
+  .firma{font-family:Allura,cursive; font-size:30px; color:var(--fucsia); line-height:1}
+  @media (max-width:640px){
+    h1{font-size:30px} h2{font-size:23px}
+    .dato{flex-direction:column; gap:0} .dato b{flex:none}
+  }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+<header class="tapa">
+  <p class="ceja">Efecto Espejo · Correos a la clienta</p>
+  <h1>Los correos que le llegan a la clienta</h1>
+  <p class="bajada">Hoy el sitio no le escribe nada a la clienta: solo te avisa a ti. Aquí están los ocho correos que proponemos, cuándo sale cada uno, el texto listo para que lo corrijas y cómo los dejamos andando solos.</p>
+  <span class="sello">Seis salen solos · dos los mandas tú con un botón</span>
+</header>
+
+<h2>Los correos, en el orden en que los vive la clienta</h2>
+<p class="sub">Los textos son una propuesta. Cámbiales lo que quieras: la voz tiene que ser la tuya.</p>
+
+<div class="fases">
+
+  <div class="fase">
+    <div class="alto"><span class="num">1</span><h3>Bienvenida a la comunidad</h3><span class="etq auto">Sale solo</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>Apenas alguien deja su correo en el sitio para recibir novedades (formulario de suscripción).</span></div>
+      <div class="dato"><b>Asunto</b><span>Bienvenida a Efecto Espejo</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Gracias por sumarte. Soy Leo y te voy a escribir de vez en cuando con ideas simples para vestirte con más comodidad y sentirte tú misma frente al espejo: colores, prendas que trabajan a tu favor y cómo sacarle partido a lo que ya tienes en el clóset.</p>
+      <p>Si quieres partir por algo concreto, en el sitio tienes un test gratis que te da una primera pista de tu estilo: [link al test].</p>
+      <p>Un abrazo,<br>Leo</p>
+      <p style="font-size:12px;color:var(--texto-2)">Si no quieres recibir más correos, puedes darte de baja aquí: [link].</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">2</span><h3>El resultado de tu test</h3><span class="etq auto">Sale solo</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>Al terminar el test gratis del sitio y dejar su correo. Le llega al tiro, con el mismo resultado que vio en pantalla, para que no lo pierda.</span></div>
+      <div class="dato"><b>Asunto</b><span>Tu resultado: [nombre del resultado]</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Aquí te dejo tu resultado para que lo tengas a mano: <strong>[nombre del resultado]</strong>.</p>
+      <p>[Texto del resultado, el mismo que aparece en el sitio.]</p>
+      <p>Este test es una primera mirada. Si quieres ir al detalle, con tu paleta de color, las prendas que mejor te acompañan y looks pensados para tu día a día, eso es lo que hago en la Guía de Estilo Personal: [link a la guía].</p>
+      <p>Un abrazo,<br>Leo</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">3</span><h3>Encuesta sin terminar</h3><span class="etq auto">Sale solo</span><span class="quien">una sola vez</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>24 horas después de que la clienta dejó su correo en la encuesta y no la envió. Si la termina antes, no sale. Nunca se manda un segundo recordatorio.</span></div>
+      <div class="dato"><b>Ojo</b><span>Para que funcione, la encuesta tiene que pedir el correo en el primer paso y guardar lo avanzado también en el sitio. Hoy el avance queda guardado solo en el teléfono o computador de la clienta, así que el sitio no sabe que la dejó a medias: hay que sumarlo antes de activar este correo.</span></div>
+      <div class="dato"><b>Asunto</b><span>Tu encuesta te está esperando</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Vi que empezaste tu encuesta y quedó a medio camino. No te preocupes, lo que respondiste quedó guardado: puedes seguir justo donde la dejaste.</p>
+      <p>[Botón: Seguir con mi encuesta]</p>
+      <p>Un dato para que te sea más fácil: ten a mano una huincha de medir y busca un lugar con buena luz natural para la foto de tu rostro. Si algo te complica, respóndeme este correo y lo vemos juntas.</p>
+      <p>Un abrazo,<br>Leo</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">4</span><h3>Encuesta recibida</h3><span class="etq auto">Sale solo</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>Apenas la clienta envía la encuesta completa. Lleva un resumen corto de lo que respondió.</span></div>
+      <div class="dato"><b>Asunto</b><span>¡Listo, [nombre]! Recibí tu encuesta</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Felicitaciones, completaste tu encuesta. Ya tengo todo lo que necesito para preparar tu Guía de Estilo Personal. Dame un par de días como máximo y te la mando a este mismo correo.</p>
+      <p>Esto es lo que me contaste, en resumen:</p>
+      <ol>
+        <li>Tu día a día: [trabajo, código de vestimenta, ciudad]</li>
+        <li>Lo que te gustaría resolver: [sus respuestas]</li>
+        <li>Tu color de ojos y de pelo: [respuesta]</li>
+        <li>Fotos recibidas: [rostro / rostro y cuerpo]</li>
+      </ol>
+      <p>Si quieres corregir o agregar algo, respóndeme este correo.</p>
+      <p>Un abrazo,<br>Leo</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">5</span><h3>Necesito otra foto</h3><span class="etq mano">Lo mandas tú</span><span class="quien">con un botón en el panel</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>Solo si al revisar la ficha ves que la foto no te sirve (luz fuerte, maquillaje, filtro). Aprietas "Pedir otra foto" y le llega este correo con un link para subirla, sin repetir la encuesta.</span></div>
+      <div class="dato"><b>Asunto</b><span>[Nombre], ¿me mandas otra foto?</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Estoy trabajando en tu guía y necesito una foto más de tu rostro para ver bien tus colores. No es nada que hayas hecho mal: la luz a veces cambia cómo se ve la piel.</p>
+      <p>Lo ideal: luz natural de día, cara despejada, sin maquillaje ni filtros. Toma un minuto y no tienes que repetir la encuesta.</p>
+      <p>[Botón: Subir mi foto]</p>
+      <p>Un abrazo,<br>Leo</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">6</span><h3>Tu guía está lista</h3><span class="etq mano">Lo mandas tú</span><span class="quien">con el botón "Entregar guía"</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>Cuando apruebas la guía en el panel y aprietas "Entregar guía". Tú decides el momento; el sitio arma y envía el correo.</span></div>
+      <div class="dato"><b>El link</b><span>Cada clienta recibe un link propio que abre solo su guía, sin la clave del panel. Desde ahí la puede ver y guardar en PDF.</span></div>
+      <div class="dato"><b>Asunto</b><span>[Nombre], tu Guía de Estilo Personal está lista</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Tu guía está lista y la preparé pensando en ti: en tu día a día, en lo que te acomoda y en cómo quieres sentirte cuando te vistes.</p>
+      <p>[Botón: Ver mi guía]</p>
+      <p>Adentro vas a encontrar tu paleta de colores, lo que mejor acompaña tu rostro y tu cuerpo, seis looks para tu semana y tu armario cápsula. Puedes guardarla en PDF para tenerla siempre a mano.</p>
+      <p>Mi consejo: no tienes que cambiar nada de golpe. Parte por un look con lo que ya tienes y mira cómo te sientes.</p>
+      <p>Cualquier duda, respóndeme este correo.</p>
+      <p>Un abrazo,<br>Leo</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">7</span><h3>¿Cómo te ha ido con tu guía?</h3><span class="etq auto">Sale solo</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>8 días después de entregada la guía (dentro del rango de 7 a 10 días). Una sola vez.</span></div>
+      <div class="dato"><b>Asunto</b><span>¿Cómo te ha ido con tu guía, [nombre]?</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Ya pasó una semana desde que te mandé tu guía y me encantaría saber cómo te ha ido. ¿Probaste algún look? ¿Algo te hizo clic, o algo no te convenció?</p>
+      <p>Tu opinión me ayuda mucho. Puedes responder este mismo correo, aunque sea en dos líneas.</p>
+      <p>Y si quieres dar el paso siguiente, también podemos trabajar juntas en persona: [nombre del servicio siguiente]. Te cuento todo aquí: [link].</p>
+      <p>Un abrazo,<br>Leo</p>
+    </div>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">8</span><h3>Recordatorio de cita presencial</h3><span class="etq auto">Sale solo</span></div>
+    <div class="detalle">
+      <div class="dato"><b>Cuándo sale</b><span>El día anterior a una cita agendada, a media mañana.</span></div>
+      <div class="dato"><b>Ojo</b><span>Depende de cómo se agenden las citas. Si hoy las coordinas por WhatsApp, el sitio no sabe que existen: habría que registrarlas en el panel o en un agendador conectado. Hay que definirlo contigo.</span></div>
+      <div class="dato"><b>Asunto</b><span>Nos vemos mañana, [nombre]</span></div>
+    </div>
+    <div class="caja">
+      <p>Hola, [nombre]:</p>
+      <p>Te recuerdo que mañana [día] a las [hora] nos vemos en [lugar], para [servicio].</p>
+      <p>[Si aplica: qué traer, por ejemplo tus prendas favoritas y las que casi no usas.]</p>
+      <p>Si necesitas cambiar la hora, respóndeme este correo o escríbeme al [WhatsApp].</p>
+      <p>Nos vemos,<br>Leo</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="caja">
+  <h3>Reglas para todos</h3>
+  <ol>
+    <li>Todos salen con tu nombre ("Leo, de Efecto Espejo") y, si la clienta responde, la respuesta te llega a tu correo de siempre.</li>
+    <li>Ninguno lleva precios, descuentos ni "últimos cupos".</li>
+    <li>El de bienvenida y cualquier novedad que mandes después llevan un link para darse de baja. Los correos del servicio (encuesta, guía, cita) no lo necesitan porque son parte de lo que la clienta pidió.</li>
+  </ol>
+</div>
+
+<h2>Cómo los automatizamos</h2>
+<p class="sub">Explicado en simple. Revisado en la documentación oficial de Cloudflare y de Resend el 23 de septiembre de 2026.</p>
+
+<div class="fases">
+  <div class="fase">
+    <div class="alto"><span class="num">1</span><h3>El correo de hoy no sirve para clientas</h3></div>
+    <p>Hoy el sitio te avisa a ti con el correo interno de Cloudflare (Email Routing). Ese mecanismo solo puede escribirle a direcciones verificadas de antemano en tu cuenta, es decir, a ti. No puede escribirle a una clienta nueva cuyo correo nadie verificó.</p>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">2</span><h3>La opción nueva de Cloudflare existe, pero está en prueba</h3></div>
+    <p>Cloudflare lanzó en 2026 un servicio para mandar correos a cualquier persona (Email Sending). Hoy está en beta, exige pasar la cuenta al plan pagado de Workers (desde 5 dólares al mes) e incluye 3.000 correos al mes. Funciona, pero preferimos no apoyar la entrega de tus guías en algo que Cloudflare todavía no da por terminado.</p>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">3</span><h3>Recomendación: Resend, plan gratis</h3><span class="etq auto">Recomendado</span></div>
+    <p>Resend es un servicio hecho justamente para que un sitio mande correos. Su plan gratis incluye <strong>3.000 correos al mes, con tope de 100 al día</strong>, y hasta 3 dominios. Para los boletines de novedades tiene además un plan de marketing gratis <strong>hasta 1.000 contactos</strong>.</p>
+    <p>Estimación nuestra: con unas decenas de clientas al mes, estos ocho correos suman unos pocos cientos de envíos. El plan gratis alcanza de sobra. Si algún día no alcanza, el plan siguiente cuesta 20 dólares al mes por 50.000 correos.</p>
+    <p>Si más adelante Cloudflare saca su servicio de la etapa de prueba, se puede cambiar sin tocar los textos.</p>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">4</span><h3>Lo que hay que configurar</h3></div>
+    <ol>
+      <li>Crear la cuenta de Resend a nombre de Efecto Espejo.</li>
+      <li>Agregar el dominio. Resend recomienda usar un subdominio para cuidar la reputación del dominio principal, por ejemplo <em>correo.efectoespejo.cl</em>. Los correos saldrían como "Leo, de Efecto Espejo" desde esa dirección, y las respuestas llegarían a tu correo.</li>
+      <li>Copiar en Cloudflare los registros que entrega Resend (unos de tipo TXT y uno MX, que le dicen al mundo que Resend puede mandar a nombre de efectoespejo.cl). Como el dominio ya está en Cloudflare, es rápido. Van con la nube gris, sin el proxy de Cloudflare, o la verificación no pasa.</li>
+      <li>Guardar la llave de Resend como dato secreto dentro del sitio, para que pueda mandar.</li>
+      <li>Conectar cada correo a su momento: los que salen al instante (bienvenida, test, encuesta recibida) se disparan cuando la clienta envía el formulario; los de los botones, cuando tú los aprietas.</li>
+    </ol>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">5</span><h3>Los que salen después: un despertador en el sitio</h3></div>
+    <p>La encuesta sin terminar (24 horas), el seguimiento de la guía (8 días) y el recordatorio de cita (día anterior) se mandan con un despertador del mismo sitio (Cron Triggers de Cloudflare). Cada hora el sitio revisa: "¿quién dejó la encuesta hace más de 24 horas?", "¿a quién le entregué la guía hace 8 días?", "¿quién tiene cita mañana?", y manda lo que corresponde. Cada envío queda marcado para no repetirlo nunca.</p>
+    <p>Esto no tiene costo extra: funciona en el plan que el sitio tiene hoy.</p>
+  </div>
+
+  <div class="fase">
+    <div class="alto"><span class="num">6</span><h3>Lo que hay que construir en el sitio</h3></div>
+    <ol>
+      <li>Que la encuesta pida el correo al principio y guarde lo avanzado también en el sitio, no solo en el teléfono de la clienta (sin esto no hay correo 3).</li>
+      <li>Un link propio por clienta para su guía, sin la clave del panel (sin esto no hay correo 6).</li>
+      <li>Los botones "Pedir otra foto" y "Entregar guía" en el panel.</li>
+      <li>Una forma de registrar las citas, si quieres el correo 8.</li>
+      <li>Un registro de envíos en el panel, para que veas qué correo le llegó a quién y si alguno falló.</li>
+    </ol>
+  </div>
+</div>
+
+<h2>Qué tienes que hacer tú, Leo</h2>
+<ol>
+  <li>Leer los ocho textos y corregir lo que no suene a ti. Basta con cambios sueltos, no hace falta reescribirlos.</li>
+  <li>Decirnos a qué correo quieres que te lleguen las respuestas de las clientas.</li>
+  <li>Contarnos cuál es tu servicio siguiente después de la guía, para completar el correo 7.</li>
+  <li>Contarnos cómo agendas hoy las citas presenciales, para ver si el correo 8 va ahora o más adelante.</li>
+  <li>Aprobar la cuenta de Resend a nombre de Efecto Espejo (es gratis) y darnos acceso a la configuración del dominio en Cloudflare, o hacerlo juntas en una llamada corta.</li>
+</ol>
+
+<div class="pie">
+  <p>Documento preparado el 23 de septiembre de 2026. Cupos y precios de Cloudflare y Resend revisados ese día en sus sitios oficiales; el volumen de correos al mes es una estimación nuestra.</p>
+  <p class="firma">Efecto Espejo</p>
+</div>
+
+</div>
+</body>
+</html>
