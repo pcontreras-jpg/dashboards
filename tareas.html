@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Mis tareas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F3F0; --card:#FFFFFF; --line:#E3E0DA; --line-soft:#EEECE7;
+  --ink:#1B1A18; --muted:#66625B; --faint:#9A958C;
+  --maba:#D9633A; --maba-soft:#FBEDE6;
+  --arueda:#B88A0E; --arueda-soft:#FAF3DD;
+  --espejo:#9D637E; --espejo-soft:#F5EAEF;
+  --late:#C2412D; --late-soft:#FBE9E5; --ok:#3E8A5C;
+  --field:#FAF9F7;
+  --ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#161513; --card:#1F1E1B; --line:#34322D; --line-soft:#2A2825;
+    --ink:#EEEBE5; --muted:#B4AFA6; --faint:#857F76;
+    --maba:#E77E55; --maba-soft:#3A2519;
+    --arueda:#E0B52E; --arueda-soft:#352B12;
+    --espejo:#C58CA6; --espejo-soft:#35242C;
+    --late:#EE7A64; --late-soft:#3B211C; --ok:#6CC08E;
+    --field:#191816; color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:20px;padding-block:22px 60px}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.02em}
+.sub{margin:3px 0 0;color:var(--muted);font-size:13px}
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:none;padding:7px 12px;font-size:13px;font-weight:500;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer}
+.status{font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+/* Hoy */
+.hoy{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.hoy h2{margin:0 0 8px;font-size:13px;font-family:var(--mono);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hoy-list{display:flex;flex-direction:column;gap:6px}
+.hoy .vacio{color:var(--faint);font-size:13px}
+
+/* Columnas */
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px;align-items:start}
+@media (max-width:1000px){.cols{grid-template-columns:1fr}}
+.col{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.col-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);border-top:4px solid var(--c)}
+.col-head h2{margin:0;font-size:16px;font-weight:700}
+.col-head .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.col-head a{font-size:12px;color:var(--muted)}
+.col.maba{--c:var(--maba);--cs:var(--maba-soft)}
+.col.arueda{--c:var(--arueda);--cs:var(--arueda-soft)}
+.col.espejo{--c:var(--espejo);--cs:var(--espejo-soft)}
+.add{display:grid;grid-template-columns:1fr auto;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line-soft);background:var(--field)}
+.add input[type=text]{grid-column:1/-1;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--card)}
+.add .row{display:flex;gap:6px;min-width:0}
+.add input[type=date],.add select{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--card);min-width:0;font-size:13px}
+.add button{border:0;border-radius:8px;padding:0 14px;background:var(--c);color:#fff;font-weight:600;cursor:pointer}
+.list{display:flex;flex-direction:column;padding:6px 8px 10px}
+.empty{padding:14px 8px;color:var(--faint);font-size:13px}
+
+/* Tarea */
+.t{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;padding:8px 6px;border-radius:8px}
+.t:hover{background:var(--field)}
+.t input[type=checkbox]{margin-top:3px;width:16px;height:16px;accent-color:var(--c,var(--ink));cursor:pointer}
+.t .txt{min-width:0;overflow-wrap:anywhere}
+.t .txt a{color:inherit}
+.t .meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.pill{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:5px;background:var(--line-soft);color:var(--muted);white-space:nowrap}
+.pill.late{background:var(--late-soft);color:var(--late)}
+.pill.today{background:var(--cs,var(--line-soft));color:var(--c,var(--ink))}
+.pill.biz{color:#fff;background:var(--c)}
+.t.done .txt{color:var(--faint);text-decoration:line-through}
+.del{border:0;background:none;color:var(--faint);cursor:pointer;font-size:12px;padding:2px 4px;border-radius:5px}
+.del:hover{color:var(--late)}
+.del.armed{color:#fff;background:var(--late)}
+.detalle{font-size:12px;color:var(--muted);margin-top:2px}
+.foot{margin-top:24px;color:var(--faint);font-size:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Mis tareas</h1>
+      <p class="sub">MABA, A Rueda y Efecto Espejo en un solo lugar. Lo que marques acá se guarda también en el dashboard de cada negocio.</p>
+    </div>
+    <div class="ctrls">
+      <div class="seg" role="group" aria-label="Responsable" id="seg-resp">
+        <button type="button" data-r="Pablo" aria-pressed="true">Pablo</button>
+        <button type="button" data-r="JM" aria-pressed="false">JM</button>
+        <button type="button" data-r="Leonor" aria-pressed="false">Leonor / Leo</button>
+        <button type="button" data-r="*" aria-pressed="false">Todos</button>
+      </div>
+      <label class="chk"><input type="checkbox" id="ver-hechas"> Ver hechas</label>
+      <span class="status" id="estado">Cargando…</span>
+    </div>
+  </header>
+
+  <section class="hoy" aria-labelledby="hoy-t">
+    <h2 id="hoy-t">Hoy y atrasadas</h2>
+    <div class="hoy-list" id="hoy-list"><span class="vacio">Cargando…</span></div>
+  </section>
+
+  <div class="cols">
+    <section class="col maba" data-biz="maba">
+      <div class="col-head"><h2>MABA</h2><span class="n" id="n-maba"></span></div>
+      <form class="add" data-biz="maba">
+        <input type="text" id="add-maba-t" placeholder="Nueva tarea de MABA" aria-label="Nueva tarea de MABA" required>
+        <div class="row"><input type="date" id="add-maba-f" aria-label="Fecha"><select id="add-maba-r" aria-label="Responsable"><option>Pablo</option><option>JM</option></select></div>
+        <button type="submit">Agregar</button>
+      </form>
+      <div class="list" id="list-maba"></div>
+    </section>
+    <section class="col arueda" data-biz="arueda">
+      <div class="col-head"><h2>A Rueda</h2><span class="n" id="n-arueda"></span><a href="arueda.html" target="_blank" rel="noopener">Abrir dashboard</a></div>
+      <form class="add" data-biz="arueda">
+        <input type="text" id="add-arueda-t" placeholder="Nueva tarea de A Rueda" aria-label="Nueva tarea de A Rueda" required>
+        <div class="row"><input type="date" id="add-arueda-f" aria-label="Fecha"><select id="add-arueda-r" aria-label="Responsable"><option>Pablo</option><option>Leonor</option><option>JM</option></select></div>
+        <button type="submit">Agregar</button>
+      </form>
+      <div class="list" id="list-arueda"></div>
+    </section>
+    <section class="col espejo" data-biz="espejo">
+      <div class="col-head"><h2>Efecto Espejo</h2><span class="n" id="n-espejo"></span><a href="espejo.html" target="_blank" rel="noopener">Abrir dashboard</a></div>
+      <form class="add" data-biz="espejo">
+        <input type="text" id="add-espejo-t" placeholder="Nueva tarea de Efecto Espejo" aria-label="Nueva tarea de Efecto Espejo" required>
+        <div class="row"><input type="date" id="add-espejo-f" aria-label="Fecha"><select id="add-espejo-r" aria-label="Responsable"><option>Pablo</option><option>Leo</option></select></div>
+        <button type="submit">Agregar</button>
+      </form>
+      <div class="list" id="list-espejo"></div>
+    </section>
+  </div>
+  <p class="foot">Las tareas "Always on" no aparecen acá: siguen en el dashboard de cada negocio.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var SB_URL = 'https://ljdjiyghodcfgenzjowt.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqZGppeWdob2RjZmdlbnpqb3d0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NDI4NDMsImV4cCI6MjA5MDExODg0M30.TYvXvS-NXsbn56Wg4oN4g9C7Iv_KlS6nhN1f5tEnfx0';
+var API = SB_URL + '/rest/v1/shared_docs';
+var HEAD = { apikey: SB_KEY, authorization: 'Bearer ' + SB_KEY, 'content-type': 'application/json' };
+
+// Cada negocio: su documento compartido y cómo se llaman sus campos.
+var BIZ = {
+  maba:   { doc: 'maba-tareas', nombre: 'MABA',          resp: 'responsable' },
+  arueda: { doc: 'arueda',      nombre: 'A Rueda',       resp: 'resp' },
+  espejo: { doc: 'espejo',      nombre: 'Efecto Espejo', resp: 'responsable' }
+};
+var data = { maba: null, arueda: null, espejo: null };
+var filtro = 'Pablo', verHechas = false, escribiendo = 0;
+try { filtro = localStorage.getItem('tareas-filtro') || 'Pablo'; } catch (e) {}
+
+var $ = function (id) { return document.getElementById(id); };
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function hoy(){ var t = new Date(); return t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0'); }
+var MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function fechaCorta(f){ if(!/^\d{4}-\d{2}-\d{2}$/.test(f||'')) return ''; var p = f.split('-'); return Number(p[2]) + ' ' + MES[Number(p[1])-1]; }
+function estado(t){ return t.done || t.status === 'listo' ? 'hecha' : t.status === 'always' ? 'always' : 'pendiente'; }
+function respDe(biz, t){ return t[BIZ[biz].resp] || ''; }
+function pasaFiltro(biz, t){
+  if (filtro === '*') return true;
+  var r = respDe(biz, t);
+  if (filtro === 'Leonor') return r === 'Leonor' || r === 'Leo';
+  return r === filtro;
+}
+
+async function leer(biz){
+  var r = await fetch(API + '?id=eq.' + BIZ[biz].doc + '&select=data', { headers: HEAD });
+  if (!r.ok) throw new Error('No se pudo leer ' + BIZ[biz].nombre);
+  var rows = await r.json();
+  if (!rows.length) return null;
+  var d = rows[0].data;
+  return typeof d === 'string' ? JSON.parse(d) : d;
+}
+// Escribe leyendo SIEMPRE la versión más nueva y cambiando solo la tarea tocada: así no se pisan
+// cambios hechos al mismo tiempo desde el dashboard de cada negocio.
+async function cambiar(biz, fn){
+  escribiendo++; marcar('Guardando…');
+  try {
+    var d = (await leer(biz)) || { teamTasks: [] };
+    if (!Array.isArray(d.teamTasks)) d.teamTasks = [];
+    fn(d);
+    var valor = biz === 'maba' ? JSON.stringify(d) : JSON.stringify(d);
+    var r = await fetch(API, { method: 'POST', headers: Object.assign({}, HEAD, { Prefer: 'resolution=merge-duplicates,return=minimal' }),
+      body: JSON.stringify([{ id: BIZ[biz].doc, data: valor, updated_at: new Date().toISOString() }]) });
+    if (!r.ok) throw new Error('No se guardó');
+    data[biz] = d; pintar(); marcar('Guardado');
+  } catch (e) { marcar('No se guardó: revisa tu conexión y vuelve a intentarlo.'); }
+  finally { escribiendo--; }
+}
+function marcar(txt){ $('estado').textContent = txt; }
+
+function tareaEl(biz, t, conNegocio){
+  var hecha = estado(t) === 'hecha', f = t.cuando || '', h = hoy();
+  var row = document.createElement('div'); row.className = 't' + (hecha ? ' done' : '');
+  row.style.setProperty('--c', 'var(--' + biz + ')'); row.style.setProperty('--cs', 'var(--' + biz + '-soft)');
+  var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = hecha; cb.setAttribute('aria-label', 'Marcar como hecha');
+  cb.id = 'chk-' + biz + '-' + t.id;
+  cb.addEventListener('change', function(){ var marcarHecha = cb.checked; cambiar(biz, function(d){ var x = d.teamTasks.find(function(y){ return y.id === t.id; }); if (x) { x.done = marcarHecha; x.status = marcarHecha ? 'listo' : 'pendiente'; } }); });
+  var mid = document.createElement('div'); mid.className = 'txt';
+  var titulo = document.createElement(t.link ? 'a' : 'span'); titulo.textContent = t.tarea || '(sin título)';
+  if (t.link) { titulo.href = t.link; titulo.target = '_blank'; titulo.rel = 'noopener'; }
+  mid.appendChild(titulo);
+  if (t.detalle) { var det = document.createElement('div'); det.className = 'detalle'; det.textContent = t.detalle.length > 140 ? t.detalle.slice(0,140) + '…' : t.detalle; mid.appendChild(det); }
+  var meta = document.createElement('div'); meta.className = 'meta';
+  if (conNegocio) { var b = document.createElement('span'); b.className = 'pill biz'; b.textContent = BIZ[biz].nombre; meta.appendChild(b); }
+  if (f) { var p = document.createElement('span'); p.className = 'pill' + (!hecha && f < h ? ' late' : !hecha && f === h ? ' today' : ''); p.textContent = (!hecha && f < h ? 'Atrasada · ' : f === h ? 'Hoy · ' : '') + fechaCorta(f); meta.appendChild(p); }
+  var r = respDe(biz, t); if (r && filtro === '*') { var q = document.createElement('span'); q.className = 'pill'; q.textContent = r; meta.appendChild(q); }
+  if (meta.children.length) mid.appendChild(meta);
+  var del = document.createElement('button'); del.type = 'button'; del.className = 'del'; del.textContent = 'Borrar'; del.setAttribute('aria-label', 'Borrar tarea');
+  del.addEventListener('click', function(){
+    if (!del.classList.contains('armed')) { del.classList.add('armed'); del.textContent = '¿Borrar?'; setTimeout(function(){ del.classList.remove('armed'); del.textContent = 'Borrar'; }, 3000); return; }
+    cambiar(biz, function(d){ d.teamTasks = d.teamTasks.filter(function(y){ return y.id !== t.id; }); });
+  });
+  row.append(cb, mid, del);
+  return row;
+}
+function ordenar(a, b){ var fa = a.cuando || '9999', fb = b.cuando || '9999'; return fa < fb ? -1 : fa > fb ? 1 : 0; }
+
+function pintar(){
+  var h = hoy(), urgentes = [];
+  Object.keys(BIZ).forEach(function(biz){
+    var list = $('list-' + biz); list.textContent = '';
+    var d = data[biz];
+    if (!d) { list.innerHTML = '<div class="empty">No se pudo cargar. Recarga la página.</div>'; return; }
+    var todas = (d.teamTasks || []).filter(function(t){ return estado(t) !== 'always' && pasaFiltro(biz, t); });
+    var pend = todas.filter(function(t){ return estado(t) === 'pendiente'; }).sort(ordenar);
+    var hechas = todas.filter(function(t){ return estado(t) === 'hecha'; });
+    $('n-' + biz).textContent = pend.length + (pend.length === 1 ? ' pendiente' : ' pendientes');
+    pend.forEach(function(t){ list.appendChild(tareaEl(biz, t)); if (t.cuando && t.cuando <= h) urgentes.push([biz, t]); });
+    if (verHechas) hechas.forEach(function(t){ list.appendChild(tareaEl(biz, t)); });
+    if (!pend.length && !(verHechas && hechas.length)) list.innerHTML = '<div class="empty">Nada pendiente acá.</div>';
+  });
+  var hl = $('hoy-list'); hl.textContent = '';
+  urgentes.sort(function(a, b){ return ordenar(a[1], b[1]); }).forEach(function(u){ hl.appendChild(tareaEl(u[0], u[1], true)); });
+  if (!urgentes.length) hl.innerHTML = '<span class="vacio">Nada para hoy ni atrasado.</span>';
+  document.querySelectorAll('#seg-resp button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.r === filtro)); });
+}
+
+async function cargar(){
+  if (escribiendo) return;
+  var res = await Promise.allSettled(Object.keys(BIZ).map(leer));
+  Object.keys(BIZ).forEach(function(biz, i){ if (res[i].status === 'fulfilled') data[biz] = res[i].value || { teamTasks: [] }; });
+  var falla = res.some(function(r){ return r.status === 'rejected'; });
+  marcar(falla ? 'Algún negocio no cargó: recarga la página.' : 'Al día');
+  pintar();
+}
+
+document.querySelectorAll('form.add').forEach(function(form){
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var biz = form.dataset.biz, txt = $('add-' + biz + '-t').value.trim(); if (!txt) return;
+    var t = { id: uid(), tarea: txt, cuando: $('add-' + biz + '-f').value, status: 'pendiente', done: false, link: '' };
+    t[BIZ[biz].resp] = $('add-' + biz + '-r').value;
+    if (biz === 'espejo' || biz === 'maba') t.detalle = '';
+    cambiar(biz, function(d){ d.teamTasks.push(t); });
+    $('add-' + biz + '-t').value = ''; $('add-' + biz + '-f').value = '';
+  });
+});
+$('seg-resp').addEventListener('click', function(ev){
+  var b = ev.target.closest('button'); if (!b) return;
+  filtro = b.dataset.r; try { localStorage.setItem('tareas-filtro', filtro); } catch (e) {}
+  ['maba','arueda','espejo'].forEach(function(biz){ var sel = $('add-' + biz + '-r'); if ([].some.call(sel.options, function(o){ return o.value === filtro; })) sel.value = filtro; });
+  pintar();
+});
+$('ver-hechas').addEventListener('change', function(){ verHechas = this.checked; pintar(); });
+
+cargar();
+setInterval(function(){ if (!document.hidden) cargar(); }, 20000);
+})();
+</script>
+</body>
+</html>
