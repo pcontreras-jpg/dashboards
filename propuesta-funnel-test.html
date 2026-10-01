@@ -3,96 +3,193 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Test que vende</title>
+<title>Resultado del test</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap">
 <style>
-:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--linea:#E8DCDF;--suave:#6B5F63}
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--fucsia-osc:#7E4A63;--rosa:#F3E6EC;--linea:#E8DCDF;--suave:#6B5F63;--dorado:#C9A44C}
 *{box-sizing:border-box}
-body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',system-ui,sans-serif;font-weight:300;line-height:1.6}
-.wrap{max-width:720px;margin:0 auto;padding:40px 16px 72px}
-.ceja{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fucsia)}
-.paso{display:flex;align-items:center;gap:10px;margin:44px 0 12px}
-.paso b{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--negro);color:var(--crema);font-weight:500;font-size:13px;flex-shrink:0}
-.paso span{font-size:15px;font-weight:500}
-h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(28px,5vw,40px);line-height:1.15;margin:8px 0 0}
-.pantalla{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:26px 24px}
-.pantalla h2{font-family:'Playfair Display',serif;font-weight:500;font-size:28px;margin:4px 0 8px}
-.muestras{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
-.muestras i{width:34px;height:34px;border-radius:50%;display:block;border:1px solid rgba(0,0,0,.06)}
-.truco{font-size:14px;color:var(--suave);border-top:1px solid var(--linea);padding-top:14px;margin:0}
-.nuevo{margin-top:22px;border:2px solid var(--fucsia);border-radius:14px;padding:22px;position:relative}
-.nuevo::before{content:"NUEVO";position:absolute;top:-11px;left:18px;background:var(--fucsia);color:#fff;font-size:10px;font-weight:500;letter-spacing:.14em;padding:3px 10px;border-radius:99px}
-.puente{font-family:'Playfair Display',serif;font-size:21px;line-height:1.3;margin:0 0 10px}
-.beneficio{display:inline-block;background:#F3E6EC;color:var(--fucsia);font-size:13px;font-weight:500;padding:5px 12px;border-radius:99px;margin:4px 0 12px}
-.precio{font-size:22px;font-weight:500;margin:4px 0}
-.precio s{color:var(--suave);font-weight:300;font-size:15px;margin-left:8px}
-.btn{display:inline-block;background:var(--fucsia);color:#fff;text-decoration:none;padding:13px 26px;border-radius:99px;font-weight:500;font-size:15px;margin-top:8px}
-.secundario{font-size:14px;color:var(--suave);margin:14px 0 0}
-.secundario u{color:var(--negro)}
-.correo{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px 20px;margin:10px 0}
-.correo .cuando{font-size:12px;font-weight:500;color:var(--fucsia);letter-spacing:.06em;text-transform:uppercase}
-.correo .asunto{font-weight:500;margin:4px 0 6px}
-.correo p{margin:0 0 8px;font-size:14px}
-.correo .b{display:inline-block;background:var(--fucsia);color:#fff;font-size:13px;font-weight:500;padding:8px 16px;border-radius:99px}
-.decide{background:var(--negro);color:var(--crema);border-radius:14px;padding:20px 22px}
-.decide ol{margin:8px 0 0;padding-left:20px}
-.decide li{margin:6px 0}
-.amarillo{background:#FFF3B0;padding:0 4px;border-radius:3px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',system-ui,sans-serif;font-weight:300;line-height:1.55;padding-bottom:92px}
+.aviso-maqueta{background:var(--negro);color:var(--crema);font-size:12px;text-align:center;padding:8px 16px;letter-spacing:.04em}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+.ceja{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fucsia)}
+.serif{font-family:'Playfair Display',serif;font-weight:500}
+
+/* Resultado */
+.resultado{text-align:center;padding:40px 0 8px}
+.resultado h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(34px,8vw,46px);line-height:1.08;margin:8px 0 10px}
+.resultado h1 em{color:var(--fucsia)}
+.resultado p{color:var(--suave);font-size:15px;margin:0 auto;max-width:440px}
+.paleta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.paleta i{width:38px;height:38px;border-radius:50%;display:block;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.metal{font-size:13px;color:var(--suave);margin-top:6px}
+
+/* Puente */
+.puente{margin:30px 0 0;background:#fff;border:1px solid var(--linea);border-radius:18px;padding:22px 22px 18px}
+.puente h2{font-family:'Playfair Display',serif;font-weight:500;font-size:24px;line-height:1.25;margin:0 0 12px}
+.comparar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.comparar div{border-radius:12px;padding:12px 14px;font-size:13px}
+.comparar .tiene{background:var(--crema);color:var(--suave)}
+.comparar .falta{background:var(--rosa);color:var(--negro)}
+.comparar b{display:block;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.comparar .falta b{color:var(--fucsia)}
+
+/* Oferta */
+.oferta{margin:28px 0 0;background:var(--negro);color:var(--crema);border-radius:22px;padding:26px 22px 24px;position:relative;overflow:hidden}
+.oferta::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(157,99,126,.55),transparent 70%)}
+.solo{display:inline-flex;align-items:center;gap:8px;background:var(--fucsia);color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:99px}
+.solo::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:late 1.4s infinite}
+@keyframes late{50%{opacity:.25}}
+.oferta h3{font-family:'Playfair Display',serif;font-weight:500;font-size:28px;line-height:1.15;margin:14px 0 6px;position:relative;z-index:1}
+.oferta .sub{color:#E3D3DA;font-size:14px;margin:0 0 18px}
+.reloj{display:flex;gap:8px;margin:0 0 6px}
+.reloj div{flex:1;background:#2A2326;border:1px solid #3A3035;border-radius:12px;text-align:center;padding:10px 4px}
+.reloj span{display:block;font-family:'Playfair Display',serif;font-size:30px;font-weight:600;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+.reloj small{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#CDBFC6}
+.vence{font-size:12px;color:#CDBFC6;margin:0 0 18px}
+.precios{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:0 0 4px}
+.precios .ahora{font-family:'Playfair Display',serif;font-size:46px;font-weight:600;color:#fff;line-height:1}
+.precios s{color:#9C8E95;font-size:16px}
+.ahorro{display:inline-block;background:var(--dorado);color:var(--negro);font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;margin:6px 0 18px}
+.incluye{list-style:none;padding:0;margin:0 0 20px}
+.incluye li{display:flex;gap:10px;font-size:14px;padding:7px 0;border-bottom:1px solid #2F282B}
+.incluye li:last-child{border-bottom:0}
+.incluye li::before{content:"✓";color:var(--fucsia);font-weight:600;background:#fff;border-radius:50%;width:18px;height:18px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px}
+.cta{display:block;text-align:center;background:var(--fucsia);color:#fff;text-decoration:none;font-weight:600;font-size:16px;padding:17px 20px;border-radius:99px;box-shadow:0 10px 24px -8px rgba(157,99,126,.8);transition:transform .15s}
+.cta:hover{transform:translateY(-2px);background:var(--fucsia-osc)}
+.seguro{text-align:center;font-size:12px;color:#CDBFC6;margin:10px 0 0}
+.otra{margin:18px 0 0;border-top:1px solid #3A3035;padding-top:16px;font-size:13px;color:#E3D3DA}
+.otra b{color:#fff;font-weight:500}
+.otra a{color:#fff}
+
+/* Prueba social */
+.voces{margin:30px 0 0}
+.voces h4{font-family:'Playfair Display',serif;font-weight:500;font-size:22px;text-align:center;margin:6px 0 14px}
+.voz{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:16px 18px;margin:0 0 10px}
+.voz .est{color:var(--dorado);letter-spacing:2px;font-size:13px}
+.voz p{margin:4px 0 6px;font-size:14px}
+.voz small{color:var(--suave);font-size:12px}
+
+/* Cómo sigue */
+.pasos{margin:30px 0 0;background:#fff;border:1px solid var(--linea);border-radius:18px;padding:20px 22px}
+.pasos ol{margin:10px 0 0;padding-left:20px;font-size:14px}
+.pasos li{margin:6px 0}
+.cierre{text-align:center;margin:30px 0 24px}
+.cierre p{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;margin:0 0 14px}
+
+/* Barra fija */
+.barra{position:fixed;left:0;right:0;bottom:0;background:var(--negro);color:var(--crema);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;justify-content:center;z-index:20;box-shadow:0 -6px 20px rgba(0,0,0,.15)}
+.barra .t{font-size:12px;line-height:1.3}
+.barra .t b{display:block;font-size:15px;font-variant-numeric:tabular-nums;color:#fff}
+.barra a{background:var(--fucsia);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 18px;border-radius:99px;white-space:nowrap}
 </style>
 </head>
 <body>
+<div class="aviso-maqueta">Propuesta para Leo · así vería el final del test una clienta llamada Camila · no publicado</div>
+
 <div class="wrap">
-  <span class="ceja">Propuesta para Leo · no publicado</span>
-  <h1>El test termina en una venta</h1>
-
-  <div class="paso"><b>1</b><span>Pantalla del resultado (lo nuevo va abajo, en rosado)</span></div>
-  <div class="pantalla">
-    <span class="ceja">Tu resultado</span>
-    <h2>Eres cálida</h2>
-    <p style="font-size:14px;color:var(--suave);margin:0">Tu piel tiene un subtono dorado, como si el sol ya viviera en ella…</p>
-    <div class="muestras" aria-label="Tu mini paleta">
-      <i style="background:#F2846B"></i><i style="background:#C8643B"></i><i style="background:#D9A43A"></i><i style="background:#7A7F3A"></i><i style="background:#D8432E"></i><i style="background:#F4B18C"></i><i style="background:#1F8A84"></i><i style="background:#9C4A2F"></i>
+  <!-- 1. Resultado (lo que ya existe, personalizado con su nombre) -->
+  <section class="resultado">
+    <span class="ceja">Tu resultado, Camila</span>
+    <h1>Eres <em>cálida</em></h1>
+    <p>Tu piel tiene un subtono dorado. Los colores con base amarilla te encienden la cara: te ves descansada y luminosa.</p>
+    <div class="paleta" aria-label="Tu mini paleta">
+      <i style="background:#F2846B" title="Coral"></i><i style="background:#C8643B" title="Terracota"></i><i style="background:#D9A43A" title="Mostaza"></i><i style="background:#7A7F3A" title="Verde oliva"></i><i style="background:#D8432E" title="Rojo tomate"></i><i style="background:#F4B18C" title="Durazno"></i><i style="background:#1F8A84" title="Turquesa cálido"></i><i style="background:#9C4A2F" title="Óxido"></i>
     </div>
-    <p class="truco">Mi truco: usa tus colores luz cerca de la cara…</p>
+    <div class="metal">Tu metal: el dorado</div>
+  </section>
 
-    <div class="nuevo">
-      <p class="puente">Esto es solo una primera mirada. Tu asesoría completa te dice tu estación, todos tus colores, lo que favorece tu rostro y tus looks para el día a día.</p>
-      <span class="beneficio">Por hacer el test: <span class="amarillo">10% menos por 72 horas</span></span>
-      <p class="precio">Asesoría de Imagen Online · $80.990 <s>$89.990</s></p>
-      <a class="btn">Quiero mi asesoría</a>
-      <p class="secundario">¿Prefieres conversarla conmigo? <u>Asesoría de Imagen Online + Feedback Personalizado</u></p>
+  <!-- 2. Puente: lo que tiene vs lo que le falta -->
+  <section class="puente">
+    <span class="ceja">Esto es solo el comienzo</span>
+    <h2>Ya sabes que eres cálida. Ahora falta saber qué te queda increíble a ti.</h2>
+    <div class="comparar">
+      <div class="tiene"><b>Lo que tienes</b>8 colores de tu mini paleta</div>
+      <div class="falta"><b>Lo que te falta</b>Tu estación exacta, todos tus colores, lo que favorece tu rostro, tu silueta y tus looks</div>
     </div>
-  </div>
+  </section>
 
-  <div class="paso"><b>2</b><span>Correos que le llegan</span></div>
-  <div class="correo">
-    <div class="cuando">Al tiro</div>
-    <div class="asunto">Eres cálida: tu mini paleta y un regalo</div>
-    <p>Tu resultado, tu mini paleta y tu 10% para la asesoría completa, válido por 72 horas.</p>
-    <span class="b">Quiero mi asesoría</span>
-  </div>
-  <div class="correo">
-    <div class="cuando">A los 2 días</div>
-    <div class="asunto">Lo que cambia cuando conoces tus colores</div>
-    <p><span class="amarillo">Testimonio real de una clienta</span> y qué incluye la asesoría.</p>
-    <span class="b">Quiero mi asesoría</span>
-  </div>
-  <div class="correo">
-    <div class="cuando">Día 3 (vence el 10%)</div>
-    <div class="asunto">Hoy vence tu 10%</div>
-    <p>Recordatorio corto con el botón al pago.</p>
-    <span class="b">Quiero mi asesoría</span>
-  </div>
+  <!-- 3. Oferta exclusiva con cuenta regresiva -->
+  <section class="oferta" id="oferta">
+    <span class="solo">Oferta solo para ti</span>
+    <h3>Camila, tu asesoría completa con $15.000 menos</h3>
+    <p class="sub">Por haber hecho el test. No aparece en el sitio y es válida solo con tu link.</p>
 
-  <div class="paso"><b>3</b><span>Leo decide (lo amarillo)</span></div>
-  <div class="decide">
+    <div class="reloj" aria-live="polite">
+      <div><span id="h">71</span><small>Horas</small></div>
+      <div><span id="m">59</span><small>Min</small></div>
+      <div><span id="s">59</span><small>Seg</small></div>
+    </div>
+    <p class="vence">Después vuelve a su precio normal.</p>
+
+    <div class="precios">
+      <span class="ahora">$74.990</span>
+      <s>$89.990</s><s>$129.990</s>
+    </div>
+    <span class="ahorro">Ahorras $55.000</span>
+
+    <ul class="incluye">
+      <li>Tu colorimetría: estación, paleta completa, neutros y metales</li>
+      <li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li>
+      <li>Tu morfología: prendas y cortes para tu silueta</li>
+      <li>Tus looks y tu armario cápsula</li>
+      <li>Todo en tu celular, para tenerlo a mano cuando sales de compras</li>
+    </ul>
+
+    <a class="cta" href="#oferta">Quiero mi asesoría con descuento</a>
+    <p class="seguro">Pago seguro con Webpay · te llega en un par de días hábiles</p>
+
+    <div class="otra"><b>¿Prefieres conversarla conmigo?</b> Asesoría de Imagen Online + Feedback Personalizado, también con $15.000 menos: <b>$114.990</b> <s style="color:#9C8E95">$129.990</s> · <a href="#oferta">La quiero</a></div>
+  </section>
+
+  <!-- 4. Prueba social (testimonios reales del sitio) -->
+  <section class="voces">
+    <span class="ceja" style="display:block;text-align:center">Lo que dicen mis clientas</span>
+    <h4>Qué ven al otro lado del espejo</h4>
+    <div class="voz"><span class="est">★★★★★</span><p>“Lo pasé súper bien. Ahora sé cómo vestirme, mucho más simple que antes.”</p><small>Paula G.</small></div>
+    <div class="voz"><span class="est">★★★★★</span><p>“Me mostró combinaciones que nunca pensé. Regalé ropa y siento que ahora tengo más.”</p><small>Mari P.</small></div>
+    <div class="voz"><span class="est">★★★★★</span><p>“Me permitió conocer una mejor versión de mí.”</p><small>Javiera A.</small></div>
+  </section>
+
+  <!-- 5. Cómo sigue (quita el miedo) -->
+  <section class="pasos">
+    <span class="ceja">Así de simple</span>
     <ol>
-      <li>¿Descuento sí o no? ¿Cuánto y por cuántos días?</li>
-      <li>¿Qué testimonio real va en el segundo correo?</li>
+      <li>Pagas con Webpay.</li>
+      <li>Al tiro te llega tu encuesta: unos 15 minutos, a tu ritmo.</li>
+      <li>En un par de días hábiles recibes tu asesoría en tu celular.</li>
     </ol>
-  </div>
+  </section>
+
+  <!-- 6. Cierre -->
+  <section class="cierre">
+    <p>Tus colores ya te están esperando.</p>
+    <a class="cta" href="#oferta">Quiero mi asesoría con descuento</a>
+  </section>
 </div>
+
+<!-- Barra fija con la cuenta regresiva (siempre visible al bajar) -->
+<div class="barra">
+  <div class="t">Tu $15.000 menos vence en<b id="barra-reloj">71:59:59</b></div>
+  <a href="#oferta">La quiero</a>
+</div>
+
+<script>
+// Cuenta regresiva de 72 horas desde que termina el test (en la maqueta parte al abrir la página).
+(function () {
+  var fin = Date.now() + 72 * 3600 * 1000 - 1000;
+  function dos(n) { return (n < 10 ? '0' : '') + n; }
+  function tic() {
+    var r = Math.max(0, fin - Date.now()), h = Math.floor(r / 3600000), m = Math.floor(r % 3600000 / 60000), s = Math.floor(r % 60000 / 1000);
+    document.getElementById('h').textContent = dos(h);
+    document.getElementById('m').textContent = dos(m);
+    document.getElementById('s').textContent = dos(s);
+    document.getElementById('barra-reloj').textContent = dos(h) + ':' + dos(m) + ':' + dos(s);
+  }
+  tic(); setInterval(tic, 1000);
+})();
+</script>
 </body>
 </html>
