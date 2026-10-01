@@ -240,6 +240,21 @@ h2{font-size:clamp(27px,3.2vw,36px);line-height:1.15}
 .pts i.on{background:var(--fucsia);width:18px;border-radius:9px}
 
 @media (max-width:860px){.lam{grid-template-columns:1fr}.tabs button{padding:6px 12px;font-size:13px}}
+
+/* primera pantalla corta: foto chica de Leo + una línea, y las tarjetas ya se ven */
+.hero{padding-block:24px 8px}
+.hero .env{grid-template-columns:220px 1fr;gap:32px;max-width:900px}
+.hero .foto-col{order:-1}
+.hero .foto img{aspect-ratio:1/1;border-radius:110px 110px 16px 16px;max-height:240px}
+.hero .foto figcaption{left:8px;bottom:8px;padding:5px 12px 5px 5px;font-size:12px}
+.hero .foto figcaption i{width:24px;height:24px;font-size:13px}
+.hero .txt{gap:12px}
+.hero .bajada{font-size:15.5px}
+.hero .pend{font-size:11.5px}
+@media (max-width:860px){.hero .env{grid-template-columns:1fr;justify-items:center;text-align:center}.hero .txt{justify-items:center}.hero .foto img{max-height:22svh;width:auto}}
+#planes{padding-top:22px}
+#planes .cab h2{font-size:24px}
+#planes .cab{gap:4px}
 </style>
 </head>
 <body>
