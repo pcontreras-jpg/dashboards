@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test que vende</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap">
+<style>
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--linea:#E8DCDF;--suave:#6B5F63}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',system-ui,sans-serif;font-weight:300;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:48px 16px 72px}
+.ceja{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fucsia)}
+h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(30px,5vw,44px);line-height:1.15;margin:8px 0 12px}
+h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(22px,3.4vw,28px);margin:44px 0 14px}
+.bajada{font-size:17px;color:var(--suave);margin:0}
+.caja{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:20px 22px;margin:14px 0}
+.caja b{font-weight:500}
+ol{padding-left:22px;margin:0}
+ol li{margin:10px 0}
+.hoy{border-left:3px solid var(--fucsia)}
+.decide{background:var(--negro);color:var(--crema);border-color:var(--negro)}
+.decide .ceja{color:#E9C8D6}
+.maqueta{border:1px dashed var(--fucsia);border-radius:14px;padding:22px;background:#fff;margin-top:12px}
+.maqueta .t{font-family:'Playfair Display',serif;font-size:22px;margin:4px 0 8px}
+.maqueta .precio{font-size:20px;font-weight:500;margin:6px 0}
+.maqueta .precio s{color:var(--suave);font-weight:300;font-size:15px;margin-left:8px}
+.btn{display:inline-block;background:var(--fucsia);color:#fff;text-decoration:none;padding:12px 22px;border-radius:99px;font-weight:500;font-size:14px;margin-top:8px}
+.secundario{font-size:14px;color:var(--suave);margin-top:12px}
+.nota{font-size:13px;color:var(--suave)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="ceja">Propuesta · Test cálida o fría · no publicado</span>
+  <h1>Que el test termine en una venta</h1>
+  <p class="bajada">Para que Leo revise. Nada de esto está en el sitio todavía.</p>
+
+  <h2>Qué pasa hoy</h2>
+  <div class="caja hoy">
+    <ol>
+      <li>La clienta hace el test, deja su nombre y correo y ve su resultado: cálida o fría, su mini paleta y un truco.</li>
+      <li><b>Ahí termina.</b> No hay oferta ni botón para comprar en la página del resultado.</li>
+      <li>El correo que le llega trae un botón, pero lleva a una página informativa (/imagen-personal/), no al pago.</li>
+      <li>No se mide cuántas personas del test terminan comprando.</li>
+    </ol>
+  </div>
+
+  <h2>Qué proponemos</h2>
+  <p class="ceja">En la página del resultado, justo debajo del truco</p>
+  <div class="caja">
+    <ol>
+      <li><b>Un puente:</b> “Esto es una primera mirada: tu mini paleta tiene 6 colores. Tu asesoría completa te dice tu estación, todos tus colores, lo que favorece tu rostro y tus looks para el día a día.”</li>
+      <li><b>La oferta directa:</b> una tarjeta con la Asesoría de Imagen Online y el botón “Quiero mi asesoría”, que lleva directo al pago. Debajo, más chica, la opción con Feedback Personalizado.</li>
+      <li><b>Un beneficio solo para quien hizo el test:</b> un descuento con plazo real, que se aplica solo en el pago.</li>
+    </ol>
+    <div class="maqueta" aria-label="Así se vería">
+      <span class="ceja">Así se vería</span>
+      <p class="t">Tu asesoría completa, en tus colores</p>
+      <p>Tu estación, todos tus colores, lo que favorece tu rostro y tus looks para el día a día. Todo en tu celular.</p>
+      <p class="precio">Asesoría de Imagen Online · $89.990<s>$129.990</s></p>
+      <span class="btn">Quiero mi asesoría</span>
+      <p class="secundario">¿Prefieres conversarla conmigo? Asesoría de Imagen Online + Feedback Personalizado · $129.990</p>
+    </div>
+  </div>
+
+  <p class="ceja" style="margin-top:28px">Después, por correo (ya tenemos su nombre y correo)</p>
+  <div class="caja">
+    <ol start="4">
+      <li><b>Al tiro:</b> su resultado, el beneficio y el botón directo al pago.</li>
+      <li><b>A los 2 días:</b> un testimonio real y qué incluye la asesoría.</li>
+      <li><b>El último día del beneficio:</b> un aviso de que vence.</li>
+      <li><b>Medición:</b> cuántas personas del test terminan comprando, para saber si funciona.</li>
+    </ol>
+  </div>
+
+  <h2>Lo que tiene que decidir Leo</h2>
+  <div class="caja decide">
+    <span class="ceja">Para revisar</span>
+    <ol>
+      <li>¿Va el descuento? Si va, ¿cuánto y por cuántos días? (ejemplo: 10% por 72 horas)</li>
+      <li>¿Le gusta el texto del puente y de la tarjeta, o lo quiere decir con sus palabras?</li>
+      <li>¿Qué testimonio real va en el correo de los 2 días?</li>
+    </ol>
+  </div>
+  <p class="nota">Con las respuestas de Leo se arma en el sitio. Los precios son los de hoy.</p>
+</div>
+</body>
+</html>
