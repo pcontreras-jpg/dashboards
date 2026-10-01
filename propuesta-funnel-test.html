@@ -61,6 +61,15 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 .comparar .falta{background:var(--rosa);color:var(--negro)}
 .comparar b{display:block;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .comparar .falta b{color:var(--fucsia)}
+.puente .dolor{font-size:15px;color:var(--suave);margin:0 0 16px}
+.puente .ico{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--rosa);display:inline-flex;align-items:center;justify-content:center}
+.puente .ico svg{width:18px;height:18px;fill:none;stroke:var(--fucsia);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ya-tienes{display:flex;gap:12px;align-items:center;background:var(--crema);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--suave)}
+.ya-tienes b,.tit-puedes{display:block;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--negro)}
+.tit-puedes{color:var(--fucsia);margin:18px 0 4px}
+.puedes{list-style:none;padding:0;margin:0}
+.puedes li{display:flex;gap:12px;align-items:center;font-size:14px;padding:9px 0;border-bottom:1px solid var(--linea)}
+.puedes li:last-child{border-bottom:0}
 
 /* Oferta */
 .oferta{margin:28px 0 0;background:var(--negro);color:var(--crema);border-radius:22px;padding:26px 22px 24px;position:relative;overflow:hidden}
@@ -132,16 +141,20 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
   </section>
   <span class="etq-nuevo">↓ LO NUEVO ↓</span>
 
-  <!-- 2. Puente: lo que tiene vs lo que le falta -->
+  <!-- 2. Puente: el dolor, lo que tiene y lo que puede tener -->
   <section class="puente">
     <span class="ceja">Esto es solo el comienzo</span>
-    <h2>Ya sabes que eres cálida. Ahora falta saber qué te queda increíble a ti.</h2>
-    <div class="comparar">
-      <div class="tiene"><b>Lo que tienes</b>8 colores de tu mini paleta</div>
-      <div class="falta"><b>Lo que te falta</b>Tu estación exacta, todos tus colores, lo que favorece tu rostro, tu silueta y tus looks</div>
-    </div>
+    <h2>Ya sabes que eres cálida.</h2>
+    <p class="dolor">Pero, ¿cuántas veces has abierto un clóset lleno y sentido que no tienes nada que ponerte? ¿Cuánta ropa compraste que nunca te convenció?</p>
+    <div class="ya-tienes"><span class="ico"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span><div><b>Lo que ya tienes</b>8 colores que te iluminan la cara.</div></div>
+    <b class="tit-puedes">Lo que puedes tener</b>
+    <ul class="puedes">
+      <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.8-1.8 0-1.2-1-1.6-1-2.7 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.4 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7" r="1"/></svg></span><span>Tu estación exacta y todos tus colores, para que dejes de comprar a ciegas.</span></li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0"/><path d="M9 9.5h.01M15 9.5h.01"/></svg></span><span>Los cortes, cejas, anteojos y maquillaje que favorecen tu rostro.</span></li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 6a2 2 0 1 1 2 2c-1 0-2 .7-2 1.7V11"/><path d="M12 11l-9 6.5c-.8.6-.4 1.5.5 1.5h17c.9 0 1.3-.9.5-1.5L12 11z"/></svg></span><span>Las prendas que te hacen sentir cómoda y segura con tu cuerpo, tal como es.</span></li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>Looks armados con lo que ya tienes, para vestirte cada mañana en 5 minutos.</span></li>
+    </ul>
   </section>
-
   <!-- 3. Oferta exclusiva con cuenta regresiva -->
   <section class="oferta" id="oferta">
     <span class="solo">Oferta solo para ti</span>
