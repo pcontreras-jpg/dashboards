@@ -51,6 +51,14 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 .serv .pz s{color:#9C8E95;font-size:14px}
 .serv .incluye{margin:10px 0 14px}
 .serv .cta{font-size:15px;padding:14px 18px}
+@media (min-width:760px){
+  .oferta{width:min(880px,calc(100vw - 32px));margin-left:calc(50% - min(440px,50vw - 16px))}
+  .servs{grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .serv{display:flex;flex-direction:column;position:relative;padding:22px 20px}
+  .serv .rec{position:absolute;top:-11px;left:20px;margin:0}
+  .serv h4{min-height:2.4em}
+  .serv .cta{margin-top:auto}
+}
 
 /* Puente */
 .puente{margin:30px 0 0;background:#fff;border:1px solid var(--linea);border-radius:18px;padding:22px 22px 18px}
