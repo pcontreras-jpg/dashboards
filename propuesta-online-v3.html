@@ -204,6 +204,25 @@ h2{font-size:clamp(27px,3.2vw,36px);line-height:1.15}
 .valor{display:inline-flex;align-items:center;gap:6px;background:var(--suave);color:var(--hondo);border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:400;white-space:nowrap}
 .valor s{color:var(--hondo);opacity:.75;font-size:12.5px}
 .gratis{font-family:var(--serif);color:var(--fucsia)}
+/* carrusel limpio de la guía */
+.gcar{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:24px;padding:4px 2px 6px}
+.gcar::-webkit-scrollbar{display:none}
+.glam{flex:0 0 min(78%,300px);scroll-snap-align:start;margin:0;background:var(--blanco);border:1px solid var(--linea);border-radius:16px;overflow:hidden}
+.gimg{aspect-ratio:4/5;background:var(--crema);display:grid;place-items:center;overflow:hidden}
+.gimg img{width:100%;height:100%;object-fit:cover}
+.glam figcaption{padding:14px 16px 16px;font-size:13.5px;color:var(--t2);display:grid;gap:2px}
+.glam figcaption b{font-family:var(--serif);font-weight:400;font-size:19px;color:var(--negro)}
+.gv{width:78%}
+.gv-est{display:grid;gap:10px;justify-items:center}
+.gv-est span{background:var(--suave);color:var(--hondo);border-radius:99px;padding:8px 20px;font-size:15px}
+.gv-col{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gv-col i{aspect-ratio:1;border-radius:50%;display:block}
+.gv-looks{display:grid;gap:10px}
+.gv-looks p{display:flex;gap:6px;margin:0}
+.gv-looks i{flex:1;height:44px;border-radius:8px;display:block}
+.gpts{display:flex;justify-content:center;gap:6px;margin-top:14px}
+.gpts i{width:7px;height:7px;border-radius:50%;background:var(--linea);display:block}
+.gpts i.on{background:var(--fucsia);width:18px;border-radius:9px}
 </style>
 </head>
 <body>
@@ -310,28 +329,25 @@ h2{font-size:clamp(27px,3.2vw,36px);line-height:1.15}
 
 <!-- ============ 3. LA GUÍA POR DENTRO ============ -->
 <section id="guia">
-  <div class="env dentro">
-    <div>
-      <div class="mues">
-        <img src="https://www.efectoespejo.cl/img/guia/rostro-ovalado.jpg" alt="Ilustración de rostro de la guía" loading="lazy">
-        <img src="https://www.efectoespejo.cl/img/guia/silueta-reloj-de-arena.jpg" alt="Ilustración de silueta de la guía" loading="lazy">
-        <img src="https://www.efectoespejo.cl/img/guia/rostro-corazon.jpg" alt="Ilustración de rostro de la guía" loading="lazy">
-      </div>
-      <p style="margin:12px 0 0"><span class="pend">Aquí van 4 a 6 páginas reales de una guía de ejemplo (falta que Leo la entregue)</span></p>
+  <div class="env">
+    <div class="cab"><span class="ceja">Mira tu guía por dentro</span><h2>Esto es lo que recibes</h2></div>
+    <div class="gcar" id="gcar">
+      <figure class="glam"><div class="gimg"><div class="gv gv-est"><span>Cercana</span><span>Luminosa</span><span>Femenina</span></div></div><figcaption><b>Tu estilo personal</b>Tu esencia y cómo llevarla al día a día.</figcaption></figure>
+      <figure class="glam"><div class="gimg"><div class="gv gv-col"><i style="background:#F2846B"></i><i style="background:#C8643B"></i><i style="background:#D9A43A"></i><i style="background:#7A7F3A"></i><i style="background:#D8432E"></i><i style="background:#F4B18C"></i><i style="background:#1F8A84"></i><i style="background:#9C4A2F"></i><i style="background:#B5651D"></i></div></div><figcaption><b>Tu colorimetría</b>Tu estación, tu paleta, tus neutros y tu metal.</figcaption></figure>
+      <figure class="glam"><div class="gimg"><img src="https://www.efectoespejo.cl/img/guia/rostro-ovalado.jpg" alt="Ilustración de rostro de la guía" loading="lazy"></div><figcaption><b>Tu visagismo</b>Lo que favorece la forma de tu rostro.</figcaption></figure>
+      <figure class="glam"><div class="gimg"><img src="https://www.efectoespejo.cl/img/guia/silueta-reloj-de-arena.jpg" alt="Ilustración de silueta de la guía" loading="lazy"></div><figcaption><b>Tu morfología</b>Las prendas que acompañan tu silueta.</figcaption></figure>
+      <figure class="glam"><div class="gimg"><div class="gv gv-looks"><p><i style="background:#F2846B"></i><i style="background:#F5EBDD"></i><i style="background:#C19A6B"></i></p><p><i style="background:#7A7F3A"></i><i style="background:#F5EBDD"></i><i style="background:#5C3A21"></i></p><p><i style="background:#D9A43A"></i><i style="background:#5C3A21"></i><i style="background:#C19A6B"></i></p><p><i style="background:#1F8A84"></i><i style="background:#F5EBDD"></i><i style="background:#C8643B"></i></p></div></div><figcaption><b>Tus looks</b>Combinaciones en tus colores, listas para usar.</figcaption></figure>
     </div>
-    <div>
-      <span class="ceja">Mira tu guía por dentro</span>
-      <h2 style="margin-top:6px">Todo lo que necesitas saber de ti</h2>
-      <ol class="indice">
-        <li><span>01</span><div><b>Tu estilo personal</b><p>Tu esencia y cómo llevarla al día a día.</p></div></li>
-        <li><span>02</span><div><b>Tu colorimetría</b><p>Tu estación, tus colores ideales y los que conviene alejar del rostro.</p></div></li>
-        <li><span>03</span><div><b>Tu visagismo</b><p>La forma de tu rostro y lo que la favorece.</p></div></li>
-        <li><span>04</span><div><b>Tu morfología</b><p>Tu silueta y las prendas que mejor la acompañan.</p></div></li>
-        <li><span>05</span><div><b>Tus looks y tu armario cápsula</b><p>Outfits en tus colores y las prendas clave que combinan entre sí.</p></div></li>
-      </ol>
-    </div>
+    <div class="gpts" id="gpts"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+    <p style="text-align:center;margin:10px 0 0"><span class="pend">Ilustraciones del sitio; faltan páginas reales de una guía de Leo</span></p>
   </div>
 </section>
+<script>
+(function(){
+  var c=document.getElementById('gcar'), p=document.getElementById('gpts').children;
+  c.addEventListener('scroll',function(){ var w=c.firstElementChild.getBoundingClientRect().width+16, i=Math.round(c.scrollLeft/w); for(var k=0;k<p.length;k++) p[k].className=k===i?'on':''; });
+})();
+</script>
 
 <!-- ============ 4. ASÍ FUNCIONA ============ -->
 <section style="background:var(--blanco);border-block:1px solid var(--linea)">
