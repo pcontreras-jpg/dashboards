@@ -26,6 +26,32 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 .paleta i{width:38px;height:38px;border-radius:50%;display:block;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .metal{font-size:13px;color:var(--suave);margin-top:6px}
 
+/* Resultado: igual al del sitio (styles.css), solo se suma el nombre */
+.res-sitio{margin-top:28px;background:#F1E4E9;border-radius:6px;padding:24px 22px;display:grid;gap:10px}
+.res-sitio .ceja{font-size:12px;letter-spacing:.18em}
+.res-sitio h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(28px,6vw,40px);margin:0;line-height:1.15}
+.res-sitio p{margin:0;font-size:15px}
+.mini-paleta{background:#fff;border-radius:6px;padding:22px;display:grid;gap:12px}
+.muestras{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.muestra{display:grid;gap:6px;justify-items:center;text-align:center}
+.muestra i{width:100%;aspect-ratio:1/1;border-radius:50%;border:1px solid #E7D9DE;max-width:64px;display:block}
+.muestra span{font-size:12px;line-height:1.3}
+.metal-s{font-family:'Playfair Display',serif;font-style:italic;color:#7E4A63;font-size:17px}
+.truco-s{border-left:2px solid var(--fucsia);padding-left:14px}
+.etq-nuevo{display:block;text-align:center;margin:30px 0 -14px;font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--fucsia)}
+
+/* Dos servicios */
+.servs{display:grid;gap:12px;margin:0 0 6px;position:relative;z-index:1}
+.serv{background:#2A2326;border:1px solid #3A3035;border-radius:16px;padding:18px}
+.serv.dest{border:2px solid var(--fucsia)}
+.serv .rec{display:inline-block;background:var(--fucsia);color:#fff;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:99px;margin-bottom:8px}
+.serv h4{font-family:'Playfair Display',serif;font-weight:500;font-size:20px;line-height:1.2;margin:0 0 8px;color:#fff}
+.serv .pz{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
+.serv .pz .ahora{font-family:'Playfair Display',serif;font-size:36px;font-weight:600;color:#fff;line-height:1}
+.serv .pz s{color:#9C8E95;font-size:14px}
+.serv .incluye{margin:10px 0 14px}
+.serv .cta{font-size:15px;padding:14px 18px}
+
 /* Puente */
 .puente{margin:30px 0 0;background:#fff;border:1px solid var(--linea);border-radius:18px;padding:22px 22px 18px}
 .puente h2{font-family:'Playfair Display',serif;font-weight:500;font-size:24px;line-height:1.25;margin:0 0 12px}
@@ -90,16 +116,21 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 <div class="aviso-maqueta">Propuesta para Leo · así vería el final del test una clienta llamada Camila · no publicado</div>
 
 <div class="wrap">
-  <!-- 1. Resultado (lo que ya existe, personalizado con su nombre) -->
-  <section class="resultado">
-    <span class="ceja">Tu resultado, Camila</span>
-    <h1>Eres <em>cálida</em></h1>
-    <p>Tu piel tiene un subtono dorado. Los colores con base amarilla te encienden la cara: te ves descansada y luminosa.</p>
-    <div class="paleta" aria-label="Tu mini paleta">
-      <i style="background:#F2846B" title="Coral"></i><i style="background:#C8643B" title="Terracota"></i><i style="background:#D9A43A" title="Mostaza"></i><i style="background:#7A7F3A" title="Verde oliva"></i><i style="background:#D8432E" title="Rojo tomate"></i><i style="background:#F4B18C" title="Durazno"></i><i style="background:#1F8A84" title="Turquesa cálido"></i><i style="background:#9C4A2F" title="Óxido"></i>
+  <!-- 1. Resultado: igual al del sitio, solo se suma el nombre -->
+  <section class="res-sitio">
+    <span class="ceja">Tu resultado</span>
+    <h2>Camila, eres cálida</h2>
+    <p>Tu piel tiene un subtono dorado, como si el sol ya viviera en ella. Los colores con base amarilla te encienden la cara: te ves descansada, luminosa y con buena cara aunque hayas dormido cinco horas. Los tonos muy fríos, en cambio, te pueden apagar un poquito.</p>
+    <div class="mini-paleta">
+      <p class="ceja" style="margin:0">Tu mini paleta · colores que te iluminan</p>
+      <div class="muestras"><div class="muestra"><i style="background:#F2846B"></i><span>Coral</span></div><div class="muestra"><i style="background:#C8643B"></i><span>Terracota</span></div><div class="muestra"><i style="background:#D9A43A"></i><span>Mostaza</span></div><div class="muestra"><i style="background:#7A7F3A"></i><span>Verde oliva</span></div><div class="muestra"><i style="background:#D8432E"></i><span>Rojo tomate</span></div><div class="muestra"><i style="background:#F4B18C"></i><span>Durazno</span></div><div class="muestra"><i style="background:#1F8A84"></i><span>Turquesa cálido</span></div><div class="muestra"><i style="background:#9C4A2F"></i><span>Óxido</span></div></div>
+      <p class="ceja" style="margin:0">Tus neutros para la base del clóset</p>
+      <div class="muestras"><div class="muestra"><i style="background:#F5EBDD"></i><span>Marfil</span></div><div class="muestra"><i style="background:#C19A6B"></i><span>Camel</span></div><div class="muestra"><i style="background:#5C3A21"></i><span>Chocolate</span></div><div class="muestra"><i style="background:#5B5A3C"></i><span>Verde militar</span></div></div>
+      <p class="metal-s" style="margin:0">Tu metal: el dorado.</p>
     </div>
-    <div class="metal">Tu metal: el dorado</div>
+    <p class="truco-s">Mi truco: usa tus colores luz cerca de la cara (blusas, pañuelos, aros). Si te encanta el negro, llévalo abajo, en pantalones o zapatos, y arriba ponle un color de tu paleta.</p>
   </section>
+  <span class="etq-nuevo">↓ LO NUEVO ↓</span>
 
   <!-- 2. Puente: lo que tiene vs lo que le falta -->
   <section class="puente">
@@ -114,7 +145,7 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
   <!-- 3. Oferta exclusiva con cuenta regresiva -->
   <section class="oferta" id="oferta">
     <span class="solo">Oferta solo para ti</span>
-    <h3>Camila, tu asesoría completa con $15.000 menos</h3>
+    <h3>Camila, $10.000 menos en tu asesoría</h3>
     <p class="sub">Por haber hecho el test. No aparece en el sitio y es válida solo con tu link.</p>
 
     <div class="reloj" aria-live="polite">
@@ -124,24 +155,24 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
     </div>
     <p class="vence">Después vuelve a su precio normal.</p>
 
-    <div class="precios">
-      <span class="ahora">$74.990</span>
-      <s>$89.990</s><s>$129.990</s>
+    <div class="servs">
+      <div class="serv">
+        <h4>Asesoría de Imagen Online</h4>
+        <div class="pz"><span class="ahora">$79.990</span><s>$89.990</s><s>$129.990</s></div>
+        <span class="ahorro" style="margin:8px 0 0">Ahorras $50.000</span>
+        <ul class="incluye"><li>Tu colorimetría: estación, paleta completa, neutros y metales</li><li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li><li>Tu morfología: prendas y cortes para tu silueta</li><li>Tus looks y tu armario cápsula</li></ul>
+        <a class="cta" href="#oferta">Quiero mi asesoría</a>
+      </div>
+      <div class="serv dest">
+        <span class="rec">Recomendada</span>
+        <h4>Asesoría de Imagen Online + Feedback Personalizado</h4>
+        <div class="pz"><span class="ahora">$119.990</span><s>$129.990</s><s>$189.990</s></div>
+        <span class="ahorro" style="margin:8px 0 0">Ahorras $70.000</span>
+        <ul class="incluye"><li>Todo lo de la Asesoría de Imagen Online</li><li>Reunión online con Leo de 45 min a 1 hora</li><li>Tus dudas resueltas en vivo</li><li>La guía aterrizada a tu clóset</li></ul>
+        <a class="cta" href="#oferta">Quiero mi asesoría con feedback</a>
+      </div>
     </div>
-    <span class="ahorro">Ahorras $55.000</span>
-
-    <ul class="incluye">
-      <li>Tu colorimetría: estación, paleta completa, neutros y metales</li>
-      <li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li>
-      <li>Tu morfología: prendas y cortes para tu silueta</li>
-      <li>Tus looks y tu armario cápsula</li>
-      <li>Todo en tu celular, para tenerlo a mano cuando sales de compras</li>
-    </ul>
-
-    <a class="cta" href="#oferta">Quiero mi asesoría con descuento</a>
     <p class="seguro">Pago seguro con Webpay · te llega en un par de días hábiles</p>
-
-    <div class="otra"><b>¿Prefieres conversarla conmigo?</b> Asesoría de Imagen Online + Feedback Personalizado, también con $15.000 menos: <b>$114.990</b> <s style="color:#9C8E95">$129.990</s> · <a href="#oferta">La quiero</a></div>
   </section>
 
   <!-- 4. Prueba social (testimonios reales del sitio) -->
@@ -166,13 +197,13 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
   <!-- 6. Cierre -->
   <section class="cierre">
     <p>Tus colores ya te están esperando.</p>
-    <a class="cta" href="#oferta">Quiero mi asesoría con descuento</a>
+    <a class="cta" href="#oferta">Ver mi oferta</a>
   </section>
 </div>
 
 <!-- Barra fija con la cuenta regresiva (siempre visible al bajar) -->
 <div class="barra">
-  <div class="t">Tu $15.000 menos vence en<b id="barra-reloj">71:59:59</b></div>
+  <div class="t">Tus $10.000 menos vencen en<b id="barra-reloj">71:59:59</b></div>
   <a href="#oferta">La quiero</a>
 </div>
 
