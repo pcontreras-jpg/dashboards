@@ -21,13 +21,6 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance}
 h1{font-size:clamp(32px,4.4vw,48px);line-height:1.1}
 h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 .cab{text-align:center;display:grid;gap:10px;justify-items:center}
-.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:22px}
-.test-cta{gap:10px}
-.test-cta s{font-size:12px;opacity:.6}
-.puntos{display:inline-flex}
-.puntos i{width:14px;height:14px;border-radius:50%;border:2px solid #fff;margin-left:-5px;display:block}
-.puntos i:first-child{margin-left:0}
-@media (max-width:560px){.hero-ctas .btn{width:100%}}
 .btn{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:999px;background:var(--fucsia);color:#fff;text-decoration:none;font:500 15px var(--sans);border:1.5px solid var(--fucsia)}
 .btn.sec{background:transparent;color:var(--hondo)}
 .pend{background:#FFF3C4;border-radius:4px;padding:1px 6px;font-size:12.5px;color:var(--negro)}
@@ -141,13 +134,14 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
     <div class="cab">
       <span class="ceja">Asesoría online · desde cualquier parte del mundo</span>
       <h1>Tu mejor versión, sin salir de casa</h1>
-      <div class="hero-ctas">
-        <a class="btn" href="#planes">Ver asesorías</a>
-        <a class="btn sec test-cta" href="https://www.efectoespejo.cl/test/"><span class="puntos" aria-hidden="true"><i style="background:#F2846B"></i><i style="background:#D9A43A"></i><i style="background:#1F8A84"></i><i style="background:#C2185B"></i><i style="background:#2A52BE"></i></span>¿Cálida o fría? Test gratis · 2 min <s>$9.990</s></a>
-      </div>
     </div>
 
-    <div class="planes" id="planes">
+    <div class="test">
+      <span class="tt"><b>¿No sabes por dónde partir?</b> Descubre si eres cálida o fría en 2 minutos. <s style="color:var(--t2)">$9.990</s> <b>Hoy gratis</b>.</span>
+      <a class="btn sec" href="https://www.efectoespejo.cl/test/">Hacer el test</a>
+    </div>
+
+    <div class="planes">
       <article class="plan rec">
         <h3>Asesoría de Imagen Online</h3>
         <p class="res">Todo lo que te favorece, en tu celular.</p>
