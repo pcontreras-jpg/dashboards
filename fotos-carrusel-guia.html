@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fotos del carrusel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap">
+<style>
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--suave:#F1E4E9;--hondo:#7E4A63;--linea:#E7D9DE;--t2:#5E5057}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',system-ui,sans-serif;font-weight:300;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:36px 16px 64px}
+.ceja{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fucsia)}
+h1{font-family:'Playfair Display',serif;font-weight:400;font-size:30px;line-height:1.15;margin:6px 0 10px}
+h2{font-family:'Playfair Display',serif;font-weight:400;font-size:22px;margin:0}
+.intro{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px 20px;font-size:14.5px}
+.intro ol{margin:8px 0 0;padding-left:20px}
+.intro li{margin:4px 0}
+.foto{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px 20px;margin-top:14px}
+.foto .n{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--suave);color:var(--hondo);align-items:center;justify-content:center;font-weight:500;font-size:13px;margin-right:8px}
+.foto .cab{display:flex;align-items:center}
+.foto p{margin:8px 0;font-size:14.5px}
+.foto b{font-weight:500}
+pre{white-space:pre-wrap;background:var(--crema);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;font:13px/1.5 'Poppins',sans-serif;margin:8px 0 0}
+button{border:0;background:var(--fucsia);color:#fff;font:500 13px 'Poppins',sans-serif;padding:8px 16px;border-radius:99px;cursor:pointer;margin-top:8px}
+button.ok{background:var(--negro)}
+details{margin-top:14px;background:#fff;border:1px solid var(--linea);border-radius:14px;padding:14px 20px}
+summary{cursor:pointer;font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="ceja">Para Leo · Asesoría online</span>
+  <h1>Fotos para "Esto es lo que recibes"</h1>
+  <div class="intro">
+    Es el carrusel que muestra lo que recibe la clienta al contratar la asesoría online. Necesitamos <b>una foto por sección (5 en total)</b>.
+    <ol>
+      <li><b>Lo mejor:</b> fotos tuyas reales: una página de una guía que hayas entregado, o una foto de una sesión. Eso es lo que más vende.</li>
+      <li><b>Si no tienes:</b> genera cada una en ChatGPT. Primero pega el brief de marca (abajo) y después el prompt de cada foto.</li>
+      <li><b>Formato:</b> cuadrada (1:1), buena resolución. Mándalas por WhatsApp a Pablo con el número de la sección.</li>
+    </ol>
+  </div>
+
+  <div class="foto">
+    <div class="cab"><span class="n">1</span><h2>Tu estilo personal</h2></div>
+    <p><b>Foto real ideal:</b> la página de "tu estilo" de una guía, o una clienta frente al espejo con un look que la represente.</p>
+    <pre id="p1">Fotografía realista editorial, luz natural suave de mañana, formato cuadrado 1:1. Una mujer latinoamericana de unos 35 años, con curvas, de pie frente a un espejo de cuerpo entero en un departamento luminoso. Viste un look casual chic en tonos crema y malva (blusa fluida y pantalón de tiro alto) y se mira con una sonrisa segura y contenta. Ambiente real y alcanzable, paleta crema, malva y negro cálido. Sin texto, letras ni logos.</pre>
+    <button type="button" data-c="p1">Copiar prompt</button>
+  </div>
+
+  <div class="foto">
+    <div class="cab"><span class="n">2</span><h2>Tu colorimetría</h2></div>
+    <p><b>Foto real ideal:</b> tu paleta de telas bajo el rostro de una clienta, o la página de paleta de una guía.</p>
+    <pre id="p2">Fotografía realista editorial, luz natural suave de día, formato cuadrado 1:1. Primer plano de una mujer latinoamericana de unos 40 años con el rostro sin maquillaje, mientras una asesora (genérica, solo se ven sus manos) le acerca bajo el rostro telas de colores cálidos: coral, terracota, mostaza y verde oliva. La mujer sonríe sorprendida porque esos colores le iluminan la cara. Fondo claro, paleta crema y malva. Sin texto, letras ni logos.</pre>
+    <button type="button" data-c="p2">Copiar prompt</button>
+  </div>
+
+  <div class="foto">
+    <div class="cab"><span class="n">3</span><h2>Tu visagismo</h2></div>
+    <p><b>Foto real ideal:</b> la página de rostro de una guía (forma del rostro con cortes, cejas y anteojos recomendados).</p>
+    <pre id="p3">Fotografía realista editorial, luz natural suave, formato cuadrado 1:1. Una mujer latinoamericana de unos 32 años, frente a un espejo, se prueba unos anteojos de marco carey redondeado y sonríe. Pelo con capas largas a la altura de la clavícula, maquillaje natural. Sobre la mesa, algunos marcos de anteojos y una brocha. Ambiente luminoso y real, paleta crema, malva y negro cálido. Sin texto, letras ni logos.</pre>
+    <button type="button" data-c="p3">Copiar prompt</button>
+  </div>
+
+  <div class="foto">
+    <div class="cab"><span class="n">4</span><h2>Tu morfología</h2></div>
+    <p><b>Foto real ideal:</b> la página de silueta de una guía, con las prendas que le favorecen a la clienta.</p>
+    <pre id="p4">Fotografía realista editorial, luz natural suave, formato cuadrado 1:1. Una mujer latinoamericana de unos 38 años, talla grande y con curvas, cuerpo entero, posando natural y cómoda con un vestido envolvente color malva y zapatos simples, en un departamento luminoso. Expresión segura y contenta; el foco es lo bien que se siente, celebrando su cuerpo tal como es. Paleta crema, malva y negro cálido. Sin texto, letras ni logos.</pre>
+    <button type="button" data-c="p4">Copiar prompt</button>
+  </div>
+
+  <div class="foto">
+    <div class="cab"><span class="n">5</span><h2>Tus looks y tu armario cápsula</h2></div>
+    <p><b>Foto real ideal:</b> la página de looks de una guía, o un clóset ordenado de una clienta con sus combinaciones.</p>
+    <pre id="p5">Fotografía realista editorial cenital (flat lay), luz natural suave, formato cuadrado 1:1. Tres outfits armados sobre una cama con cubrecama crema: prendas en colores cálidos (coral, camel, verde oliva, marfil, chocolate) combinadas entre sí, con accesorios dorados simples y zapatos. Ropa alcanzable, de uso diario, no de lujo. Ordenado y luminoso, paleta crema, malva y negro cálido. Sin texto, letras ni logos.</pre>
+    <button type="button" data-c="p5">Copiar prompt</button>
+  </div>
+
+  <details>
+    <summary>Brief de marca para pegar primero en ChatGPT</summary>
+    <pre id="brief">BRIEF DE MARCA: EFECTO ESPEJO
+Efecto Espejo es una marca chilena de asesoría de imagen de Leo Cruz. No vende moda: vende seguridad frente al espejo, con un método (estilo de vida, morfología, visagismo y colorimetría) para mujeres reales de 28 a 50 años.
+
+FILOSOFÍA: 100% body positive. Se viste el cuerpo que tienes hoy y se celebran sus formas. Prohibido tratar el cuerpo como un problema ("disimular", "verse más delgada"), antes/después, lujo inalcanzable, modelos de pasarela y cuerpos retocados.
+
+CUANDO TE PIDA IMÁGENES:
+- Fotografía realista de estilo editorial y lifestyle, con luz natural suave de día. Nada de ilustración ni 3D.
+- Mujeres latinoamericanas diversas en talla (incluye curvas y tallas grandes), edad (28 a 50) y tono de piel. Expresiones naturales, seguras y contentas.
+- Ambientes reales y alcanzables: departamentos luminosos, clósets de verdad, espejos.
+- Paleta de la marca siempre presente: crema #FAF5F4, malva #9D637E y negro cálido #1A1A1A.
+- Sin texto, letras, logos ni marcas dentro de la imagen.
+- Nunca generes a "Leo Cruz". Si aparece una asesora, que sea genérica.
+- Misma luz y paleta en todas las imágenes, para que parezcan una sola sesión de fotos.
+
+Confirma que entendiste y espera mi primer pedido.</pre>
+    <button type="button" data-c="brief">Copiar brief</button>
+  </details>
+</div>
+<script>
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('button[data-c]'); if (!b) return;
+  var t = document.getElementById(b.dataset.c).textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
+    var o = b.textContent; b.textContent = 'Copiado'; b.className = 'ok'; setTimeout(function () { b.textContent = o; b.className = ''; }, 1500);
+  }).catch(function () {});
+});
+</script>
+</body>
+</html>
