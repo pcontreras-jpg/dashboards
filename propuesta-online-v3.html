@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Propuesta online v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{
+  --negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;
+  --suave:#F1E4E9;--hondo:#7E4A63;--t2:#5E5057;--linea:#E7D9DE;--blanco:#fff;
+  --serif:"Playfair Display",Georgia,serif;--sans:"Poppins","Segoe UI",Arial,sans-serif;
+  color-scheme:light
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:12px}
+body{margin:0;background:var(--crema);color:var(--negro);font-family:var(--sans);font-weight:300;line-height:1.55;font-size:15px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--hondo);outline-offset:3px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+.rotulo{background:var(--negro);color:var(--crema);text-align:center;font:500 12px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:10px 16px}
+.env{max-width:1120px;margin:0 auto;padding-inline:20px}
+section{padding-block:clamp(44px,6vw,72px)}
+.ceja{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--hondo)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,4.6vw,52px);line-height:1.08}
+h2{font-size:clamp(27px,3.2vw,36px);line-height:1.15}
+.cab{text-align:center;display:grid;gap:10px;justify-items:center}
+.cab p{margin:0;color:var(--t2);max-width:560px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:999px;background:var(--fucsia);color:#fff;text-decoration:none;font:500 15px var(--sans);border:1.5px solid var(--fucsia);transition:background .2s,transform .2s}
+.btn:hover{background:var(--hondo);border-color:var(--hondo)}
+.btn.sec{background:transparent;color:var(--hondo);border-color:var(--fucsia)}
+.btn.sec:hover{background:var(--suave)}
+.pend{display:inline-block;background:#FFF3C4;border-radius:4px;padding:2px 7px;font-size:12px;line-height:1.4;color:var(--negro);font-weight:400}
+
+/* ============ HERO ============ */
+.hero{padding-block:clamp(28px,5vw,64px) clamp(36px,5vw,64px)}
+.hero .env{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center}
+.hero .txt{display:grid;gap:18px;justify-items:start}
+.hero .bajada{margin:0;font-size:clamp(16px,1.5vw,18px);color:var(--t2);max-width:470px}
+.hero .bajada b{font-weight:500;color:var(--negro)}
+.hero .acc{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.hero .link-guia{font-size:14.5px;font-weight:500;color:var(--hondo);text-underline-offset:4px}
+.seguros{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--t2)}
+.seguros li{display:flex;align-items:center;gap:7px}
+.seguros svg{width:17px;height:17px;flex:none;color:var(--fucsia)}
+.hero .foto{position:relative;margin:0}
+.hero .env>*{min-width:0}
+.hero .foto img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;border-radius:200px 200px 18px 18px;background:var(--suave)}
+.hero .foto figcaption{position:absolute;left:16px;bottom:16px;background:rgba(250,245,244,.94);border-radius:999px;padding:8px 16px 8px 8px;display:flex;align-items:center;gap:10px;font-size:13px;box-shadow:0 10px 30px -12px rgba(26,26,26,.35)}
+.hero .foto figcaption i{width:30px;height:30px;border-radius:50%;background:var(--fucsia);color:#fff;display:grid;place-items:center;font-style:normal;font-family:var(--serif);font-size:15px}
+.hero .foto figcaption b{font-weight:500;display:block;line-height:1.2}
+.hero .foto figcaption span{color:var(--t2);font-size:12px;line-height:1.2}
+.nota-foto{margin-top:10px}
+
+/* ============ PLANES ============ */
+#planes{background:var(--blanco);border-block:1px solid var(--linea)}
+.planes{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:920px;margin:36px auto 0;align-items:stretch}
+.plan{position:relative;background:var(--blanco);border:1px solid var(--linea);border-radius:18px;padding:30px 26px 26px;display:flex;flex-direction:column;gap:12px}
+.plan .etq{position:absolute;top:-13px;left:24px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:99px;background:var(--fucsia);color:#fff}
+.plan.rec{border:2px solid var(--fucsia);box-shadow:0 30px 60px -34px rgba(157,99,126,.7);background:linear-gradient(180deg,#FCF8FA 0,#fff 140px)}
+.plan h3{font-size:24px;line-height:1.2}
+.plan .res{margin:-4px 0 0;font-family:var(--serif);font-style:italic;color:var(--hondo)}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14.5px}
+.plan li{padding-left:24px;position:relative}
+.plan li::before{content:"";position:absolute;left:0;top:3px;width:16px;height:16px;border-radius:50%;background:var(--suave) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239D637E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/10px no-repeat}
+.plan li.mas{font-weight:500}
+.con-leo{display:flex;align-items:center;gap:12px;background:var(--suave);border-radius:14px;padding:10px 12px}
+.con-leo img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:50% 20%;flex:none}
+.con-leo span{font-size:13.5px;line-height:1.35}
+.con-leo b{font-weight:500;display:block}
+.plan .precio{margin-top:auto;border-top:1px solid var(--linea);padding-top:14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.plan .monto{font-family:var(--serif);font-size:36px;line-height:1}
+.plan s{color:var(--t2);font-size:14px}
+.plan .entrega{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--t2)}
+.plan .entrega svg{width:18px;height:18px;flex:none;color:var(--fucsia)}
+.plan .btn{width:100%}
+
+/* test: puerta lateral para la indecisa, debajo de las dos tarjetas */
+.test{max-width:920px;margin:20px auto 0;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--crema);border:1.5px dashed #CDB3BF;border-radius:18px;padding:16px 20px}
+.rueda{position:relative;width:64px;aspect-ratio:1;border-radius:50%;flex:none;
+  background:conic-gradient(from 180deg,#E07A5F 0 45deg,#B5543B 45deg 90deg,#D8A31A 90deg 135deg,#7D7A3A 135deg 180deg,#C2185B 180deg 225deg,#2846B4 225deg 270deg,#13886A 270deg 315deg,#A895D6 315deg 360deg)}
+.rueda::after{content:"";position:absolute;inset:30%;border-radius:50%;background:var(--crema)}
+.test .tt{display:grid;gap:2px}
+.test .tt b{font-family:var(--serif);font-weight:400;font-size:20px;line-height:1.2}
+.test .tt span{font-size:14px;color:var(--t2)}
+.test .pr{font-size:13.5px;white-space:nowrap}
+.test .pr s{color:var(--t2)}
+.test .pr strong{font-weight:600;color:var(--hondo);letter-spacing:.04em}
+.test .der{display:grid;gap:6px;justify-items:center}
+
+.bajo-planes{margin:26px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;font-size:13.5px;color:var(--t2)}
+.bajo-planes span{display:flex;gap:7px;align-items:center}
+.bajo-planes svg{width:17px;height:17px;color:var(--fucsia);flex:none}
+
+/* testimonios junto a la decisión */
+.testis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px;padding-top:30px;border-top:1px solid var(--linea)}
+.testi{margin:0;border-left:2px solid var(--fucsia);padding:4px 0 4px 16px;display:grid;gap:8px;align-content:start}
+.testi blockquote{margin:0;font-family:var(--serif);font-size:16.5px;line-height:1.5}
+.testi figcaption{font-size:12.5px;color:var(--t2)}
+.testi .est{color:var(--fucsia);letter-spacing:.15em;margin-right:6px}
+
+/* ============ GUÍA POR DENTRO ============ */
+.dentro{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.mues{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mues img{border-radius:12px;aspect-ratio:3/4;object-fit:cover;background:#fff;border:1px solid var(--linea)}
+.mues img:nth-child(2){transform:translateY(-14px)}
+.indice{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px}
+.indice li{display:grid;grid-template-columns:32px 1fr;gap:10px}
+.indice li span{font:500 13px var(--sans);color:var(--hondo);padding-top:2px}
+.indice li b{font-weight:500;display:block}
+.indice li p{margin:0;font-size:14px;color:var(--t2)}
+
+
+/* ============ PASOS ============ */
+.pasos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;counter-reset:p}
+.paso{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:20px}
+.paso .n{width:34px;height:34px;border-radius:50%;background:var(--suave);color:var(--hondo);display:grid;place-items:center;font-weight:500;font-size:14px;margin-bottom:10px}
+.paso h3{font-size:19px;margin-bottom:4px}
+.paso p{margin:0;font-size:14px;color:var(--t2)}
+.fotos-tip{margin-top:16px;display:flex;gap:12px;align-items:center;background:var(--suave);border-radius:14px;padding:14px 18px;font-size:14px}
+.fotos-tip svg{width:24px;height:24px;flex:none;color:var(--fucsia)}
+
+/* ============ FAQ ============ */
+.faq{max-width:780px;margin:22px auto 0;border-top:1px solid var(--linea)}
+.faq details{border-bottom:1px solid var(--linea);padding:14px 0}
+.faq summary{font-family:var(--serif);font-size:18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px;min-height:28px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--fucsia);font:400 22px var(--sans);line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:8px 0 0;color:var(--t2)}
+
+/* ============ CIERRE ============ */
+.cierre{background:var(--negro);color:var(--crema);border-radius:24px;padding:clamp(28px,5vw,48px);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.cierre h2{color:var(--crema)}
+.cierre p{margin:8px 0 0;color:#D9CDD2}
+.cierre .bts{display:grid;gap:10px;min-width:280px}
+.cierre .btn.sec{color:var(--crema);border-color:#8C7480}
+.cierre .btn.sec:hover{background:#2A2427}
+
+/* ============ CLUB + PUENTE ============ */
+.club{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:16px;border:1px dashed var(--fucsia);border-radius:14px;padding:16px 20px}
+.club .tt{flex:1}
+.club .tt b{font-family:var(--serif);font-weight:400;font-size:19px;display:block}
+.club .tt span{font-size:14px;color:var(--t2)}
+.puente{max-width:900px;margin:18px auto 0;display:flex;align-items:center;gap:18px;padding:18px 20px 18px 18px;background:var(--suave);border-radius:999px;text-decoration:none;color:inherit}
+.puente .ico{flex:none;width:56px;height:56px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--fucsia)}
+.puente .ico svg{width:26px;height:26px}
+.puente .txt{flex:1;display:grid;gap:1px}
+.puente .t{font-family:var(--serif);font-size:21px;line-height:1.25}
+.puente .s{font-size:14px;color:var(--t2)}
+.puente .ir{flex:none;display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:500;color:var(--hondo);white-space:nowrap}
+.puente .ir i{width:40px;height:40px;border-radius:50%;background:var(--fucsia);color:#fff;display:grid;place-items:center;font-style:normal;font-size:18px}
+
+/* ============ BARRA FIJA MÓVIL ============ */
+.barra{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.97);border:1px solid var(--linea);border-radius:999px;padding:8px 8px 8px 20px;box-shadow:0 14px 40px -14px rgba(26,26,26,.4);transform:translateY(140%);transition:transform .3s ease}
+.barra.ver{transform:none}
+.barra .desde{font-size:12px;color:var(--t2);line-height:1.2}
+.barra .desde b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;color:var(--negro)}
+.barra .btn{min-height:46px;padding:10px 22px}
+
+/* ============ NOTAS INTERNAS ============ */
+.notas{background:#FFF8DC;border:1px solid #EAD9A0;border-radius:12px;padding:18px 22px;font-size:14px;max-width:1080px;margin:0 auto 110px}
+.notas h2{font-family:var(--sans);font-size:15px;font-weight:600;margin:0 0 4px}
+.notas h3{font-family:var(--sans);font-size:13px;font-weight:600;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.08em}
+.notas ul{margin:4px 0 0;padding-left:18px;display:grid;gap:5px}
+.notas a{color:var(--hondo);word-break:break-word}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:860px){
+  .hero .env{grid-template-columns:1fr}
+  .hero .foto-col{order:-1}
+  .hero .foto img{aspect-ratio:1/1;max-height:34svh;object-position:50% 22%;border-radius:160px 160px 18px 18px}
+  .planes,.dentro,.testis{grid-template-columns:1fr}
+  .planes{max-width:520px}
+  .test{max-width:520px}
+  .pasos{grid-template-columns:1fr 1fr}
+  .cierre{grid-template-columns:1fr}
+  .cierre .bts{min-width:0}
+  .barra{display:flex}
+}
+@media (max-width:640px){
+  .env{padding-inline:16px}
+  .hero{padding-top:16px}
+  .hero .txt{gap:14px}
+  .hero .acc .btn{width:100%}
+  .plan{padding:28px 20px 22px}
+  .test{grid-template-columns:52px 1fr;gap:12px 14px;padding:14px 16px}
+  .rueda{width:52px}
+  .test .der{grid-column:1/-1;grid-template-columns:auto 1fr;align-items:center;gap:12px}
+  .test .der .btn{width:100%}
+  .pasos{grid-template-columns:1fr}
+  .club{flex-wrap:wrap;border-radius:18px}
+  .club .btn{width:100%}
+  .puente{border-radius:20px;flex-wrap:wrap}
+  .puente .txt{flex-basis:calc(100% - 80px)}
+  .puente .ir{width:100%;justify-content:space-between;padding-left:74px}
+}
+</style>
+</head>
+<body>
+
+<div class="rotulo">Propuesta · Asesoría Online · v2 · no publicado</div>
+
+<!-- ============ 1. HERO: una persona, una promesa, un botón ============ -->
+<section class="hero" id="inicio">
+  <div class="env">
+    <div class="txt">
+      <span class="ceja">Asesoría online · desde cualquier parte del mundo</span>
+      <h1>Tu mejor versión, sin salir de casa</h1>
+      <p class="bajada">Soy Leo. Con una encuesta y una foto tuya armo tu guía de imagen: <b>tus colores, tu estilo, tu rostro y tu silueta</b>, para que te vistas cómoda y segura.</p>
+      <div class="acc">
+        <a class="btn" href="#planes" id="cta-hero">Ver las asesorías <span aria-hidden="true">↓</span></a>
+        <a class="link-guia" href="#guia">Mira tu guía por dentro</a>
+      </div>
+      <ul class="seguros">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con Webpay</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Encuesta de 15 min, a tu ritmo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>Tu guía en un par de días hábiles</li>
+      </ul>
+    </div>
+    <div class="foto-col">
+      <figure class="foto">
+        <img src="https://www.efectoespejo.cl/img/leo-retrato.jpg" alt="Leo Cruz, asesora de imagen de Efecto Espejo" width="720" height="1280" fetchpriority="high">
+        <figcaption><i>L</i><span><b>Leo Cruz</b><span>Asesora de imagen</span></span></figcaption>
+      </figure>
+      <p class="nota-foto"><span class="pend">Foto ideal pendiente: Leo en su escritorio, en videollamada con el computador abierto y sus telas de colorimetría a mano, luz natural, sonriendo a cámara.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. LAS DOS ASESORÍAS + el test para la indecisa ============ -->
+<section id="planes">
+  <div class="env">
+    <div class="cab">
+      <span class="ceja">Asesorías online</span>
+      <h2>Elige tu asesoría</h2>
+    </div>
+
+    <div class="planes">
+      <article class="plan" aria-labelledby="t-online">
+        <h3 id="t-online">Asesoría de Imagen Online</h3>
+        <p class="res">Todo lo que te favorece, en tu celular.</p>
+        <ul>
+          <li>Tu estilo personal</li>
+          <li>Tu colorimetría: estación, paleta, neutros y metales</li>
+          <li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li>
+          <li>Tu morfología: prendas y cortes para tu silueta</li>
+          <li>Tus looks y tu armario cápsula</li>
+        </ul>
+        <div class="precio"><span class="monto">$89.990</span><s>$129.990</s></div>
+        <span class="entrega"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>En tu correo en un par de días hábiles</span>
+        <a class="btn" href="https://www.efectoespejo.cl/contacto/">Quiero mi guía</a>
+      </article>
+
+      <article class="plan rec" aria-labelledby="t-feed">
+        <span class="etq">Recomendada</span>
+        <h3 id="t-feed">Asesoría de Imagen Online + Feedback Personalizado</h3>
+        <p class="res">Tu guía, conversada conmigo.</p>
+        <ul>
+          <li class="mas">Todo lo de la Asesoría de Imagen Online</li>
+          <li>Reunión online con Leo de 45 min a 1 hora</li>
+          <li>Tus dudas resueltas en vivo</li>
+          <li>La guía aterrizada a tu clóset</li>
+        </ul>
+        <div class="con-leo"><img src="https://www.efectoespejo.cl/img/leo-retrato.jpg" alt="" loading="lazy"><span><b>Conversas con Leo Cruz</b>Tu asesora de imagen</span></div>
+        <div class="precio"><span class="monto">$129.990</span><s>$189.990</s></div>
+        <span class="entrega"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Leo te escribe para agendar la reunión</span>
+        <a class="btn" href="https://www.efectoespejo.cl/contacto/">Quiero mi guía con feedback</a>
+      </article>
+    </div>
+
+    <div class="test">
+      <span class="rueda" aria-hidden="true"></span>
+      <span class="tt"><b>¿Cálida o fría?</b><span>¿No sabes por dónde partir? Descubre si eres cálida o fría en 2 minutos.</span></span>
+      <span class="der"><span class="pr"><s>$9.990</s> <strong>Hoy gratis</strong></span><a class="btn sec" href="https://www.efectoespejo.cl/test/">Hacer el test</a></span>
+    </div>
+
+    <div class="bajo-planes">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con Webpay</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Tu avance en la encuesta queda guardado</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M12 9v11M4 13h16"/></svg>Puedes regalarla</span>
+    </div>
+
+    <div class="testis">
+      <figure class="testi"><blockquote>“Lo pasé súper bien. Ahora sé cómo vestirme, mucho más simple que antes.”</blockquote><figcaption><span class="est" aria-label="5 estrellas">★★★★★</span>Paula G.</figcaption></figure>
+      <figure class="testi"><blockquote>“Fue muy cercana, me mostró combinaciones que nunca pensé. Regalé ropa y siento que ahora tengo más.”</blockquote><figcaption><span class="est" aria-label="5 estrellas">★★★★★</span>Mari P.</figcaption></figure>
+      <figure class="testi"><blockquote>“Me permitió conocer una mejor versión de mí. Mis combinaciones eran súper básicas; ahora puedo jugar más con mi ropa.”</blockquote><figcaption><span class="est" aria-label="5 estrellas">★★★★★</span>Javiera A.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. LA GUÍA POR DENTRO ============ -->
+<section id="guia">
+  <div class="env dentro">
+    <div>
+      <div class="mues">
+        <img src="https://www.efectoespejo.cl/img/guia/rostro-ovalado.jpg" alt="Ilustración de rostro de la guía" loading="lazy">
+        <img src="https://www.efectoespejo.cl/img/guia/silueta-reloj-de-arena.jpg" alt="Ilustración de silueta de la guía" loading="lazy">
+        <img src="https://www.efectoespejo.cl/img/guia/rostro-corazon.jpg" alt="Ilustración de rostro de la guía" loading="lazy">
+      </div>
+      <p style="margin:12px 0 0"><span class="pend">Aquí van 4 a 6 páginas reales de una guía de ejemplo (falta que Leo la entregue)</span></p>
+    </div>
+    <div>
+      <span class="ceja">Mira tu guía por dentro</span>
+      <h2 style="margin-top:6px">Todo lo que necesitas saber de ti</h2>
+      <ol class="indice">
+        <li><span>01</span><div><b>Tu estilo personal</b><p>Tu esencia y cómo llevarla al día a día.</p></div></li>
+        <li><span>02</span><div><b>Tu colorimetría</b><p>Tu estación, tus colores ideales y los que conviene alejar del rostro.</p></div></li>
+        <li><span>03</span><div><b>Tu visagismo</b><p>La forma de tu rostro y lo que la favorece.</p></div></li>
+        <li><span>04</span><div><b>Tu morfología</b><p>Tu silueta y las prendas que mejor la acompañan.</p></div></li>
+        <li><span>05</span><div><b>Tus looks y tu armario cápsula</b><p>Outfits en tus colores y las prendas clave que combinan entre sí.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. ASÍ FUNCIONA ============ -->
+<section style="background:var(--blanco);border-block:1px solid var(--linea)">
+  <div class="env">
+    <div class="cab"><span class="ceja">Así funciona</span><h2>Cuatro pasos, desde tu casa</h2></div>
+    <div class="pasos">
+      <div class="paso"><span class="n">1</span><h3>Pagas</h3><p>En línea, de forma segura con Webpay.</p></div>
+      <div class="paso"><span class="n">2</span><h3>Te llega tu encuesta</h3><p>Al tiro, con un link personal que también te llega por correo.</p></div>
+      <div class="paso"><span class="n">3</span><h3>Respondes a tu ritmo</h3><p>Tu estilo de vida, tus medidas y una foto de tu rostro. Puedes guardar y seguir después.</p></div>
+      <div class="paso"><span class="n">4</span><h3>Recibes tu guía</h3><p>En PDF, en un par de días hábiles. Si elegiste feedback, Leo te escribe para agendar.</p></div>
+    </div>
+    <div class="fotos-tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span><b style="font-weight:500">Tu foto, fácil:</b> junto a una ventana con luz natural y, si puedes, sin maquillaje ni anteojos. La del cuerpo entero es opcional.</span></div>
+  </div>
+</section>
+
+<!-- ============ 5. PREGUNTAS FRECUENTES ============ -->
+<section>
+  <div class="env">
+    <div class="cab"><h2>Preguntas frecuentes</h2></div>
+    <div class="faq">
+      <details><summary>¿Me sirve si no sé nada de moda?</summary><p>Sí. La guía está hecha para aplicarla fácil en tu día a día, con looks listos y prendas clave.</p></details>
+      <details><summary>¿Cuánto me demoro en la encuesta?</summary><p>Unos 15 minutos aprox. Puedes responderla a tu ritmo: tu avance queda guardado y sigues cuando quieras.</p></details>
+      <details><summary>¿Puedo regalarla?</summary><p>Sí. Escríbele a Leo por WhatsApp y te ayuda a elegir la opción para esa persona.</p></details>
+      <details><summary>¿Puedo compartir mi link de la encuesta?</summary><p>No. El link es personal y sirve para una sola encuesta.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. CIERRE ============ -->
+<section style="padding-top:0" id="cierre">
+  <div class="env">
+    <div class="cierre">
+      <div>
+        <h2>Tu mejor versión, sin salir de casa</h2>
+        <p>Tu guía en tu correo en un par de días hábiles.</p>
+      </div>
+      <div class="bts">
+        <a class="btn" href="https://www.efectoespejo.cl/contacto/">Quiero mi guía con feedback · $129.990</a>
+        <a class="btn sec" href="https://www.efectoespejo.cl/contacto/">Quiero mi guía · $89.990</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CLUB + PRESENCIAL ============ -->
+<section style="padding-top:0">
+  <div class="env">
+    <div class="club">
+      <span class="tt"><b>Club del Espejo · muy pronto</b><span>Ideas de outfits para tu vida, en tu correo cada semana. Desde $19.990 al mes.</span></span>
+      <a class="btn sec" href="https://www.efectoespejo.cl/club/">Unirme a la lista</a>
+    </div>
+    <a class="puente" href="https://www.efectoespejo.cl/asesoria/" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5M14 14.3c.6-.2 1.3-.3 2-.3 2.4 0 4.3 1.8 5 4.5"/></svg></span>
+      <span class="txt"><span class="t">¿Prefieres que lo veamos juntas, en persona?</span><span class="s">Asesoría presencial en Vitacura, Las Condes y Lo Barnechea.</span></span>
+      <span class="ir">Conoce la asesoría presencial <i>→</i></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ REFERENCIAS (no va en el sitio) ============ -->
+<div class="env"><div class="notas">
+  <h2>Referencias (esto no va en el sitio)</h2>
+  <h3>Por qué está armada así</h3>
+  <ul>
+    <li><b>Primera pantalla = Leo + una promesa + un botón que baja a las asesorías</b>, que están justo debajo. Así lo hace The Color Guru: mujer real arriba y "I'm Ready – Take Me Straight to the Packages!". Las fotos de personas reales se miran; las de stock se ignoran (NN/g).</li>
+    <li><b>Dos tarjetas, la de Feedback marcada "Recomendada"</b>: The Color Guru destaca un paquete como "Most Popular". La de Feedback parte con "Todo lo de la Asesoría de Imagen Online" y suma solo lo nuevo, porque la diferencia entre opciones debe decirse explícita (NN/g). La reunión lleva la cara de Leo: en Wishi lo que separa los niveles es la conversación con la estilista.</li>
+    <li><b>El test va justo debajo de las dos tarjetas, chico y con botón de borde</b> (confirmo la propuesta). InMyTone pone "Take free test" al lado de "Buy analysis now"; aquí arriba distraería a la que ya viene a comprar, y el botón principal debe destacar sobre los demás (Baymard). Debajo de los precios lo encuentra justo la que dudó.</li>
+    <li><b>Plazo de entrega en cada tarjeta y "Así funciona" en 4 pasos</b>: The Color Guru pone el plazo por paquete; InMyTone explica 4 pasos (comprar, fotos y formulario, análisis, resultado por correo), igual que el proceso de Leo.</li>
+    <li><b>Testimonios pegados a las tarjetas</b>, no arriba: sirven en el momento de decidir. No puse promedio de estrellas ni cantidad de clientas porque no hay un número real.</li>
+    <li><b>Barra fija abajo en celular</b> ("desde $89.990 · Ver asesorías"): aparece al pasar el botón de arriba, se esconde mientras las tarjetas están en pantalla y no va de borde a borde.</li>
+    <li><b>Lo que NO copié</b>: el "Only 6 spots left today" de InMyTone (escasez) y las garantías de devolución de The Color Guru e InMyTone (Leo no las ofrece hoy).</li>
+  </ul>
+  <h3>Sitios</h3>
+  <ul>
+    <li><b>The Color Guru</b>: mujer real en el hero, botón directo a paquetes, 3 paquetes con "Most Popular", plazo por paquete. <a href="https://yourcolorguru.com/get-started/">yourcolorguru.com/get-started</a></li>
+    <li><b>InMyTone</b>: "Buy analysis now" + "Take free test" en el hero, 4 pasos, historia de la fundadora. <a href="https://www.inmytone.com/">inmytone.com</a></li>
+    <li><b>Wishi</b>: 3 paquetes (Mini, Major, Lux); el más caro suma llamadas con la estilista. Su sitio no se dejó leer; lo saqué de una reseña. <a href="https://www.thequalityedit.com/articles/wishi-personal-styling-review">thequalityedit.com</a> · <a href="https://wishi.me/">wishi.me</a></li>
+    <li><b>Stitch Fix</b>: "Match with your (human!) Stylist", insiste en que hay una persona detrás. De ahí "Soy Leo" en primera persona. Su quiz es todo el embudo; aquí el test es puerta lateral. <a href="https://www.stitchfix.com/">stitchfix.com</a></li>
+    <li><b>Dressing Your Truth</b>: titular emocional sobre el espejo ("Look in the mirror and love who's looking back.") y mujeres reales. De ahí el tono de comodidad y confianza. <a href="https://shop.liveyourtruth.com/">shop.liveyourtruth.com</a></li>
+  </ul>
+  <h3>Principios de UX</h3>
+  <ul>
+    <li>NN/g, fotos de personas reales vs. stock: <a href="https://www.nngroup.com/articles/photos-as-web-content/">nngroup.com/articles/photos-as-web-content</a></li>
+    <li>NN/g, decir explícitamente en qué se diferencian las opciones: <a href="https://www.nngroup.com/articles/explicit-differences/">nngroup.com/articles/explicit-differences</a></li>
+    <li>NN/g, comparar pocas opciones (5 o menos); en pantalla chica cuesta más recordar: <a href="https://www.nngroup.com/articles/comparison-tables/">nngroup.com/articles/comparison-tables</a></li>
+    <li>Baymard, el botón principal con estilo único, color y texto descriptivo: <a href="https://baymard.com/blog/button-design">baymard.com/blog/button-design</a></li>
+  </ul>
+</div></div>
+
+<!-- barra fija en celular -->
+<div class="barra" id="barra" aria-hidden="true">
+  <span class="desde">Asesoría online desde<b>$89.990</b></span>
+  <a class="btn" href="#planes" tabindex="-1">Ver asesorías</a>
+</div>
+
+<script>
+(function(){
+  /* barra fija: aparece cuando el botón de arriba ya no se ve,
+     y se esconde mientras las tarjetas o el cierre están en pantalla */
+  var barra=document.getElementById('barra');
+  if(!('IntersectionObserver' in window))return;
+  var vis={hero:true,planes:false,cierre:false};
+  function upd(){var on=!vis.hero&&!vis.planes&&!vis.cierre;barra.classList.toggle('ver',on);barra.setAttribute('aria-hidden',!on);barra.querySelector('a').tabIndex=on?0:-1}
+  function obs(el,k,opt){new IntersectionObserver(function(es){var e=es[0];vis[k]=e.isIntersecting||(k==='hero'&&e.boundingClientRect.top>0);upd()},opt||{}).observe(el)}
+  obs(document.getElementById('cta-hero'),'hero');
+  obs(document.querySelector('.planes'),'planes',{rootMargin:'0px 0px -20% 0px'});
+  obs(document.getElementById('cierre'),'cierre');
+})();
+</script>
+</body>
+</html>
