@@ -49,6 +49,7 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 .serv .pz{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
 .serv .pz .ahora{font-family:'Playfair Display',serif;font-size:36px;font-weight:600;color:#fff;line-height:1}
 .serv .pz s{color:#9C8E95;font-size:14px}
+.serv .res{margin:-4px 0 10px;font-size:14px;color:#CDBFC6}
 .serv .incluye{margin:10px 0 14px}
 .serv .cta{font-size:15px;padding:14px 18px}
 @media (min-width:760px){
@@ -104,6 +105,9 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 .incluye li::before{content:"✓";color:var(--fucsia);font-weight:600;background:#fff;border-radius:50%;width:18px;height:18px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px}
 .cta{display:block;text-align:center;background:var(--fucsia);color:#fff;text-decoration:none;font-weight:600;font-size:16px;padding:17px 20px;border-radius:99px;box-shadow:0 10px 24px -8px rgba(157,99,126,.8);transition:transform .15s}
 .cta:hover{transform:translateY(-2px);background:var(--fucsia-osc)}
+.bajo-planes{margin:22px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;font-size:13.5px;color:#CDBFC6}
+.bajo-planes span{display:flex;gap:7px;align-items:center}
+.bajo-planes svg{width:17px;height:17px;color:#D9A9BE;flex:none}
 .seguro{text-align:center;font-size:12px;color:#CDBFC6;margin:10px 0 0}
 .otra{margin:18px 0 0;border-top:1px solid #3A3035;padding-top:16px;font-size:13px;color:#E3D3DA}
 .otra b{color:#fff;font-weight:500}
@@ -118,9 +122,16 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 .voz small{color:var(--suave);font-size:12px}
 
 /* Cómo sigue */
-.pasos{margin:30px 0 0;background:#fff;border:1px solid var(--linea);border-radius:18px;padding:20px 22px}
-.pasos ol{margin:10px 0 0;padding-left:20px;font-size:14px}
-.pasos li{margin:6px 0}
+.funciona{margin:34px 0 10px}
+.funciona .cab{text-align:center}
+.funciona h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,5vw,32px);margin:6px 0 0}
+.pasos{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px}
+.paso{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:20px}
+.paso .n{width:34px;height:34px;border-radius:50%;background:var(--rosa);color:var(--fucsia-osc);display:grid;place-items:center;font-weight:500;font-size:14px;margin-bottom:10px}
+.paso h3{font-family:'Playfair Display',serif;font-weight:500;font-size:19px;margin:0 0 4px}
+.paso p{margin:0;font-size:14px;color:var(--suave)}
+@media (min-width:600px){.pasos{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.pasos{grid-template-columns:repeat(4,1fr);gap:16px}}
 .cierre{text-align:center;margin:30px 0 24px}
 .cierre p{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;margin:0 0 14px}
 
@@ -140,7 +151,7 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
   .puedes li,.ya-tienes{font-size:15px}
   .puedes li{padding:13px 0}
   .muestras{grid-template-columns:repeat(4,1fr)}
-  .oferta,.voces,.pasos,.cierre{grid-column:1/-1}
+  .oferta,.voces,.funciona{grid-column:1/-1}
   .oferta{width:auto;margin-left:0;padding:32px 36px}
   .oferta h3{font-size:34px}
   .reloj{max-width:420px}
@@ -199,22 +210,27 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
 
     <div class="servs">
       <div class="serv">
-        <h4>Asesoría de Imagen Online</h4>
+        <h4>Asesoría de Imagen Online</h4><p class="res">Todo lo que te favorece, en tu celular.</p>
         <div class="pz"><span class="ahora">$79.990</span><s>$89.990</s><s>$129.990</s></div>
         <span class="ahorro" style="margin:8px 0 0">Ahorras $50.000</span>
-        <ul class="incluye"><li>Tu colorimetría: estación, paleta completa, neutros y metales</li><li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li><li>Tu morfología: prendas y cortes para tu silueta</li><li>Tus looks y tu armario cápsula</li></ul>
-        <a class="cta" href="#oferta">Quiero mi asesoría</a>
+        <ul class="incluye"><li>Una completa guía de estilo personal</li><li>Tu colorimetría: estación, paleta, neutros y metales</li><li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li><li>Tu morfología: prendas y cortes para tu silueta</li><li>Tus looks y tu armario cápsula</li></ul>
+        <a class="cta" href="#oferta">Quiero mi guía</a>
       </div>
       <div class="serv dest">
         <span class="rec">Recomendada</span>
-        <h4>Asesoría de Imagen Online + Feedback Personalizado</h4>
+        <h4>Asesoría de Imagen Online + Feedback Personalizado</h4><p class="res">Tu guía, conversada conmigo.</p>
         <div class="pz"><span class="ahora">$119.990</span><s>$129.990</s><s>$189.990</s></div>
         <span class="ahorro" style="margin:8px 0 0">Ahorras $70.000</span>
         <ul class="incluye"><li>Todo lo de la Asesoría de Imagen Online</li><li>Reunión online con Leo de 45 min a 1 hora</li><li>Tus dudas resueltas en vivo</li><li>La guía aterrizada a tu clóset</li></ul>
-        <a class="cta" href="#oferta">Quiero mi asesoría con feedback</a>
+        <a class="cta" href="#oferta">Quiero mi guía con feedback</a>
       </div>
     </div>
-    <p class="seguro">Pago seguro con Webpay · te llega en un par de días hábiles</p>
+    <div class="bajo-planes">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago seguro con Webpay</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Encuesta de 15 min, a tu ritmo</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>Tu guía en un par de días hábiles</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M12 9v11M4 13h16"/></svg>Puedes regalarla</span>
+    </div>
   </section>
 
   <!-- 4. Prueba social (testimonios reales del sitio) -->
@@ -225,14 +241,15 @@ body{margin:0;background:var(--crema);color:var(--negro);font-family:'Poppins',s
     <div class="voz"><span class="est">★★★★★</span><p>“Me permitió conocer una mejor versión de mí.”</p><small>Javiera A.</small></div>
   </section>
 
-  <!-- 5. Cómo sigue (quita el miedo) -->
-  <section class="pasos">
-    <span class="ceja">Así de simple</span>
-    <ol>
-      <li>Pagas con Webpay.</li>
-      <li>Al tiro te llega tu encuesta: unos 15 minutos, a tu ritmo.</li>
-      <li>En un par de días hábiles recibes tu asesoría en tu celular.</li>
-    </ol>
+  <!-- 5. Así funciona (igual que en /asesoria-online/) -->
+  <section class="funciona">
+    <div class="cab"><span class="ceja">Así funciona</span><h2>Cuatro pasos, desde tu casa</h2></div>
+    <div class="pasos">
+      <div class="paso"><span class="n">1</span><h3>Pagas</h3><p>En línea, de forma segura con Webpay.</p></div>
+      <div class="paso"><span class="n">2</span><h3>Te llega tu encuesta</h3><p>Al tiro, con un link personal que también te llega por correo.</p></div>
+      <div class="paso"><span class="n">3</span><h3>Respondes a tu ritmo</h3><p>Tu estilo de vida, tus medidas y una foto de tu rostro. Puedes guardar y seguir después.</p></div>
+      <div class="paso"><span class="n">4</span><h3>Recibes tu guía</h3><p>En PDF, en un par de días hábiles. Si elegiste feedback, Leo te escribe para agendar.</p></div>
+    </div>
   </section>
 
 </div>
