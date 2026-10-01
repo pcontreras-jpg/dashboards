@@ -201,6 +201,9 @@ h2{font-size:clamp(27px,3.2vw,36px);line-height:1.15}
   .puente .txt{flex-basis:calc(100% - 80px)}
   .puente .ir{width:100%;justify-content:space-between;padding-left:74px}
 }
+.valor{display:inline-flex;align-items:center;gap:6px;background:var(--suave);color:var(--hondo);border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:400;white-space:nowrap}
+.valor s{color:var(--hondo);opacity:.75;font-size:12.5px}
+.gratis{font-family:var(--serif);color:var(--fucsia)}
 </style>
 </head>
 <body>
@@ -278,7 +281,7 @@ h2{font-size:clamp(27px,3.2vw,36px);line-height:1.15}
     <div class="test">
       <span class="rueda" aria-hidden="true"></span>
       <span class="tt"><b>¿Cálida o fría?</b><span>¿No sabes por dónde partir? Descubre si eres cálida o fría en 2 minutos.</span></span>
-      <span class="der"><span class="pr"><s>$9.990</s> <strong>Hoy gratis</strong></span><a class="btn sec" href="https://www.efectoespejo.cl/test/">Hacer el test</a></span>
+      <span class="der"><span class="pr" style="display:inline-flex;align-items:center;gap:10px"><strong class="gratis" style="font-size:22px;font-weight:400">Gratis</strong><span class="valor">Valor normal <s>$9.990</s></span></span><a class="btn sec" href="https://www.efectoespejo.cl/test/">Hacer el test</a></span>
     </div>
 
     <div class="bajo-planes">

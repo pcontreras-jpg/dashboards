@@ -31,6 +31,10 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 .test .tt b{font-weight:500}
 .test .btn{min-height:42px;padding:9px 18px;font-size:14px}
 
+/* precio del test */
+.valor{display:inline-flex;align-items:center;gap:6px;background:var(--suave);color:var(--hondo);border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:400;white-space:nowrap}
+.valor s{color:var(--hondo);opacity:.75;font-size:12.5px}
+.gratis{font-family:var(--serif);color:var(--fucsia)}
 /* tres tarjetas */
 .planes.tres{grid-template-columns:.82fr 1fr 1fr;max-width:1120px}
 .plan .foto{margin:-30px -26px 4px;aspect-ratio:4/3;border-radius:14px 14px 0 0;background:repeating-linear-gradient(45deg,#F1E4E9,#F1E4E9 10px,#F7EEF1 10px,#F7EEF1 20px);display:grid;place-items:center;text-align:center;font-size:12.5px;color:var(--hondo);padding:16px}
@@ -250,7 +254,7 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
         <div class="dial-ley"><span><i style="background:#D9A43A"></i>Cálida</span><span><i style="background:#2A52BE"></i>Fría</span></div>
         <h3>Test ¿Cálida o fría?</h3>
         <p class="res">Descubre tu subtono y tu mini paleta.</p>
-        <div class="precio"><span class="monto">Hoy gratis</span><s>$9.990</s></div>
+        <div class="precio" style="align-items:center"><span class="monto gratis">Gratis</span><span class="valor">Valor normal <s>$9.990</s></span></div>
         <span class="entrega"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>2 minutos, desde tu celular</span>
         <a class="btn sec" href="https://www.efectoespejo.cl/test/">Hacer el test</a>
       </article>
