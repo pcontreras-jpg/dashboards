@@ -46,6 +46,26 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 .dial-ley span{display:flex;align-items:center;gap:6px}
 .dial-ley i{width:10px;height:10px;border-radius:50%;display:block}
 
+/* compactas: las tres tarjetas y su botón caben sin bajar */
+.primera{padding-block:28px 40px}
+.h1-chico{font-size:clamp(24px,2.6vw,32px)}
+.planes.tres{margin-top:20px;gap:16px}
+.planes.tres .plan{padding:20px 20px 18px;gap:8px}
+.planes.tres .plan .foto{margin:-20px -20px 2px;aspect-ratio:auto;height:120px;font-size:12px;padding:10px}
+.planes.tres .plan h3{font-size:20px}
+.planes.tres .plan .res{font-size:14px;margin:-6px 0 0}
+.planes.tres .plan ul{gap:5px;font-size:13.5px}
+.planes.tres .plan li::before{top:2px;width:14px;height:14px}
+.planes.tres .plan li{padding-left:21px}
+.planes.tres .plan .precio{padding-top:10px}
+.planes.tres .plan .monto{font-size:28px}
+.planes.tres .plan .entrega{font-size:12.5px}
+.planes.tres .btn{min-height:42px;padding:9px 18px;font-size:14px}
+.planes.tres .dial{width:110px;height:110px;margin:0 auto}
+.planes.tres .dial b{font-size:12.5px;padding:28px}
+.planes.tres .plan.prueba h3{font-size:19px}
+.planes.tres .plan.prueba .monto{font-size:24px}
+
 /* planes */
 .planes{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:34px auto 0;align-items:stretch}
 .plan{position:relative;background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:30px 26px 26px;display:grid;gap:12px;align-content:start}
@@ -72,6 +92,41 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 .plan.prem .entrega{color:#CDBFC6}
 .plan .entrega svg{width:18px;height:18px;flex:none;color:var(--fucsia)}
 .plan.prem .btn{background:var(--crema);color:var(--negro);border-color:var(--crema)}
+
+/* carrusel de la guía */
+.car{max-width:1000px;margin:22px auto 0}
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tabs button{display:flex;align-items:center;gap:8px;border:1px solid var(--linea);background:var(--crema);border-radius:99px;padding:8px 16px;font:400 14px var(--sans);color:var(--negro);cursor:pointer}
+.tabs button span{width:22px;height:22px;border-radius:50%;background:var(--suave);color:var(--hondo);display:grid;place-items:center;font-size:12px;font-weight:500}
+.tabs button.on{background:var(--negro);color:var(--crema);border-color:var(--negro)}
+.tabs button.on span{background:var(--fucsia);color:#fff}
+.pista{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:18px;background:var(--crema);border:1px solid var(--linea)}
+.pista::-webkit-scrollbar{display:none}
+.lam{flex:0 0 100%;scroll-snap-align:start;display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,4vw,48px);align-items:center;padding:clamp(22px,4vw,40px)}
+.lam .vis{background:#fff;border-radius:16px;padding:24px;min-height:240px;display:grid;place-items:center}
+.lam h3{font-size:clamp(24px,2.6vw,30px);margin:6px 0 0}
+.lam .rec{margin:14px 0 6px;font-weight:500;color:var(--fucsia);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.lam ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.v-est{text-align:center;display:grid;gap:10px;justify-items:center}
+.v-est span{background:var(--suave);color:var(--hondo);border-radius:99px;padding:8px 18px;font-size:15px}
+.v-est p{font-family:var(--serif);font-style:italic;font-size:20px;margin:6px 0 0}
+.v-col{display:grid;gap:12px;width:100%}
+.v-col b{font-family:var(--serif);font-weight:400;font-size:22px;text-align:center}
+.v-col .g{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.v-col .g i,.v-col .n i{aspect-ratio:1;border-radius:10px;display:block}
+.v-col .n{display:grid;grid-template-columns:repeat(4,38px) 1fr;gap:8px;align-items:center;font-size:12.5px;color:var(--t2)}
+.v-ico{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.v-ico div{display:grid;justify-items:center;gap:8px;background:var(--crema);border-radius:12px;padding:16px 8px;font-size:14px}
+.v-ico svg{width:34px;height:34px;color:var(--fucsia)}
+.v-looks{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.v-looks div{background:var(--crema);border-radius:12px;padding:10px;display:grid;gap:6px;font-size:13px;color:var(--t2);text-align:center}
+.v-looks p{display:flex;gap:5px;margin:0}
+.v-looks i{flex:1;height:54px;border-radius:8px;display:block}
+.ctrl{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:14px}
+.ctrl .fl{width:40px;height:40px;border-radius:50%;border:1px solid var(--linea);background:#fff;cursor:pointer;font-size:16px;color:var(--negro)}
+.pts{display:flex;gap:6px}
+.pts i{width:7px;height:7px;border-radius:50%;background:var(--linea);display:block}
+.pts i.on{background:var(--fucsia);width:18px;border-radius:9px}
 
 /* guía en el celular */
 .recibes{display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,5vw,64px);align-items:center;max-width:1000px;margin:0 auto}
@@ -160,6 +215,8 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 .notas ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
 
 @media (max-width:860px){
+  .lam{grid-template-columns:1fr}
+  .tabs button{padding:6px 12px;font-size:13px}
   .planes,.planes.tres,.dentro,.testis,.recibes{grid-template-columns:1fr}
   .recibes{justify-items:center}
   .plan .foto{margin:-30px -26px 4px}
@@ -180,11 +237,10 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 
 <div class="rotulo">Propuesta · Asesoría Online · no publicado</div>
 
-<section>
+<section class="primera">
   <div class="env">
     <div class="cab">
-      <span class="ceja">Asesoría online · desde cualquier parte del mundo</span>
-      <h1>Tu mejor versión, sin salir de casa</h1>
+      <h1 class="h1-chico">Tu mejor versión, sin salir de casa</h1>
     </div>
 
     <div class="planes tres">
@@ -203,8 +259,7 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
         <h3>Asesoría de Imagen Online</h3>
         <p class="res">Todo lo que te favorece, en tu celular.</p>
         <ul>
-          <li>Tu estilo personal</li>
-          <li>Tu colorimetría: estación, paleta, neutros y metales</li>
+          <li>Tu estilo y tus colores: estación, paleta, neutros y metales</li>
           <li>Tu visagismo: cortes, cejas, anteojos y maquillaje</li>
           <li>Tu morfología: prendas y cortes para tu silueta</li>
           <li>Tus looks y tu armario cápsula</li>
@@ -233,40 +288,31 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
 </section>
 
 <section style="background:var(--blanco);border-block:1px solid var(--linea)">
-  <div class="env recibes">
-    <div>
-      <div class="cel">
-        <div class="pant">
-          <div class="hojas" id="hojas">
-            <div class="hoja"><span class="num">01 · Tu estilo personal</span><h4>Natural con un toque romántico</h4><p>Tu esencia en tres palabras, para elegir con seguridad:</p><div class="chips"><span>Cercana</span><span>Luminosa</span><span>Femenina</span></div><p>Cómo llevarla en tu día a día: texturas suaves, prendas cómodas y un detalle que te represente.</p></div>
-            <div class="hoja"><span class="num">02 · Tu colorimetría</span><h4>Otoño cálido</h4><p>Tus colores ideales, cerca del rostro:</p><div class="grilla"><i style="background:#F2846B"></i><i style="background:#C8643B"></i><i style="background:#D9A43A"></i><i style="background:#7A7F3A"></i><i style="background:#D8432E"></i><i style="background:#F4B18C"></i><i style="background:#1F8A84"></i><i style="background:#9C4A2F"></i><i style="background:#B5651D"></i><i style="background:#E3B04B"></i><i style="background:#556B2F"></i><i style="background:#8B3A3A"></i></div><div class="fila"><i style="background:#F5EBDD"></i><i style="background:#C19A6B"></i><i style="background:#5C3A21"></i><i style="background:#5B5A3C"></i><span>Tus neutros</span></div><p><b style="font-weight:500">Tu metal:</b> el dorado.</p></div>
-            <div class="hoja"><span class="num">03 · Tu visagismo</span><h4>Rostro ovalado</h4><p>Lo que favorece tu rostro:</p><div class="lista-ico"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4c4 2 8 2 12 0M7 4v8c0 4 2 8 5 8s5-4 5-8V4"/></svg>Corte en capas largas, a la altura de la clavícula</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10c3-3 6-3 8 0M12 10c2-3 5-3 8 0"/></svg>Cejas con arco suave</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="13" r="3.5"/><circle cx="17" cy="13" r="3.5"/><path d="M10.5 13h3"/></svg>Anteojos redondeados, marco carey</div></div></div>
-            <div class="hoja"><span class="num">04 · Tu morfología</span><h4>Tu silueta, a tu favor</h4><p>Prendas y cortes que te acompañan y te hacen sentir cómoda:</p><div class="lista-ico"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l-4 4 3 2v12h10V9l3-2-4-4-2 2h-4z"/></svg>Escotes en V y cruzados</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l2 18h-6l-1-10-1 10H5z"/></svg>Pantalón de tiro alto y pierna recta</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 8h12"/></svg>Cinturas marcadas con cinturón suave</div></div></div>
-            <div class="hoja"><span class="num">05 · Tus looks y tu armario cápsula</span><h4>Looks en tus colores</h4><p>Combinaciones listas para el día a día:</p><div class="looks"><div class="look"><div class="p"><i style="background:#F2846B"></i><i style="background:#F5EBDD"></i><i style="background:#C19A6B"></i></div>Trabajo</div><div class="look"><div class="p"><i style="background:#7A7F3A"></i><i style="background:#F5EBDD"></i><i style="background:#5C3A21"></i></div>Fin de semana</div><div class="look"><div class="p"><i style="background:#D9A43A"></i><i style="background:#5C3A21"></i><i style="background:#C19A6B"></i></div>Reunión</div><div class="look"><div class="p"><i style="background:#1F8A84"></i><i style="background:#F5EBDD"></i><i style="background:#C8643B"></i></div>Salida</div></div><p>Y las prendas clave que combinan entre sí.</p></div>
-          </div>
-        </div>
-        <div class="puntos-cel" id="puntos-cel"><button type="button" aria-label="Página 1" class="on"></button><button type="button" aria-label="Página 2"></button><button type="button" aria-label="Página 3"></button><button type="button" aria-label="Página 4"></button><button type="button" aria-label="Página 5"></button></div>
+  <div class="env">
+    <div class="cab"><span class="ceja">Tu guía de imagen, en 5 partes</span><h2>Esto es lo que recibes</h2></div>
+    <div class="car">
+      <div class="tabs" role="tablist"><button type="button" role="tab" data-i="0" class="on" aria-selected="true"><span>1</span>Estilo</button><button type="button" role="tab" data-i="1"><span>2</span>Colores</button><button type="button" role="tab" data-i="2"><span>3</span>Rostro</button><button type="button" role="tab" data-i="3"><span>4</span>Silueta</button><button type="button" role="tab" data-i="4"><span>5</span>Looks</button></div>
+      <div class="pista" id="pista">
+        <div class="lam"><div class="vis"><div class="v-est"><span>Cercana</span><span>Luminosa</span><span>Femenina</span><p>Natural con un toque romántico</p></div></div><div class="txt"><span class="ceja">1 de 5</span><h3>Tu estilo personal</h3><p class="rec">Recibes:</p><ul><li>Tu esencia en tres palabras, para elegir con seguridad.</li><li>Cómo llevarla en tu día a día: texturas, prendas y detalles.</li></ul></div></div>
+        <div class="lam"><div class="vis"><div class="v-col"><b>Otoño cálido</b><div class="g"><i style="background:#F2846B"></i><i style="background:#C8643B"></i><i style="background:#D9A43A"></i><i style="background:#7A7F3A"></i><i style="background:#D8432E"></i><i style="background:#F4B18C"></i><i style="background:#1F8A84"></i><i style="background:#9C4A2F"></i><i style="background:#B5651D"></i><i style="background:#E3B04B"></i><i style="background:#556B2F"></i><i style="background:#8B3A3A"></i></div><div class="n"><i style="background:#F5EBDD"></i><i style="background:#C19A6B"></i><i style="background:#5C3A21"></i><i style="background:#5B5A3C"></i><span>Neutros · metal dorado</span></div></div></div><div class="txt"><span class="ceja">2 de 5</span><h3>Tu colorimetría</h3><p class="rec">Recibes:</p><ul><li>Tu estación y tu paleta completa, para comprar sin dudar.</li><li>Tus neutros para la base del clóset y tu metal ideal.</li></ul></div></div>
+        <div class="lam"><div class="vis"><div class="v-ico"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4c4 2 8 2 12 0M7 4v8c0 4 2 8 5 8s5-4 5-8V4"/></svg>Corte</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10c3-3 6-3 8 0M12 10c2-3 5-3 8 0"/></svg>Cejas</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="13" r="3.5"/><circle cx="17" cy="13" r="3.5"/><path d="M10.5 13h3"/></svg>Anteojos</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0 0 10 0c0-3-2-6-5-10z"/></svg>Maquillaje</div></div></div><div class="txt"><span class="ceja">3 de 5</span><h3>Tu visagismo</h3><p class="rec">Recibes:</p><ul><li>La forma de tu rostro y lo que la favorece.</li><li>Corte, cejas, anteojos y maquillaje pensados para ti.</li></ul></div></div>
+        <div class="lam"><div class="vis"><div class="v-ico"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l-4 4 3 2v12h10V9l3-2-4-4-2 2h-4z"/></svg>Partes de arriba</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l2 18h-6l-1-10-1 10H5z"/></svg>Pantalones</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 18H5z"/></svg>Faldas y vestidos</div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 8h12"/></svg>Detalles</div></div></div><div class="txt"><span class="ceja">4 de 5</span><h3>Tu morfología</h3><p class="rec">Recibes:</p><ul><li>Tu silueta y las prendas que mejor la acompañan.</li><li>Cortes que te hacen sentir cómoda y segura.</li></ul></div></div>
+        <div class="lam"><div class="vis"><div class="v-looks"><div><p><i style="background:#F2846B"></i><i style="background:#F5EBDD"></i><i style="background:#C19A6B"></i></p>Trabajo</div><div><p><i style="background:#7A7F3A"></i><i style="background:#F5EBDD"></i><i style="background:#5C3A21"></i></p>Fin de semana</div><div><p><i style="background:#D9A43A"></i><i style="background:#5C3A21"></i><i style="background:#C19A6B"></i></p>Reunión</div><div><p><i style="background:#1F8A84"></i><i style="background:#F5EBDD"></i><i style="background:#C8643B"></i></p>Salida</div></div></div><div class="txt"><span class="ceja">5 de 5</span><h3>Tus looks y tu armario cápsula</h3><p class="rec">Recibes:</p><ul><li>Combinaciones en tus colores, listas para usar.</li><li>Las prendas clave que combinan entre sí.</li></ul></div></div>
       </div>
-      <p class="desliza">Desliza para ver tu guía por dentro · <span class="pend">páginas de ejemplo</span></p>
-    </div>
-    <div>
-      <span class="ceja">Esto es lo que recibes</span>
-      <h2 style="margin-top:6px">Tu guía de imagen, en tu celular</h2>
-      <ul>
-        <li><i>1</i><div><b>Tus colores, a la vista</b><span>Tu estación, tu paleta, tus neutros y tu metal, para comprar sin dudar.</span></div></li>
-        <li><i>2</i><div><b>Lo que favorece tu rostro</b><span>Corte, cejas, anteojos y maquillaje pensados para ti.</span></div></li>
-        <li><i>3</i><div><b>Prendas para tu silueta</b><span>Qué cortes te acompañan y te hacen sentir cómoda.</span></div></li>
-        <li><i>4</i><div><b>Looks listos para usar</b><span>Combinaciones en tus colores y tu armario cápsula.</span></div></li>
-      </ul>
+      <div class="ctrl"><button type="button" class="fl" data-d="-1" aria-label="Anterior">←</button><span class="pts" id="pts"><i class="on"></i><i></i><i></i><i></i><i></i></span><button type="button" class="fl" data-d="1" aria-label="Siguiente">→</button></div>
+      <p class="desliza"><span class="pend">páginas de ejemplo: van páginas reales de una guía de Leo</span></p>
     </div>
   </div>
 </section>
 <script>
 (function(){
-  var h=document.getElementById('hojas'), p=document.getElementById('puntos-cel').children;
-  function marcar(){ var i=Math.round(h.scrollLeft/h.clientWidth); for(var k=0;k<p.length;k++) p[k].className=k===i?'on':''; }
-  h.addEventListener('scroll',function(){ clearTimeout(marcar.t); marcar.t=setTimeout(marcar,60); });
-  Array.prototype.forEach.call(p,function(b,i){ b.addEventListener('click',function(){ h.scrollTo({left:i*h.clientWidth,behavior:'smooth'}); }); });
+  var p=document.getElementById('pista'), tabs=document.querySelectorAll('.tabs button'), pts=document.getElementById('pts').children, n=tabs.length;
+  function act(){ return Math.round(p.scrollLeft/p.clientWidth); }
+  function ir(i){ i=Math.max(0,Math.min(n-1,i)); p.scrollTo({left:i*p.clientWidth,behavior:'smooth'}); }
+  function marcar(){ var i=act(); for(var k=0;k<n;k++){ tabs[k].className=k===i?'on':''; tabs[k].setAttribute('aria-selected',k===i); pts[k].className=k===i?'on':''; } }
+  p.addEventListener('scroll',function(){ clearTimeout(marcar.t); marcar.t=setTimeout(marcar,60); });
+  Array.prototype.forEach.call(tabs,function(b){ b.addEventListener('click',function(){ ir(+b.dataset.i); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('.ctrl .fl'),function(b){ b.addEventListener('click',function(){ ir(act()+(+b.dataset.d)); }); });
 })();
 </script>
 
@@ -278,6 +324,20 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
       <div class="paso"><span class="n">2</span><h3>Te llega tu encuesta</h3><p>Al tiro, con un link personal que también te llega por correo.</p></div>
       <div class="paso"><span class="n">3</span><h3>Respondes a tu ritmo</h3><p>Tu estilo de vida, tus medidas y una foto de tu rostro. Puedes guardar y seguir después.</p></div>
       <div class="paso"><span class="n">4</span><h3>Recibes tu guía</h3><p>En PDF, en un par de días hábiles. Si elegiste feedback, Leo te escribe para agendar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="env">
+    <a class="puente" style="margin:0 auto 18px" href="https://www.efectoespejo.cl/asesoria/" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5M14 14.3c.6-.2 1.3-.3 2-.3 2.4 0 4.3 1.8 5 4.5"/></svg></span>
+      <span class="txt"><span class="t">¿Prefieres que lo veamos juntas, en persona?</span><span class="s">Asesoría presencial en Vitacura, Las Condes y Lo Barnechea.</span></span>
+      <span class="ir">Conoce la asesoría presencial <i>→</i></span>
+    </a>
+    <div class="club">
+      <span class="tt"><b>Club del Espejo · muy pronto</b><span>Ideas de outfits para tu vida, en tu correo cada semana. Desde $19.990 al mes.</span></span>
+      <a class="btn sec" href="https://www.efectoespejo.cl/club/">Unirme a la lista</a>
     </div>
   </div>
 </section>
@@ -298,20 +358,6 @@ h2{font-size:clamp(26px,3.2vw,34px);line-height:1.15}
       <details><summary>¿Puedo regalarla?</summary><p>Sí. Escríbele a Leo por WhatsApp y te ayuda a elegir la opción para esa persona.</p></details>
       <details><summary>¿Puedo compartir mi link de la encuesta?</summary><p>No. El link es personal y sirve para una sola encuesta.</p></details>
     </div>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="env">
-    <div class="club">
-      <span class="tt"><b>Club del Espejo · muy pronto</b><span>Ideas de outfits para tu vida, en tu correo cada semana. Desde $19.990 al mes.</span></span>
-      <a class="btn sec" href="https://www.efectoespejo.cl/club/">Unirme a la lista</a>
-    </div>
-    <a class="puente" href="https://www.efectoespejo.cl/asesoria/" target="_blank" rel="noopener">
-      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5M14 14.3c.6-.2 1.3-.3 2-.3 2.4 0 4.3 1.8 5 4.5"/></svg></span>
-      <span class="txt"><span class="t">¿Prefieres que lo veamos juntas, en persona?</span><span class="s">Asesoría presencial en Vitacura, Las Condes y Lo Barnechea.</span></span>
-      <span class="ir">Conoce la asesoría presencial <i>→</i></span>
-    </a>
   </div>
 </section>
 
