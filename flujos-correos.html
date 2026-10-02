@@ -48,6 +48,11 @@
   .filas dt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fucsia-hondo);font-weight:600;padding-top:3px}
   .filas dd{margin:0}
   .no{color:#9B3B4E}
+  .vistas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:16px}
+  .vista{margin:0;background:#EFE7EA;border-radius:12px;padding:10px}
+  .vista figcaption{font-size:13px;margin:0 0 8px;line-height:1.35}.vista figcaption span{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fucsia-hondo);font-weight:600}
+  .vista iframe{width:100%;height:620px;border:0;border-radius:8px;background:#fff;display:block}
+  .vista a{display:inline-block;margin-top:6px;font-size:12.5px}
   /* bases */
   .bases{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .base{background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:16px 18px;font-size:14px}
@@ -92,7 +97,7 @@
 </div>
 
 <h2>Cada correo, en detalle</h2>
-<p class="sub">Detonador, momento, excepciones y de dónde saca a la clienta.</p>
+<p class="sub">Detonador, momento, excepciones, de dónde saca a la clienta y el diseño real del correo (con datos de ejemplo: Camila, tono frío).</p>
 <div class="correos">
 
   <div class="correo"><div class="alto"><span class="num">C1</span><h3>Resultado del test + oferta de 1 hora</h3><span class="estado on">Activo</span></div>
@@ -103,6 +108,7 @@
       <dt>Cuándo NO</dt><dd class="no">Si ya hizo el test antes con ese correo, le llega el resultado <b>sin oferta</b> (el descuento es uno por persona). Hay filtro anti-bots y un máximo de 3 tests por hora desde una misma conexión.</dd>
       <dt>Base</dt><dd>Se guarda en <b>Contactos del test</b> y se crea su <b>Descuento</b>.</dd>
     </dl>
+    <div class="vistas"><figure class="vista"><figcaption><span>Asunto</span>Camila, tu tono es frío</figcaption><iframe src="correos-flujo/c1.html" loading="lazy" title="Camila, tu tono es frío"></iframe><a href="correos-flujo/c1.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure></div>
   </div>
 
   <div class="correo"><div class="alto"><span class="num">C2</span><h3>Te guardamos el descuento 24 horas más</h3><span class="estado on">Activo desde el 2-oct</span></div>
@@ -113,6 +119,7 @@
       <dt>Cuándo NO</dt><dd class="no">Si ya compró la guía (con o sin descuento), si se dio de baja, si ya le llegó antes (sale una sola vez) o si pasaron más de 3 días desde el test.</dd>
       <dt>Base</dt><dd>Lee de <b>Descuentos</b> y cruza con <b>Compras</b> y <b>Bajas</b>. Al enviarlo, anota la fecha en el descuento.</dd>
     </dl>
+    <div class="vistas"><figure class="vista"><figcaption><span>Asunto</span>Te guardamos tu descuento 24 horas más</figcaption><iframe src="correos-flujo/c2.html" loading="lazy" title="Te guardamos tu descuento 24 horas más"></iframe><a href="correos-flujo/c2.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure></div>
   </div>
 
   <div class="correo"><div class="alto"><span class="num">C3</span><h3>Empieza tu encuesta</h3><span class="estado on">Activo</span></div>
@@ -122,6 +129,7 @@
       <dt>Qué trae</dt><dd>El link personal a la encuesta de imagen, con su código. El código dura <b>30 días</b>.</dd>
       <dt>Base</dt><dd><b>Compras</b>.</dd>
     </dl>
+    <div class="vistas"><figure class="vista"><figcaption><span>Asunto</span>Tu compra está confirmada: empieza tu encuesta</figcaption><iframe src="correos-flujo/c3.html" loading="lazy" title="Tu compra está confirmada: empieza tu encuesta"></iframe><a href="correos-flujo/c3.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure></div>
   </div>
 
   <div class="correo"><div class="alto"><span class="num">C4</span><h3>Recordatorio de la encuesta</h3><span class="estado on">Activo</span></div>
@@ -131,6 +139,7 @@
       <dt>Cuándo NO</dt><dd class="no">Si ya la llenó, si su código venció o si ya se le recordó (sale una sola vez).</dd>
       <dt>Base</dt><dd><b>Compras</b>.</dd>
     </dl>
+    <div class="vistas"><figure class="vista"><figcaption><span>Asunto</span>Tu encuesta te está esperando</figcaption><iframe src="correos-flujo/c4.html" loading="lazy" title="Tu encuesta te está esperando"></iframe><a href="correos-flujo/c4.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure></div>
   </div>
 
   <div class="correo"><div class="alto"><span class="num">C5</span><h3>Recibimos tu encuesta</h3><span class="estado on">Activo</span></div>
@@ -139,6 +148,7 @@
       <dt>Cuándo sale</dt><dd>Inmediatamente. Al mismo tiempo le llega a Leo el aviso "Nueva encuesta".</dd>
       <dt>Base</dt><dd><b>Encuestas</b> (respuestas y fotos).</dd>
     </dl>
+    <div class="vistas"><figure class="vista"><figcaption><span>Asunto</span>¡Listo, Camila! Recibí tu encuesta</figcaption><iframe src="correos-flujo/c5.html" loading="lazy" title="¡Listo, Camila! Recibí tu encuesta"></iframe><a href="correos-flujo/c5.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure></div>
   </div>
 
   <div class="correo"><div class="alto"><span class="num">C6–C8</span><h3>Presencial: elige tu hora · cita confirmada · cita anulada</h3><span class="estado on">Activos</span></div>
@@ -148,6 +158,7 @@
       <dt>Cuándo NO</dt><dd class="no">Cuando Leo mueve o anula una cita y desmarca "avisar a la clienta".</dd>
       <dt>Base</dt><dd><b>Compras</b> y <b>Agenda</b>.</dd>
     </dl>
+    <div class="vistas"><figure class="vista"><figcaption><span>Asunto</span>Tu compra está confirmada: elige tu hora</figcaption><iframe src="correos-flujo/c6.html" loading="lazy" title="Tu compra está confirmada: elige tu hora"></iframe><a href="correos-flujo/c6.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure><figure class="vista"><figcaption><span>Asunto</span>Tu hora quedó agendada: jueves 9 de octubre…</figcaption><iframe src="correos-flujo/c7.html" loading="lazy" title="Tu hora quedó agendada: jueves 9 de octubre…"></iframe><a href="correos-flujo/c7.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure><figure class="vista"><figcaption><span>Asunto</span>Tenemos que cambiar tu hora</figcaption><iframe src="correos-flujo/c8.html" loading="lazy" title="Tenemos que cambiar tu hora"></iframe><a href="correos-flujo/c8.html" target="_blank" rel="noopener">Abrir en grande ↗</a></figure></div>
   </div>
 
   <div class="correo"><div class="alto"><span class="num">C9</span><h3>Correos manuales</h3><span class="estado man">Solo con PIN</span></div>
