@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Flujos de correos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --negro:#1A1A1A; --crema:#FAF5F4; --fucsia:#9D637E; --fucsia-hondo:#7E4A63;
+    --fucsia-suave:#F1E4E9; --texto-2:#5E5057; --linea:#E7D9DE; --papel:#FFFFFF;
+    --ok:#3F7A4B; --ok-fondo:#EAF3DE; --alerta:#A35A2A; --alerta-fondo:#FBF1DC;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--crema);color:var(--negro);font-family:Poppins,Arial,sans-serif;font-weight:300;font-size:15px;line-height:1.65}
+  .envoltura{max-width:960px;margin:0 auto;padding:0 16px 80px}
+  header.tapa{padding:52px 0 26px;border-bottom:1px solid var(--linea);margin-bottom:32px}
+  .ceja{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fucsia);font-weight:500;margin:0 0 10px}
+  h1{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:40px;line-height:1.15;margin:0 0 12px}
+  .bajada{font-size:17px;color:var(--texto-2);margin:0;max-width:66ch}
+  .sello{display:inline-block;margin-top:16px;font-size:12px;color:var(--texto-2);background:var(--fucsia-suave);border-radius:99px;padding:6px 14px}
+  h2{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:27px;margin:46px 0 6px}
+  h2 + .sub{color:var(--texto-2);margin:0 0 20px;font-size:14px}
+  h3{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:20px;margin:0}
+  p{margin:0 0 10px}
+  b{font-weight:500}
+  /* mapa */
+  .mapa{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:stretch}
+  .paso{background:var(--papel);border:1px solid var(--linea);border-radius:12px;padding:12px;font-size:13px;position:relative}
+  .paso b{display:block;font-size:13.5px;margin-bottom:2px}
+  .paso small{color:var(--texto-2);font-size:12px;line-height:1.4;display:block}
+  .paso .mails{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+  .chip{font-size:11px;font-weight:500;background:var(--fucsia-suave);color:var(--fucsia-hondo);border-radius:99px;padding:2px 9px}
+  .chip.leo{background:#E9EEF6;color:#3B5578}
+  .rama{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  /* correos */
+  .correos{display:grid;gap:14px}
+  .correo{background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:18px 20px}
+  .correo .alto{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .num{font-family:'Playfair Display',serif;font-size:13px;color:#fff;background:var(--fucsia);width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;flex:none}
+  .estado{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:4px 11px}
+  .estado.on{background:var(--ok-fondo);color:var(--ok)}
+  .estado.man{background:var(--alerta-fondo);color:var(--alerta)}
+  .filas{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;font-size:14px}
+  .filas dt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fucsia-hondo);font-weight:600;padding-top:3px}
+  .filas dd{margin:0}
+  .no{color:#9B3B4E}
+  /* bases */
+  .bases{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .base{background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:16px 18px;font-size:14px}
+  .base h3{font-size:18px;margin-bottom:6px}
+  .base .donde{margin-top:8px;font-size:12.5px;color:var(--texto-2)}
+  .base .donde b{color:var(--negro)}
+  .falta{background:var(--alerta-fondo);border-radius:12px;padding:14px 18px;font-size:14px;margin-top:14px}
+  ol.prop{padding-left:20px;margin:0}
+  ol.prop li{margin:0 0 10px}
+  .nota{font-size:13px;color:var(--texto-2)}
+  @media (max-width:760px){
+    h1{font-size:30px}
+    .mapa{grid-template-columns:1fr}
+    .bases{grid-template-columns:1fr}
+    .filas{grid-template-columns:1fr;gap:2px}
+    .filas dd{margin-bottom:8px}
+  }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+<header class="tapa">
+  <p class="ceja">Efecto Espejo · Proyecto correos</p>
+  <h1>Flujos de correos y bases de clientas</h1>
+  <p class="bajada">De dónde sale cada correo, qué lo detona, cuándo sale y cuándo no, de qué base saca a la clienta y cómo se agregan o se quitan personas. Revisado contra el sistema real del sitio.</p>
+  <span class="sello">Estado al 2 de octubre de 2026 · todos los correos salen desde tuefectoespejo@gmail.com, con copia oculta a esa misma casilla</span>
+</header>
+
+<h2>El recorrido de la clienta</h2>
+<p class="sub">Cada etapa y los correos que se disparan en ella. Los rosados le llegan a la clienta; los azules son avisos a Leo.</p>
+<div class="mapa">
+  <div class="paso"><b>1. Hace el test gratis</b><small>Responde las preguntas y deja nombre y correo.</small><div class="mails"><span class="chip">C1 Resultado + oferta 1 h</span></div></div>
+  <div class="paso"><b>2. No compra en la hora</b><small>Al día siguiente se le extiende el descuento 24 h.</small><div class="mails"><span class="chip">C2 Oferta 24 h más</span></div></div>
+  <div class="paso"><b>3. Compra la guía online</b><small>Paga con Webpay (con o sin descuento).</small><div class="mails"><span class="chip">C3 Empieza tu encuesta</span></div></div>
+  <div class="paso"><b>4. Llena la encuesta</b><small>Si a las 48 h no la llenó, se le recuerda.</small><div class="mails"><span class="chip">C4 Recordatorio</span><span class="chip">C5 Encuesta recibida</span><span class="chip leo">Aviso a Leo</span></div></div>
+  <div class="paso"><b>5. Recibe su guía</b><small>Leo la arma y se la envía (hoy fuera de estos correos automáticos).</small></div>
+</div>
+<div class="rama">
+  <div class="paso"><b>Rama presencial</b><small>Compra una asesoría presencial: elige su hora y recibe la confirmación. Si Leo anula la cita, se le avisa.</small><div class="mails"><span class="chip">C6 Elige tu hora</span><span class="chip">C7 Cita confirmada</span><span class="chip">C8 Cita anulada</span><span class="chip leo">Aviso a Leo</span></div></div>
+  <div class="paso"><b>Fuera del recorrido</b><small>Preguntas a Isi que necesitan a Leo, y correos que prepara Claude a mano.</small><div class="mails"><span class="chip leo">Isi necesita ayuda</span><span class="chip">C9 Correos manuales (PIN)</span></div></div>
+</div>
+
+<h2>Cada correo, en detalle</h2>
+<p class="sub">Detonador, momento, excepciones y de dónde saca a la clienta.</p>
+<div class="correos">
+
+  <div class="correo"><div class="alto"><span class="num">C1</span><h3>Resultado del test + oferta de 1 hora</h3><span class="estado on">Activo</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>La clienta termina el test gratis en /test/ y envía su correo.</dd>
+      <dt>Cuándo sale</dt><dd>Inmediatamente.</dd>
+      <dt>Qué trae</dt><dd>Su tono (cálido / frío / neutro), la explicación y un descuento de <b>$10.000 por 1 hora</b> en la Guía de Estilo Online y en la Guía + reunión de feedback.</dd>
+      <dt>Cuándo NO</dt><dd class="no">Si ya hizo el test antes con ese correo, le llega el resultado <b>sin oferta</b> (el descuento es uno por persona). Hay filtro anti-bots y un máximo de 3 tests por hora desde una misma conexión.</dd>
+      <dt>Base</dt><dd>Se guarda en <b>Contactos del test</b> y se crea su <b>Descuento</b>.</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">C2</span><h3>Te guardamos el descuento 24 horas más</h3><span class="estado on">Activo desde el 2-oct</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>Un revisor automático que corre cada hora y busca a quienes hicieron el test y no compraron.</dd>
+      <dt>Cuándo sale</dt><dd>Al día siguiente, a la misma hora en que hizo el test. Si esa hora cae entre las 23:00 y las 8:00, sale a las 9:00.</dd>
+      <dt>Qué trae</dt><dd>El mismo descuento de $10.000, vigente 24 horas más (dice "vence mañana" con la hora exacta).</dd>
+      <dt>Cuándo NO</dt><dd class="no">Si ya compró la guía (con o sin descuento), si se dio de baja, si ya le llegó antes (sale una sola vez) o si pasaron más de 3 días desde el test.</dd>
+      <dt>Base</dt><dd>Lee de <b>Descuentos</b> y cruza con <b>Compras</b> y <b>Bajas</b>. Al enviarlo, anota la fecha en el descuento.</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">C3</span><h3>Empieza tu encuesta</h3><span class="estado on">Activo</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>Webpay confirma el pago de la guía online (o Leo marca una compra manual en el panel).</dd>
+      <dt>Cuándo sale</dt><dd>Inmediatamente.</dd>
+      <dt>Qué trae</dt><dd>El link personal a la encuesta de imagen, con su código. El código dura <b>30 días</b>.</dd>
+      <dt>Base</dt><dd><b>Compras</b>.</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">C4</span><h3>Recordatorio de la encuesta</h3><span class="estado on">Activo</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>El revisor de cada hora.</dd>
+      <dt>Cuándo sale</dt><dd>48 horas después de pagar, si todavía no llenó la encuesta.</dd>
+      <dt>Cuándo NO</dt><dd class="no">Si ya la llenó, si su código venció o si ya se le recordó (sale una sola vez).</dd>
+      <dt>Base</dt><dd><b>Compras</b>.</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">C5</span><h3>Recibimos tu encuesta</h3><span class="estado on">Activo</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>La clienta envía la encuesta con sus fotos.</dd>
+      <dt>Cuándo sale</dt><dd>Inmediatamente. Al mismo tiempo le llega a Leo el aviso "Nueva encuesta".</dd>
+      <dt>Base</dt><dd><b>Encuestas</b> (respuestas y fotos).</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">C6–C8</span><h3>Presencial: elige tu hora · cita confirmada · cita anulada</h3><span class="estado on">Activos</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>Pago de una asesoría presencial; cambio de hora o anulación hecha por Leo desde la agenda del panel.</dd>
+      <dt>Cuándo sale</dt><dd>Si pagó sin elegir hora: "elige tu hora" con el link a la agenda. Si ya eligió: "cita confirmada" con día, hora y lugar. Si Leo mueve la cita, vuelve a salir la confirmación; si la anula, sale "cita anulada" con el link para reagendar. Leo recibe aviso de cada cita.</dd>
+      <dt>Cuándo NO</dt><dd class="no">Cuando Leo mueve o anula una cita y desmarca "avisar a la clienta".</dd>
+      <dt>Base</dt><dd><b>Compras</b> y <b>Agenda</b>.</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">C9</span><h3>Correos manuales</h3><span class="estado man">Solo con PIN</span></div>
+    <dl class="filas">
+      <dt>Lo detona</dt><dd>Claude los prepara (por ejemplo, un descuento especial) y quedan en el panel, en "Correos por enviar".</dd>
+      <dt>Cuándo sale</dt><dd>Solo cuando Leo o Pablo lo revisan con "Ver correo", escriben el PIN y aprietan "Enviar". Claude no puede enviarlos.</dd>
+    </dl>
+  </div>
+
+  <div class="correo"><div class="alto"><span class="num">L</span><h3>Avisos a Leo</h3><span class="estado on">Activos</span></div>
+    <dl class="filas">
+      <dt>Cuáles</dt><dd>"Nueva encuesta" (C5), aviso de cada cita presencial, e "Isi necesita tu ayuda" cuando alguien en el chat del sitio pide hablar con una persona.</dd>
+    </dl>
+  </div>
+</div>
+
+<h2>Las bases de datos</h2>
+<p class="sub">Todas viven en la base del sitio (Cloudflare). Esto es lo que guarda cada una y dónde se puede ver hoy.</p>
+<div class="bases">
+  <div class="base"><h3>Contactos del test</h3><p>Cada persona que hace el test gratis: nombre, correo, resultado y fecha.</p><p class="donde"><b>Se ve en el panel:</b> no. Hoy solo se puede consultar por sistema. Hay 26 desde el 25-sep (varias son pruebas).</p></div>
+  <div class="base"><h3>Descuentos</h3><p>Un descuento por correo: cuándo empezó, si se extendió 24 h, si se le mandó el C2 y si lo usó (con qué compra).</p><p class="donde"><b>Se ve en el panel:</b> no.</p></div>
+  <div class="base"><h3>Compras</h3><p>Cada compra: servicio, monto, estado (pagado, pendiente, rechazado, anulado, reembolsado), datos de la clienta, comuna y recargo si es presencial.</p><p class="donde"><b>Se ve en el panel:</b> sí, pestaña Compras. Hoy no hay ventas reales: las 19 registradas son pruebas.</p></div>
+  <div class="base"><h3>Encuestas</h3><p>Las encuestas de quienes compraron la guía: respuestas, foto del rostro y del cuerpo, análisis, decisión de Leo y la guía.</p><p class="donde"><b>Se ve en el panel:</b> sí, pestaña Encuestas (6).</p></div>
+  <div class="base"><h3>Agenda</h3><p>Citas presenciales, bloqueos y bloqueos recurrentes.</p><p class="donde"><b>Se ve en el panel:</b> sí, en la agenda.</p></div>
+  <div class="base"><h3>Bajas</h3><p>Correos que se dieron de baja con el link de los correos de promoción.</p><p class="donde"><b>Se ve en el panel:</b> no.</p></div>
+  <div class="base"><h3>Preguntas a Isi</h3><p>Lo que preguntan en el chat del sitio y las que pidieron hablar con Leo.</p><p class="donde"><b>Se ve en el panel:</b> no.</p></div>
+  <div class="base"><h3>Correos por enviar</h3><p>Los borradores manuales (C9) y si se enviaron o descartaron.</p><p class="donde"><b>Se ve en el panel:</b> sí, arriba en el panel.</p></div>
+</div>
+
+<h2>Cómo se segmenta y cómo entra o sale una clienta</h2>
+<div class="correos">
+  <div class="correo">
+    <dl class="filas">
+      <dt>Entra</dt><dd>Al hacer el test (Contactos + Descuento), al comprar (Compras) o al llenar la encuesta (Encuestas). No hay forma de agregar a alguien a mano.</dd>
+      <dt>Se diferencia</dt><dd>Por correo: la misma persona aparece en Contactos del test y, si compró, en Compras con estado "pagado". Hoy no hay una vista que junte las dos cosas.</dd>
+      <dt>Sale de las promociones</dt><dd>Si se da de baja con el link del correo (queda en Bajas) o si compra la guía (el C2 ya no le sale).</dd>
+      <dt>Se edita</dt><dd>Los datos de las clientas no se editan desde el panel (solo el estado de compras y encuestas). Los textos de los correos están en el sistema: hoy solo los puede cambiar Claude.</dd>
+    </dl>
+  </div>
+</div>
+
+<h2>Lo que falta para tenerlo ordenado</h2>
+<div class="falta">
+  <ol class="prop">
+    <li><b>Pestaña "Clientas" en el panel:</b> una fila por persona con su test y resultado, si su descuento está vigente o vencido, qué correos le llegaron (C1, C2…), si compró, si se dio de baja, y botón para descargar la lista en Excel. Resuelve también saber si ya salió algún C2.</li>
+    <li><b>Sección "Correos" en el panel:</b> los correos automáticos con su vista previa, cuándo salen y a quién, para que Leo los revise sin pedírselo a Claude.</li>
+    <li><b>Correo de reseña en Google después de cada servicio:</b> ya está como tarea en el dashboard; todavía no existe.</li>
+  </ol>
+  <p class="nota" style="margin-top:8px">Se arman primero en el link de prueba y pasan al sitio real solo con "publica".</p>
+</div>
+
+</div>
+</body>
+</html>
