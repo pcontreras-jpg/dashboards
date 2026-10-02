@@ -116,6 +116,8 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance}
 
 .pasos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative}
 .pasos::before{content:"";position:absolute;top:22px;left:16%;right:16%;border-top:1.5px dashed var(--rosa)}
+.pasos.p4{grid-template-columns:repeat(4,1fr)}
+.pasos.p4::before{left:12%;right:12%}
 .pasos li{position:relative;display:grid;gap:6px;justify-items:center;align-content:start;text-align:center}
 .pasos .ico{width:44px;height:44px;border-radius:50%;background:var(--blanco);border:1.5px solid var(--fucsia);display:grid;place-items:center;color:var(--fucsia);position:relative;z-index:1}
 .pasos .ico svg{width:21px;height:21px}
@@ -327,10 +329,11 @@ body.todo .panel+.panel{margin-top:18px}
             <div class="para"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span><b>Es para ti si</b>Tienes el clóset lleno y sientes que no tienes nada que ponerte.</span></div>
             <div>
               <p class="rot">Así es la sesión</p>
-              <ol class="pasos">
-                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="n">1</span></span><h4>Revisamos</h4><p>Tu clóset completo, prenda por prenda y contigo.</p></li>
-                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span class="n">2</span></span><h4>Descubrimos</h4><p>Lo que sí te potencia y combinaciones que no habías visto.</p></li>
-                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="n">3</span></span><h4>Armamos</h4><p>Tu armario cápsula y combinaciones listas para usar.</p></li>
+              <ol class="pasos p4">
+                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="n">1</span></span><h4><mark class="ok">Encuesta online</mark></h4><p>Tu rutina, tus gustos y lo que necesitas de tu ropa.</p></li>
+                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="n">2</span></span><h4>Revisamos</h4><p>Tu clóset completo, prenda por prenda y contigo.</p></li>
+                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span class="n">3</span></span><h4>Descubrimos</h4><p>Lo que sí te potencia y combinaciones que no habías visto.</p></li>
+                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="n">4</span></span><h4>Armamos</h4><p>Tu armario cápsula y combinaciones listas para usar.</p></li>
               </ol>
             </div>
             <div class="llevas">
@@ -361,7 +364,7 @@ body.todo .panel+.panel{margin-top:18px}
             <div>
               <p class="rot">Así es la sesión</p>
               <ol class="pasos">
-                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="n">1</span></span><h4><mark class="ok">Encuesta previa</mark></h4><p><mark class="ok">Te mando una encuesta para conocer tu estilo, tus objetivos y tu presupuesto</mark>.</p></li>
+                <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="n">1</span></span><h4><mark class="ok">Encuesta online</mark></h4><p>Tu rutina, tus gustos y lo que necesitas de tu ropa.</p></li>
                 <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span class="n">2</span></span><h4>Salimos juntas</h4><p><mark class="ok">Yo elijo las tiendas según tu presupuesto, tu encuesta y tu comuna. Conversamos mientras compramos</mark>.</p></li>
                 <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="n">3</span></span><h4>Compras con criterio</h4><p>Prendas clave que combinan entre sí y con lo que ya tienes.</p></li>
               </ol>
