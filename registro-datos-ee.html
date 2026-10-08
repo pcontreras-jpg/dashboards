@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registro de datos · Efecto Espejo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--hondo:#7E4A63;--suave:#F1E4E9;--t2:#5E5057;--linea:#E7D9DE}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--negro);font:300 15px/1.6 Poppins,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:36px 16px 72px}
+.ceja{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--fucsia);font-weight:500;margin:0}
+h1{font:400 clamp(28px,5vw,40px)/1.15 'Playfair Display',Georgia,serif;margin:6px 0 10px}
+h2{font:500 21px/1.3 'Playfair Display',Georgia,serif;margin:34px 0 10px}
+.bajada{color:var(--t2);margin:0 0 8px}
+.caja{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 16px;font-size:14px;margin:16px 0}
+.caja b{font-weight:500}
+.tabla{overflow-x:auto;background:#fff;border:1px solid var(--linea);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:13.5px}
+th,td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--linea)}
+th{background:var(--suave);color:var(--hondo);font-weight:500;font-size:12.5px;letter-spacing:.02em}
+tr:last-child td{border-bottom:0}
+td b{font-weight:500}
+.sens{display:inline-block;background:#FBEDEF;color:#B3261E;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:4px}
+.auto{display:inline-block;background:#E6F2EA;color:#3F7D5A;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+ul{margin:6px 0 0;padding-left:18px}
+li{margin:4px 0}
+.pie{font-size:12.5px;color:var(--t2);margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Efecto Espejo · documento interno</p>
+<h1>Registro de datos personales</h1>
+<p class="bajada">Qué datos personales guarda Efecto Espejo, para qué, dónde, quién los ve y cuánto tiempo. Sirve para responder a una clienta que pida sus datos, a la Agencia de Protección de Datos Personales o al abogado. No contiene datos de ninguna clienta.</p>
+<div class="caja"><b>Responsable:</b> Leonor Cruz, RUT 15.641.259-7, Efecto Espejo · Av. Presidente Kennedy 5600, Of. 507, Vitacura, Región Metropolitana · tuefectoespejo@gmail.com<br><b>Última revisión:</b> 7 de octubre de 2026 · <b>Política pública:</b> efectoespejo.cl/terminos/#privacidad</div>
+
+<h2>Qué datos se guardan</h2>
+<div class="tabla"><table>
+<thead><tr><th>Dato</th><th>Para qué</th><th>Base</th><th>Dónde se guarda</th><th>Quién lo ve</th><th>Cuánto tiempo</th></tr></thead>
+<tbody>
+<tr><td><b>Contacto del test gratis</b><br>nombre, correo, resultado del test</td><td>Mandar el resultado y ofertas de Efecto Espejo</td><td>Aviso bajo el formulario del test; baja en cada correo</td><td>Base de datos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel) y soporte técnico</td><td>Hasta que se dé de baja</td></tr>
+<tr><td><b>Compras</b><br>nombre, correo, WhatsApp, servicio, monto, fecha; en presencial, comuna y dirección</td><td>Prestar el servicio, agendar y llegar a la cita</td><td>Contrato (la compra)</td><td>Base de datos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel) y soporte técnico</td><td>Lo que exige la ley tributaria</td></tr>
+<tr><td><b>Datos de la tarjeta</b></td><td>Cobrar</td><td>Contrato</td><td>Solo en Transbank (Webpay), Chile</td><td>Nadie de Efecto Espejo: no pasan por el sitio</td><td>Lo define Transbank</td></tr>
+<tr><td><b>Respuestas de la encuesta</b><br>estilo y estilo de vida, fecha de nacimiento, estatura, medidas, color de ojos y pelo <span class="sens">sensible</span></td><td>Preparar la asesoría y la Guía de Estilo Personal</td><td>Casilla obligatoria de consentimiento (queda guardada la fecha)</td><td>Base de datos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel), sistema de IA de apoyo y soporte técnico</td><td>2 años desde la entrega de la guía <span class="auto">se borra solo</span></td></tr>
+<tr><td><b>Foto del rostro</b> <span class="sens">sensible</span></td><td>Análisis de colorimetría y visagismo</td><td>Casilla obligatoria de consentimiento</td><td>Almacenamiento de fotos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel) y sistema de IA de apoyo (Cloudflare)</td><td>6 meses desde la entrega de la guía <span class="auto">se borra sola</span></td></tr>
+<tr><td><b>Foto de cuerpo entero</b> (opcional) <span class="sens">sensible</span></td><td>Mirar proporciones para la morfología</td><td>Casilla aparte y opcional; sin ella la foto no se guarda</td><td>Almacenamiento de fotos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel)</td><td>6 meses desde la entrega de la guía <span class="auto">se borra sola</span></td></tr>
+<tr><td><b>Guía de Estilo Personal</b><br>texto e imágenes de looks</td><td>Entregar el servicio (link privado para la clienta)</td><td>Contrato</td><td>Base de datos y almacenamiento del sitio (Cloudflare, EE.UU.)</td><td>Leo y la clienta (con su link)</td><td>2 años desde la entrega <span class="auto">se borra sola</span></td></tr>
+<tr><td><b>Citas</b><br>fecha, hora, servicio</td><td>Agenda de Leo</td><td>Contrato</td><td>Base de datos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel)</td><td>Junto con la compra</td></tr>
+<tr><td><b>Conversaciones con Isi</b></td><td>Responder consultas y mejorar las respuestas</td><td>Uso del chat (se identifica como asistente virtual con IA)</td><td>Base de datos del sitio; respuestas generadas con IA de Cloudflare</td><td>Leo (panel) y soporte técnico</td><td>2 años <span class="auto">se borra solo</span></td></tr>
+<tr><td><b>Correos enviados</b></td><td>Resultado del test, compras, encuesta, guía, recordatorios, reseñas</td><td>Contrato o aviso del test</td><td>Gmail de Efecto Espejo (Google, EE.UU.)</td><td>Leo</td><td>Mientras estén en el Gmail; conviene limpiar una vez al año</td></tr>
+<tr><td><b>Bajas</b><br>correo de quien pidió no recibir más correos</td><td>Respetar la baja</td><td>Obligación legal</td><td>Base de datos del sitio (Cloudflare, EE.UU.)</td><td>Sistema</td><td>Indefinido (si se borra, se le podría volver a escribir)</td></tr>
+<tr><td><b>Reseñas pedidas</b></td><td>Saber a quién se le pidió reseña y cuándo</td><td>Contrato</td><td>Base de datos del sitio (Cloudflare, EE.UU.)</td><td>Leo (panel)</td><td>Junto con la compra</td></tr>
+<tr><td><b>Navegación</b><br>páginas vistas, de dónde llega, dispositivo (cookies)</td><td>Medir y mejorar el sitio</td><td>Informado en la Política de Privacidad</td><td>Google Analytics (Google, EE.UU.)</td><td>Leo y Pablo (Analytics)</td><td>Según la configuración de Google Analytics</td></tr>
+</tbody>
+</table></div>
+
+<h2>Proveedores que procesan datos por encargo</h2>
+<ul>
+<li><b>Cloudflare</b> (EE.UU.): sitio, base de datos, fotos y sistemas de IA. Su acuerdo de procesamiento de datos viene incluido en las condiciones de la cuenta.</li>
+<li><b>Google</b> (EE.UU.): Gmail y Google Analytics. Las condiciones de procesamiento de datos de Analytics quedaron aceptadas al crear la cuenta (7-oct-2026).</li>
+<li><b>Transbank</b> (Chile): pagos con Webpay.</li>
+</ul>
+
+<h2>Reglas de uso</h2>
+<ul>
+<li>Nunca subir fotos de clientas a la herramienta de imágenes del panel (usa OpenAI y no está pensada para datos de clientas).</li>
+<li>Nunca publicar fotos de clientas (antes y después, redes) sin su autorización expresa y por escrito.</li>
+<li>La clave del panel es solo para Leo y soporte técnico; si se cambia, los links de guía ya enviados dejan de funcionar.</li>
+<li>Si una clienta pide sus datos o que se borren, se responde desde tuefectoespejo@gmail.com dentro de los plazos de la ley; el borrado se pide a soporte técnico.</li>
+<li>Si ocurre un incidente que afecte datos (por ejemplo, alguien accede al panel sin permiso), se avisa a las clientas afectadas.</li>
+</ul>
+
+<p class="pie">Documento técnico preparado con el funcionamiento real del sitio al 7 de octubre de 2026. No reemplaza la revisión de un abogado. Actualizarlo cada vez que se sume un proveedor o un tipo de dato nuevo.</p>
+</main>
+</body>
+</html>
