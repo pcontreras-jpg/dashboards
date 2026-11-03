@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Revisión de textos del sitio · Efecto Espejo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap">
+<style>
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--suave:#F1E4E9;--t2:#5E5057;--linea:#E7D9DE;--ok:#3F7D5A;--okf:#E6F2EA;--no:#B3261E;--nof:#FBE9E7;--ed:#C9861A;--edf:#FBF1DF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--negro);font:300 15px/1.6 Poppins,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:36px 16px 90px}
+.ceja{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--fucsia);font-weight:500;margin:0}
+h1{font:400 clamp(28px,5vw,38px)/1.15 'Playfair Display',Georgia,serif;margin:6px 0 10px}
+h2{font:500 22px/1.3 'Playfair Display',Georgia,serif;margin:40px 0 4px}
+.bajada{color:var(--t2);margin:0 0 8px}
+.aviso{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 16px;font-size:14px;margin:16px 0}
+.quien{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.quien button{font:400 13px Poppins,Arial;border:1px solid var(--linea);background:#fff;border-radius:20px;padding:5px 14px;cursor:pointer}
+.quien button.on{background:var(--fucsia);color:#fff;border-color:var(--fucsia)}
+.resumen{position:sticky;top:0;z-index:5;background:var(--crema);border-bottom:1px solid var(--linea);padding:10px 0;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}
+.resumen b{font-weight:500}
+.p{background:#fff;border:1px solid var(--linea);border-left:4px solid var(--fucsia);border-radius:10px;padding:16px 18px;margin:12px 0}
+.p.ok{border-left-color:var(--ok)}.p.no{border-left-color:var(--no);opacity:.75}.p.editar{border-left-color:var(--ed)}
+.p h3{font:500 16px/1.4 Poppins,Arial,sans-serif;margin:0 0 6px}
+.num{color:var(--fucsia);margin-right:6px}
+.donde{font-size:13px;color:var(--t2);margin:0 0 8px}
+.donde b{font-weight:500;color:var(--fucsia)}
+.caja{display:block;padding:10px 12px;border-radius:6px;margin:8px 0;font-size:14px}
+.hoy{background:var(--nof);border-left:3px solid var(--no)}
+.prop{background:var(--okf);border-left:3px solid var(--ok)}
+.etq{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:4px}
+.hoy .etq{color:var(--no)}.prop .etq{color:var(--ok)}
+.por{font-size:13px;color:var(--t2);margin:6px 0 0}
+.acciones{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.acciones button{font:400 13px Poppins,Arial;border-radius:8px;padding:7px 14px;cursor:pointer;border:1px solid}
+.b-ok{background:#fff;color:var(--ok);border-color:var(--ok)}.b-ok.on{background:var(--ok);color:#fff}
+.b-ed{background:#fff;color:var(--ed);border-color:var(--ed)}.b-ed.on{background:var(--ed);color:#fff}
+.b-no{background:#fff;color:var(--no);border-color:var(--no)}.b-no.on{background:var(--no);color:#fff}
+textarea{width:100%;min-height:80px;margin-top:10px;font:300 14px/1.5 Poppins,Arial;border:1px solid var(--linea);border-radius:8px;padding:10px}
+.guardar{margin-top:6px;font:400 13px Poppins,Arial;background:var(--negro);color:#fff;border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+.estado{font-size:12px;color:var(--t2);margin-top:8px}
+.estado.err{color:var(--no)}
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Efecto Espejo · Revisión de textos</p>
+<h1>Revisión de textos del sitio</h1>
+<p class="bajada">Revisión de marketing y SEO del 3 de noviembre de 2026, no legal. Busca incongruencias, errores, roces en el camino a comprar y textos que vendan más a nuestra clienta. Nada de esto está publicado.</p>
+<div class="aviso">Cada propuesta tiene su número, <b>dónde va</b>, el texto de hoy (rojo) y el propuesto (verde). Abajo de cada una:
+<b style="color:var(--ok)">Aprobar</b>, <b style="color:var(--ed)">Editar</b> (escribes cómo lo quieres) o <b style="color:var(--no)">Rechazar</b>. Lo que marques queda guardado al instante y lo ven todos los que abren este link.
+<div class="quien">¿Quién está revisando? <button data-q="Leo">Leo</button><button data-q="Pablo">Pablo</button></div></div>
+<div class="resumen" id="resumen"></div>
+<div id="lista"></div>
+</main>
+<script>
+var SB_URL='https://ljdjiyghodcfgenzjowt.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqZGppeWdob2RjZmdlbnpqb3d0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NDI4NDMsImV4cCI6MjA5MDExODg0M30.TYvXvS-NXsbn56Wg4oN4g9C7Iv_KlS6nhN1f5tEnfx0',DOC='ee-revision-textos';
+var API=SB_URL+'/rest/v1/shared_docs',H={apikey:SB_KEY,authorization:'Bearer '+SB_KEY,'content-type':'application/json'};
+
+var G=[
+{g:'Confianza y cierre de la venta',items:[
+{t:'El sitio abre sin candado',d:'Configuración del dominio (no es un texto).',hoy:'Si alguien entra por http://www.efectoespejo.cl el navegador muestra «No seguro», incluso en la página donde se paga con Webpay.',prop:'Que el sitio siempre abra con candado (https).',por:'«No seguro» justo antes de pagar asusta y frena la compra.'},
+{t:'No hay reseñas de la asesoría online',d:'/asesoria-online/ y /test/',hoy:'Las 3 reseñas del sitio son de asesorías presenciales («creó outfits con ropa que ya estaba en mi closet», «Regalé ropa»). Ninguna es de la guía online.',prop:'Pedirles reseña a las clientas que ya recibieron su guía online (el correo de reseña ya existe) y mostrar esas reseñas en /asesoria-online/ y /test/. Las presenciales siguen en /asesoria/.',por:'La pregunta de quien compra online es «¿funciona sin verme?». Una reseña de otra clienta online lo responde mejor que nada.'},
+{t:'Pregunta nueva en el FAQ online',d:'/asesoria-online/, preguntas frecuentes, como primera pregunta.',hoy:'(no existe)',prop:'¿Funciona sin vernos en persona? Sí: con tu foto de rostro, tus medidas y tu encuesta preparo tu diagnóstico. Si quieres revisarlo conmigo, elige la versión con Feedback Personalizado.',por:'Es la duda número uno antes de pagar online y hoy no se responde.'},
+{t:'Mostrar que Leo no gana comisiones',d:'/asesoria/, ficha de la Ruta de Compras y su pregunta frecuente. Hoy está escondido en los términos.',hoy:'(solo en /terminos/) Leo no recibe comisiones, descuentos ni beneficios de las tiendas: te las recomienda solo según tu estilo y tu presupuesto.',prop:'No recibo comisiones ni beneficios de las tiendas: te las recomiendo solo por tu estilo y tu presupuesto.',por:'Es un argumento de confianza muy fuerte para una personal shopper y hoy nadie lo ve.'},
+{t:'Correo con dominio propio',d:'/contacto/, Isi y pie de los correos.',hoy:'tuefectoespejo@gmail.com',prop:'hola@efectoespejo.cl (hay que crearlo: hoy no existe).',por:'Un Gmail le resta seriedad frente a servicios de hasta $449.990.'}
+]},
+{g:'Tono: hablarle a nuestra clienta',items:[
+{t:'«Un lujo para pocas»',d:'Inicio, bloque del porqué.',hoy:'Durante años, la asesoría de imagen fue un lujo para pocas. Yo creo justo lo contrario: que cualquier mujer, con el cuerpo que tiene hoy y la ropa que ya cuelga en su clóset, puede verse y sentirse espectacular. No le falta ropa, le falta un método.',prop:'Yo creo que cualquier mujer, con el cuerpo que tiene hoy y la ropa que ya cuelga en su clóset, puede verse y sentirse espectacular. No le falta ropa, le falta un método.',por:'Nuestra clienta sí puede pagar «un lujo»: decirle que era para pocas le habla a otro público.'},
+{t:'«Hallazgos buenos y baratos» (inicio)',d:'Inicio, bloque del newsletter.',hoy:'Tips de estilo, colorimetría, looks reales y hallazgos buenos y baratos, todas las semanas.',prop:'Tips de estilo, colorimetría, looks reales y hallazgos que valen la pena, todas las semanas.',por:'«Baratos» choca con el precio de los servicios. La idea es comprar con criterio.'},
+{t:'Presentación del blog',d:'/blog/, texto de presentación.',hoy:'Acá te voy a contar todo lo que he aprendido (y lo que sigo aprendiendo) sobre vestirnos bien sin volvernos locas. Tips de colorimetría, ideas para sacarle el jugo a la ropa que ya tienes, y hallazgos buenos y baratos.',prop:'Acá te voy a contar todo lo que he aprendido (y lo que sigo aprendiendo) sobre vestirnos bien sin complicarnos. Tips de colorimetría, ideas para sacarle el jugo a la ropa que ya tienes, y hallazgos que valen la pena.',por:'Mismo motivo: un tono más sobrio, sin perder la cercanía.'},
+{t:'«Soy la Leo»',d:'/asesoria-online/, arriba de todo.',hoy:'Soy la Leo. Con una encuesta y una foto tuya armo tu guía de imagen:',prop:'Soy Leo. Con una encuesta y una foto tuya armo tu guía de imagen:',por:'«La Leo» es muy coloquial para el tono elegante de la marca.'}
+]},
+{g:'Hablar en primera persona (Leo), no «nosotros»',items:[
+{t:'Sobre Efecto Espejo: lo que creemos',d:'/sobre/. Solo cambia el texto; el orden de la página en celular no se toca.',hoy:'En Efecto Espejo creemos que la ropa debe adaptarse a tu cuerpo y a tu ritmo de vida, nunca al revés.',prop:'Creo que la ropa debe adaptarse a tu cuerpo y a tu ritmo de vida, nunca al revés.',por:'Lo que se vende es a Leo. El «nosotros» la diluye.'},
+{t:'Sobre Efecto Espejo: en qué me especializo',d:'/sobre/, párrafo siguiente.',hoy:'Nos alejamos de la moda pretenciosa e inaccesible. Nos especializamos en potenciar las diversas siluetas femeninas y en resolver la vida de mamás y mujeres ocupadas mediante compras inteligentes: esa mezcla perfecta entre el retail tradicional que ya conoces y los hallazgos en tiendas online que nadie adivina lo que costaron.',prop:'Me alejo de la moda pretenciosa e inaccesible. Me especializo en potenciar las diversas siluetas femeninas y en resolverles la vida a mamás y mujeres ocupadas con compras inteligentes: la mezcla justa entre las tiendas que ya conoces y hallazgos online que valen la pena.',por:'Primera persona, y se saca «que nadie adivina lo que costaron», que habla de precio bajo.'},
+{t:'Sobre Efecto Espejo: formas de trabajar',d:'/sobre/, títulos de la sección de servicios.',hoy:'Tenemos 2 formas de trabajar. Elige la que calce con tu momento. · ¿Te hace sentido? Así trabajamos.',prop:'Tengo 2 formas de trabajar contigo. Elige la que calce con tu momento. · ¿Te hace sentido? Así trabajo.',por:'Primera persona.'},
+{t:'FAQ presencial: no busco cambiar tu cuerpo',d:'/asesoria/, preguntas frecuentes.',hoy:'En Efecto Espejo no buscamos cambiar tu cuerpo ni enseñarte a esconderlo. Trabajamos desde quién eres hoy para que puedas sentirte cómoda, segura y representada por la ropa que usas.',prop:'No busco cambiar tu cuerpo ni enseñarte a esconderlo. Trabajo contigo desde quién eres hoy para que puedas sentirte cómoda, segura y representada por la ropa que usas.',por:'Primera persona.'},
+{t:'FAQ presencial: incorporar prendas',d:'/asesoria/, preguntas frecuentes.',hoy:'Cuando identificamos que necesitas incorporar algo, te ayudamos a definir qué necesitas realmente, por qué y cómo combinarlo con lo que ya tienes.',prop:'Cuando vemos que necesitas incorporar algo, te ayudo a definir qué necesitas realmente, por qué y cómo combinarlo con lo que ya tienes.',por:'Primera persona.'},
+{t:'FAQ presencial: no depender de una asesora',d:'/asesoria/, preguntas frecuentes.',hoy:'No queremos que dependas de una asesora cada vez que tengas que vestirte: queremos que aprendas a tomar mejores decisiones por ti misma.',prop:'No quiero que dependas de una asesora cada vez que tengas que vestirte: quiero que aprendas a tomar mejores decisiones por ti misma.',por:'Primera persona.'},
+{t:'Página de pago',d:'/comprar/, junto al botón de pago.',hoy:'Te llevamos al sitio seguro de Webpay (Transbank) para pagar con débito, crédito o prepago.',prop:'Te llevo al sitio seguro de Webpay (Transbank) para pagar con débito, crédito o prepago.',por:'Primera persona.'},
+{t:'Hora agendada',d:'/agendar/, mensaje final (en sus dos versiones).',hoy:'¡Listo! Tu hora quedó agendada. Te mandamos la confirmación por correo.',prop:'¡Listo! Tu hora quedó agendada. Te mando la confirmación por correo.',por:'Primera persona.'},
+{t:'Link a reseñas de Google',d:'Bloque de reseñas, en todas las páginas.',hoy:'Cuéntanos cómo te fue en Google',prop:'Cuéntame cómo te fue en Google',por:'Primera persona.'}
+]},
+{g:'Incongruencias y promesas que no se cumplen',items:[
+{t:'«Sigues desde cualquier teléfono o computador» no es cierto',d:'/asesoria-online/, /test/, /comprar/, correo «Tu compra está confirmada» y correo recordatorio de la encuesta.',hoy:'Si la dejas a medias, tu avance queda guardado y sigues desde cualquier teléfono o computador.',prop:'Si la dejas a medias, tu avance queda guardado en el mismo teléfono o computador donde la empezaste.',por:'Lo revisé en el sistema: el avance se guarda solo en el equipo donde se empezó. Si la clienta cambia de teléfono, empieza de cero y se frustra. Isi ya lo dice bien. (Otra opción: cambiar el sistema para que sí se guarde en cualquier equipo.)'},
+{t:'Quién elige las tiendas de la Ruta de Compras',d:'/asesoria/, preguntas frecuentes.',hoy:'En la Ruta de Compras salimos juntas a tiendas que yo elijo según tu presupuesto, tu encuesta y tu comuna. Compras prendas clave que combinan entre sí y con lo que ya tienes.',prop:'En la Ruta de Compras salimos juntas a tiendas que te propongo según tu presupuesto, tu encuesta y tu comuna, y que acordamos juntas. Compras prendas clave que combinan entre sí y con lo que ya tienes.',por:'La ficha, la página de pago, Isi y los términos dicen «te las propongo y las acordamos juntas». Solo el FAQ dice «yo elijo».'},
+{t:'«Valor» en vez de «precio»',d:'/asesoria/ (FAQ de la Ruta de Compras) y /terminos/ (sección 2).',hoy:'…de 30 minutos a 1 hora adicional tiene un valor de $50.000',prop:'…de 30 minutos a 1 hora adicional tiene un precio de $50.000',por:'En los textos de venta el monto se llama precio.'},
+{t:'El test exige el correo, pero dice que es opcional',d:'/test/, antes del resultado.',hoy:'Déjanos tus datos y te mandamos también tu mini paleta al correo, para tenerla a mano cuando salgas de compras.',prop:'Déjame tu nombre y correo para ver tu resultado. También te mando tu mini paleta, para tenerla a mano cuando salgas de compras.',por:'El nombre y el correo son obligatorios para ver el resultado. Decir «también» y después exigirlos molesta justo antes de la oferta.'},
+{t:'La oferta del test no dice cuánto es',d:'/test/, oferta después del resultado.',hoy:'Un descuento exclusivo para ti. Válido por 1 hora.',prop:'$10.000 de descuento en tu guía. Válido por 1 hora.',por:'Un monto concreto convence más que «exclusivo», y ya se suma al precio de lanzamiento.'},
+{t:'Cómo regalar una asesoría presencial',d:'/asesoria/, pregunta «¿Puedo regalar una asesoría de imagen?».',hoy:'Podemos ayudarte a elegir el servicio más adecuado según la persona y la transformación que quieras regalarle.',prop:'Escríbeme por WhatsApp antes de comprar y te ayudo a elegir el servicio más adecuado según la persona y la transformación que quieras regalarle.',por:'En la asesoría online sí se dice qué hacer; acá queda en el aire.'},
+{t:'Pregunta poco clara',d:'/asesoria/, preguntas frecuentes.',hoy:'¿Tengo que usar mi ropa a la asesoría presencial?',prop:'¿Trabajamos con mi propia ropa?',por:'Está mal construida y se entiende a medias.'},
+{t:'Espacio antes de la coma',d:'/asesoria-online/.',hoy:'tu rostro y tu silueta , para',prop:'tu rostro y tu silueta, para',por:'Error de tipeo.'}
+]},
+{g:'SEO: que Google nos encuentre',items:[
+{t:'Título de la asesoría online en Google',d:'/asesoria-online/, título de la pestaña y de Google (no se ve en la página).',hoy:'Asesoría de imagen online | Efecto Espejo',prop:'Asesoría de imagen online y colorimetría | Efecto Espejo',por:'«Colorimetría» es de lo que más se busca y hoy no aparece.'},
+{t:'Título grande de la asesoría online',d:'/asesoria-online/, título principal arriba de todo.',hoy:'Tu mejor versión, sin salir de casa',prop:'Asesoría de imagen online: tu Guía de Estilo Personal',por:'Google le da mucho peso al título principal, y hoy no dice qué se vende. Además, la frase actual se repite al final de la página.'},
+{t:'Título grande del inicio',d:'Inicio, título principal sobre el carrusel.',hoy:'Tu mejor versión empieza frente al espejo',prop:'Asesoría de imagen: tu mejor versión empieza frente al espejo',por:'Mismo motivo: el título principal no dice «asesoría de imagen».'},
+{t:'Fotos sin descripción',d:'/asesoria/, las 4 fotos de los servicios (no se ve en la página).',hoy:'(sin descripción)',prop:'Closet Detox a domicilio en Vitacura con Leo Cruz · Ruta de Compras con personal shopper en Santiago · Asesoría de imagen personal con Leo Cruz',por:'Google no ve las fotos sin descripción, y además sirven para personas con baja visión.'},
+{t:'Blog: 2 artículos al mes',d:'/blog/',hoy:'3 artículos, todos del 18 de septiembre. Ninguno apunta a búsquedas de gente que quiere contratar.',prop:'Publicar 2 artículos al mes sobre búsquedas locales: «closet detox Santiago», «personal shopper Las Condes», «asesoría de imagen Vitacura». Cada uno enlaza al servicio.',por:'Es la forma gratis de llegar a clientas que ya buscan el servicio en Google.'},
+{t:'Arreglos técnicos de SEO',d:'Configuración del sitio (no se ve).',hoy:'El mapa del sitio incluye /imagen-personal/, que ya no existe y redirige. /club/ redirige de forma temporal. Las direcciones sin «/» final abren copias de la misma página. /terminos/ y /comprar/ tienen 2 títulos principales y /test/ tiene 2 subtítulos vacíos. Las preguntas frecuentes online no están marcadas para Google.',prop:'Arreglar todo eso de una vez. No cambia nada de lo que ve la clienta.',por:'Ordena lo que Google lee del sitio. Son detalles chicos, pero suman.'}
+]}
+];
+
+var quien=(function(){try{return localStorage.getItem('ee-quien')||''}catch(e){return ''}})();
+var dec={},lastJSON='';
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function ids(){var n=0,out=[];G.forEach(function(g){g.items.forEach(function(it){n++;it.n=n;it.id='p'+n;out.push(it)})});return out}
+var TODOS=ids();
+function render(){
+  var h='',c={ok:0,editar:0,no:0};
+  G.forEach(function(g){
+    h+='<h2>'+esc(g.g)+'</h2>';
+    g.items.forEach(function(it){
+      var d=dec[it.id]||{},e=d.estado||'';if(c[e]!=null)c[e]++;
+      h+='<div class="p '+e+'" id="'+it.id+'"><h3><span class="num">'+it.n+'.</span>'+esc(it.t)+'</h3>'+
+      '<p class="donde"><b>Dónde va:</b> '+esc(it.d)+'</p>'+
+      '<span class="caja hoy"><span class="etq">Hoy</span>'+esc(it.hoy)+'</span>'+
+      '<span class="caja prop"><span class="etq">Propuesta</span>'+esc(it.prop)+'</span>'+
+      '<p class="por"><b>Por qué:</b> '+esc(it.por)+'</p>'+
+      '<div class="acciones"><button class="b-ok'+(e==='ok'?' on':'')+'" data-a="ok" data-id="'+it.id+'">Aprobar</button>'+
+      '<button class="b-ed'+(e==='editar'?' on':'')+'" data-a="editar" data-id="'+it.id+'">Editar</button>'+
+      '<button class="b-no'+(e==='no'?' on':'')+'" data-a="no" data-id="'+it.id+'">Rechazar</button></div>'+
+      (e==='editar'?'<textarea data-t="'+it.id+'" placeholder="Escribe cómo lo quieres">'+esc(d.texto||'')+'</textarea><button class="guardar" data-g="'+it.id+'">Guardar texto</button>':'')+
+      (e?'<div class="estado">'+({ok:'Aprobado',editar:'Para editar',no:'Rechazado'}[e])+(d.quien?' por '+esc(d.quien):'')+(d.at?' · '+new Date(d.at).toLocaleString('es-CL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'')+'</div>':'')+
+      '</div>';
+    });
+  });
+  var foco=document.activeElement&&document.activeElement.getAttribute('data-t');
+  if(foco)return;
+  document.getElementById('lista').innerHTML=h;
+  var pend=TODOS.length-c.ok-c.editar-c.no;
+  document.getElementById('resumen').innerHTML='<span><b>'+TODOS.length+'</b> propuestas</span><span style="color:var(--ok)"><b>'+c.ok+'</b> aprobadas</span><span style="color:var(--ed)"><b>'+c.editar+'</b> para editar</span><span style="color:var(--no)"><b>'+c.no+'</b> rechazadas</span><span><b>'+pend+'</b> sin revisar</span>';
+}
+function aviso(id,txt){var el=document.querySelector('#'+id+' .estado');if(!el){el=document.createElement('div');el.className='estado';document.getElementById(id).appendChild(el)}el.textContent=txt;el.className='estado err'}
+async function cargar(){
+  try{var r=await fetch(API+'?id=eq.'+DOC+'&select=data',{headers:H});var a=await r.json();var d=(a[0]&&a[0].data)||{};if(typeof d==='string')d=JSON.parse(d);
+    var j=JSON.stringify(d.decisiones||{});if(j!==lastJSON){lastJSON=j;dec=d.decisiones||{};render()}}catch(e){}
+}
+async function guardar(id,cambio){
+  try{
+    var r=await fetch(API+'?id=eq.'+DOC+'&select=data',{headers:H});var a=await r.json();var d=(a[0]&&a[0].data)||{};if(typeof d==='string')d=JSON.parse(d);
+    d.decisiones=d.decisiones||{};
+    if(cambio===null)delete d.decisiones[id];else d.decisiones[id]=Object.assign({},d.decisiones[id]||{},cambio,{quien:quien||'',at:new Date().toISOString()});
+    var w=await fetch(API,{method:'POST',headers:Object.assign({prefer:'resolution=merge-duplicates,return=minimal'},H),body:JSON.stringify({id:DOC,data:d,updated_at:new Date().toISOString()})});
+    if(!w.ok)throw new Error('HTTP '+w.status);
+    dec=d.decisiones;lastJSON=JSON.stringify(dec);render();
+  }catch(e){aviso(id,'No se guardó. Revisa tu conexión e inténtalo de nuevo.')}
+}
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.q){quien=b.dataset.q;try{localStorage.setItem('ee-quien',quien)}catch(e){}marcarQuien();return}
+  if(b.dataset.a){var id=b.dataset.id,act=(dec[id]||{}).estado;guardar(id,act===b.dataset.a?null:{estado:b.dataset.a});return}
+  if(b.dataset.g){var t=document.querySelector('textarea[data-t="'+b.dataset.g+'"]');var id2=b.dataset.g;t.blur();guardar(id2,{estado:'editar',texto:t.value})}
+});
+function marcarQuien(){document.querySelectorAll('.quien button').forEach(function(x){x.classList.toggle('on',x.dataset.q===quien)})}
+marcarQuien();render();cargar();setInterval(cargar,4000);
+</script>
+</body>
+</html>
