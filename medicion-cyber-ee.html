@@ -1,0 +1,56 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Medición para el Cyber</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--malva:#9D637E;--suave:#F1E4E9;--linea:#E6DADF;--texto2:#5c5458}
+*{box-sizing:border-box}body{margin:0;background:var(--crema);color:var(--negro);font-family:Poppins,sans-serif;font-weight:300;line-height:1.6}
+a{color:var(--malva)}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+.etiqueta{display:inline-block;background:var(--negro);color:#fff;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:99px}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;line-height:1.25}h1{font-size:34px;margin:14px 0 6px}h2{font-size:24px;margin:40px 0 10px}
+.bajada{color:var(--texto2);margin:0 0 24px}
+.tarea{background:#fff;border:2px solid var(--malva);border-radius:14px;padding:22px 24px}
+.tarea h2{margin:0 0 10px;font-size:22px}
+.caja{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px 22px}
+ol{padding-left:24px;margin:8px 0}li{margin:10px 0}li b{font-weight:600}li::marker{color:var(--malva);font-weight:500}
+.ok{color:#1d5c30;font-weight:500}.no{color:#9b2c2c;font-weight:500}
+.importante{background:var(--malva);color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:2px}
+.nota{font-size:14px;color:var(--texto2)}
+@media (max-width:700px){h1{font-size:27px}.tarea,.caja{padding:16px}}
+</style></head><body><div class="wrap">
+<span class="etiqueta">Revisión para Leo · no se cambió nada en el sitio</span>
+<h1>¿Estamos listos para medir el Cyber?</h1>
+<p class="bajada">Antes de poner plata en avisos de Instagram, Facebook y Google, revisamos si el sitio cuenta bien las visitas, las clientas que empiezan a comprar y las compras pagadas. Esto es lo que encontramos (revisión del 11-nov-2026).</p>
+
+<div class="tarea"><h2>Qué tienes que hacer</h2><ol>
+<li><b>Darnos acceso a Meta (Instagram y Facebook)</b><span class="importante">Importante</span><br>Desde tu Meta Business: el "Pixel" de Efecto Espejo y un permiso para que el sitio le avise a Meta cada vez que alguien paga. Sin esto, Meta no sabe qué avisos venden y no puede optimizar la campaña.</li>
+<li><b>Darnos acceso a Google Ads</b><span class="importante">Importante</span><br>La cuenta donde vas a pautar en Google, para conectarle las compras.</li>
+<li><b>Aprobar el texto nuevo de cookies y privacidad</b><br>Hoy el aviso de cookies y la política solo hablan de Google Analytics. Hay que sumar Meta y Google Ads. Te lo mandamos redactado para que lo apruebes.</li>
+</ol></div>
+
+<h2>Lo que ya funciona</h2>
+<div class="caja"><ol>
+<li><span class="ok">Google Analytics está instalado</span> y cuenta las visitas de todas las páginas.</li>
+<li><span class="ok">Las compras se cuentan solo cuando Webpay confirma el pago.</span> Si el pago falla o la clienta se arrepiente, no se cuenta.</li>
+<li><span class="ok">Cada compra se registra con su precio en pesos y el servicio que compró.</span></li>
+<li><span class="ok">Si la clienta recarga la página después de pagar, la compra no se cuenta dos veces.</span></li>
+<li>También se cuenta cuando alguien termina el test de cálida o fría.</li>
+</ol></div>
+
+<h2>Lo que falta antes del Cyber</h2>
+<div class="caja"><ol>
+<li><span class="no">Meta (Instagram y Facebook) no está conectado.</span> Hoy no mide nada de lo que pase en el sitio.</li>
+<li><span class="no">Google Ads no está conectado.</span></li>
+<li><span class="no">No se cuenta quién mira cada servicio ni quién aprieta "comprar".</span> Sin eso no sabemos en qué paso se cae la venta.</li>
+<li><span class="no">Las clientas que no aceptan las cookies no se cuentan, aunque compren.</span> Con publicidad pagada eso puede ser una parte grande de las ventas. La solución es avisarle a Google y a Meta la compra directo desde el sistema de pagos, que no depende de las cookies.</li>
+<li><span class="no">Las ventas aparecerían como si vinieran de Transbank y no del aviso.</span> Se arregla con un ajuste en Google Analytics.</li>
+</ol></div>
+
+<h2>Riesgos que vamos a corregir</h2>
+<div class="caja"><ol>
+<li><b>Se pueden contar compras que no existen.</b> Alguien que escriba una dirección especial en el navegador puede crear una "compra" falsa en las estadísticas. No afecta la plata ni tu panel, pero ensucia los números de la campaña.</li>
+<li><b>El link personal de la encuesta le llega a Google.</b> Hay que taparlo antes de sumar Meta, porque ese link abre los datos de la clienta.</li>
+<li><b>Un error poco probable en los pagos:</b> si Webpay avisa dos veces al mismo tiempo, una compra pagada podría quedar marcada como rechazada en tu panel. No ha pasado, pero lo dejamos corregido.</li>
+</ol></div>
+
+<p class="nota" style="margin-top:28px">En cuanto lleguen los accesos, conectamos todo y hacemos una compra de prueba para confirmar que Meta y Google la ven.</p>
+</div></body></html>
