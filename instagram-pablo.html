@@ -1,0 +1,383 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex,nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Instagram pablo.contri y arueda.cl</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: columna de informe de 860px, secciones por cuenta, gráficos de barras horizontales a escala */
+:root{
+  --bg:#F5F6F8; --surface:#FFFFFF; --fg:#15181D; --muted:#5E6673; --line:#DDE1E7;
+  --accent:#E4572E; --accent2:#2D6BB5; --good:#1E8A5A; --bad:#C23A2B; --bar:#C9CFD8;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111317;--surface:#1A1D23;--fg:#ECEEF1;--muted:#9AA3AF;--line:#2C313A;--accent:#F2714B;--accent2:#5B95DA;--good:#3DB57F;--bad:#EF6B5C;--bar:#3A404A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111317;--surface:#1A1D23;--fg:#ECEEF1;--muted:#9AA3AF;--line:#2C313A;--accent:#F2714B;--accent2:#5B95DA;--good:#3DB57F;--bad:#EF6B5C;--bar:#3A404A;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:2.6rem;letter-spacing:.01em}
+h2{font-size:1.9rem;border-top:3px solid var(--fg);padding-top:12px}
+h3{font-size:1.25rem;letter-spacing:.02em;text-transform:uppercase}
+p{margin:0;max-width:68ch}
+.sub{color:var(--muted);font-size:.92rem}
+section{display:flex;flex-direction:column;gap:22px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font-family:var(--display);font-size:2rem;font-variant-numeric:tabular-nums;line-height:1}
+.kpi span{color:var(--muted);font-size:.8rem}
+.kpi.warn b{color:var(--bad)} .kpi.ok b{color:var(--good)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.chart{display:flex;flex-direction:column;gap:8px;min-width:0}
+.chart .t{font-weight:600;font-size:.9rem}
+.chart .n,.n{color:var(--muted);font-size:.78rem}
+.row{display:grid;grid-template-columns:150px 1fr 64px;align-items:center;gap:8px;font-size:.85rem}
+.row .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.track{height:14px;background:transparent;position:relative}
+.fill{height:100%;background:var(--bar);border-radius:2px}
+.fill.hi{background:var(--accent)} .fill.hi2{background:var(--accent2)} .fill.lo{background:var(--bad);opacity:.75}
+.row small{color:var(--muted);font-weight:400}
+svg text{fill:var(--muted);font-family:var(--body);font-size:11px}
+.find{display:flex;flex-direction:column;gap:12px;counter-reset:f}
+.find li{list-style:none;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.find li::before{counter-increment:f;content:counter(f);font-family:var(--display);font-weight:700;font-size:1.3rem;color:var(--accent);line-height:1.2}
+.find li div{min-width:0}
+.find strong{display:block}
+ol.find,ul.find{padding:0;margin:0}
+.rec li::before{color:var(--good)}
+.posts{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
+.post{display:grid;grid-template-columns:86px 1fr 90px;gap:10px;padding:9px 12px;border-top:1px solid var(--line);font-size:.85rem;align-items:center}
+.post:first-child{border-top:0}
+.post .r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.post .c{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post .d{color:var(--muted);font-variant-numeric:tabular-nums}
+.posts.wrapc .post .c{white-space:normal;overflow:visible}
+.tag{display:inline-block;font-size:.7rem;font-weight:600;padding:1px 6px;border-radius:3px;background:var(--line);margin-right:6px;vertical-align:1px}
+.tag.paid{background:var(--accent);color:#fff}
+.note{border-left:3px solid var(--accent);padding:10px 14px;background:var(--surface);font-size:.88rem;color:var(--muted)}
+.note b{color:var(--fg)}
+.src{font-size:.78rem;color:var(--muted);word-break:break-word}
+.src li{margin-bottom:4px}
+a{color:var(--accent2)}
+@media (max-width:520px){.row{grid-template-columns:110px 1fr 54px}.post{grid-template-columns:70px 1fr 64px}h1{font-size:2.1rem}}
+</style>
+
+<div class="wrap">
+<header style="display:flex;flex-direction:column;gap:10px">
+  <h1>Instagram: pablo.contri y arueda.cl</h1>
+  <p class="sub">Datos de la API de Instagram al 10-nov-2026. Personal: 66 publicaciones desde mayo 2024 (las anteriores no traen estadísticas válidas). A Rueda: 79 publicaciones desde enero 2024. "Alcance" = cuentas únicas que vieron la publicación. Se usa la mediana, no el promedio, porque 7 publicaciones explican la mayor parte del alcance.</p>
+  <p class="sub"><b>Nuevo, 11-nov:</b> <a href="#mercado">análisis de mercado</a>. Incluye cómo decide hoy Instagram, influencers de endurance en Chile y afuera, los hooks que se repiten, palabras clave, calendario de eventos, tiendas de referencia y qué cambia en cada cuenta.</p>
+</header>
+
+<div class="note"><b>Pagado vs. orgánico.</b> En los últimos 28 días, <b>27% de las reproducciones de pablo.contri vinieron de anuncios</b> (14.713 de 53.545). En arueda.cl, prácticamente cero (2). La API no dice qué publicación específica fue pautada sin el permiso de anuncios, que falta autorizar. Las publicaciones con alcance fuera de rango están marcadas como <span class="tag paid">revisar pauta</span>: si fueron pautadas, sus números no son orgánicos.</div>
+
+<!-- ============ PERSONAL ============ -->
+<section>
+  <h2>pablo.contri</h2>
+  <div class="kpis">
+    <div class="kpi"><b>2.224</b><span>seguidores · 77% hombres · 69% entre 35 y 54 años</span></div>
+    <div class="kpi"><b>775</b><span>alcance mediano por publicación</span></div>
+    <div class="kpi warn"><b>72%</b><span>del alcance total lo hacen solo 7 publicaciones (10%)</span></div>
+    <div class="kpi ok"><b>+203</b><span>seguidores netos en 28 días (222 nuevos, 19 se fueron)</span></div>
+    <div class="kpi"><b>95%</b><span>del alcance de 28 días llega a no seguidores</span></div>
+    <div class="kpi warn"><b>1,5</b><span>publicaciones al mes promedio desde 2024 (con meses en cero)</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="chart" id="pFormato"></div>
+    <div class="chart" id="pGancho"></div>
+    <div class="chart" id="pTema"></div>
+    <div class="chart" id="pShare"></div>
+    <div class="chart" id="pHora"></div>
+    <div class="chart" id="pLargo"></div>
+  </div>
+
+  <div class="chart" id="pMes"></div>
+
+  <h3>Tu vara: 2.000 vistas y 100 likes</h3>
+  <div class="kpis">
+    <div class="kpi warn"><b>11 de 39</b><span>publicaciones del último año (sep-25 a nov-26) pasan las dos cosas</span></div>
+    <div class="kpi warn"><b>7</b><span>de esas 11 son de triatlón o entrenamiento; las otras 4 son Pidcock, fútbol, el aluvión y el Mundial de pista</span></div>
+    <div class="kpi"><b>7</b><span>reels de tu tema llegan a 2.000 vistas pero no a 100 likes: la gente mira, pero no reacciona</span></div>
+  </div>
+
+  <h3>Las 7 de tu tema que pasan la vara</h3>
+  <p class="n">vistas · likes</p>
+  <div class="posts" id="pPasan"></div>
+
+  <h3>Las que se ven pero no pasan los 100 likes</h3>
+  <div class="posts" id="pCasi"></div>
+
+  <h3>Las que no sirven</h3>
+  <div class="posts" id="pNo"></div>
+
+  <h3>Qué hizo que el algoritmo las levantara</h3>
+  <ol class="find">
+    <li><div><strong>Compartidos.</strong>Es la señal que lleva el reel a gente que no te sigue. La altimetría tuvo 49 compartidos por cada 1.000 personas y el tapering, 11. Los resúmenes de semana tienen 5 y los resultados de carrera, 0,6. Lo que no se comparte no sale de tus seguidores.</div></li>
+    <li><div><strong>Momento de un evento masivo.</strong>3 de las 7 son de las dos semanas del Maratón de Santiago (13, 22 y 26 de abril), con @maratonsantiago en el texto. Miles de corredores estaban viviendo lo mismo esa semana. Valdivia, el 29 de noviembre, es la próxima oportunidad.</div></li>
+    <li><div><strong>La protagonista es la persona que mira, no tú.</strong>La altimetría habla del miedo de quien va a correr, el tapering de los síntomas que siente quien lo ve, y "explicarle a un no ciclista" de algo que vive el ciclista que lo ve. El giro de más funciona porque es un hecho concreto con un costo (14–15 minutos y el podio) que otros han vivido: "te entiendo, en Viña di una vuelta de más". En cambio, "Semana de baja, muy cansado" (9-nov: 873 vistas, 29 likes) cuenta cómo te sientes tú, sin un hecho y sin nada para quien lo ve. Lo mismo pasa con los resúmenes de semana: hablan de ti.</div></li>
+    <li><div><strong>Comentarios que responden algo.</strong>En el tapering, los 30 comentarios cuentan su síntoma: "siento que mis piernas me pesan el doble", "me resfrié", "ansiedad nivel dios". Pasó porque preguntaste por algo que estaban sintiendo esa misma semana y prometiste la respuesta en los comentarios. "¿Algún dato que te gustaría saber?" no tuvo ninguna respuesta.</div></li>
+    <li><div><strong>Se vuelven a ver.</strong>En las que pasan la vara, cada persona alcanzada lo vio 1,6 a 1,8 veces. En las semanas y en "mañana productiva", 1,2 a 1,4.</div></li>
+  </ol>
+
+  <h3>Palabras que funcionan y palabras que no</h3>
+  <ol class="find">
+    <li><div><strong>Funcionan:</strong>"¿A quién más le pasa?" · "Si estos días sientes que…" · "Tranqui, es parte de…" · "Cuéntame qué…" · "En los comentarios te dejo qué hacer" · "Te recomiendo" · "A un mes de la carrera…" · "Un error que nunca pensé que me pasaría" · "No la más rápida, pero la más inteligente" · el nombre del evento (@maratonsantiago).</div></li>
+    <li><div><strong>No funcionan:</strong>"Resumen de…" (los 3 resúmenes quedaron bajo la vara) · "Semana de baja" · "Mañana productiva" / "Mañana ganada" · "Un lujo poder…" · "Gracias @marca…" · "Mi nueva casa…" · "¿Algún dato que te gustaría saber?" · "¿Y tú…?" con respuesta de sí o no.</div></li>
+  </ol>
+
+  <h3>Pilares de contenido</h3>
+  <ol class="find rec">
+    <li><div><strong>Pilar 1 · Lo que estás sintiendo esta semana (40%). Es tu vitrina de coach.</strong>Un síntoma o una duda que tu seguidor tiene ahora mismo, por la etapa de su preparación, y la explicación.<br>Fórmula: "Si estos días [síntoma]…" → "Tranqui, es [explicación]" → "Cuéntame qué sientes" → la respuesta en los comentarios.<br>Tus ejemplos: tapering antes del maratón (9.957 vistas, 159 likes) y "a un mes de la carrera, te recomiendo probar TODO" (4.627 vistas, 126 likes).</div></li>
+    <li><div><strong>Pilar 2 · Lo que todo triatleta vive (30%). Trae gente que no te sigue.</strong>Una situación que el triatleta reconoce y le da risa. Video corto y primera línea corta, publicado alrededor de una carrera grande.<br>Tus ejemplos: "Mirando la altimetría del maratón, ¿a quién más le pasa?" (66.343 vistas, 1.805 likes) y "¿Cómo explicarle a un no ciclista lo que es volver a conectar con la rueda de adelante?" (14.654 vistas, 283 likes).</div></li>
+    <li><div><strong>Pilar 3 · Mi Ironman sin filtro (30%). Te hace creíble ante marcas y alumnos.</strong>Tu preparación contada como decisión, error o estrategia, nunca como resumen ni resultado.<br>Tus ejemplos: "Dar un giro de más en la bici, un error que nunca pensé que me pasaría" (9.224 vistas, 173 likes), "8va maratón: no la más rápida, pero la más inteligente" (2.161 vistas, 102 likes) y el Nacional de Viña (2.565 vistas, 108 likes).<br>Cómo convertir lo que hoy no pasa la vara: "Semana de baja, muy cansado" (873 vistas) se cuenta como "Corté 3 entrenos esta semana y te explico cómo lo decido". "19 h, 70 km" (3.036 vistas, 70 likes) se cuenta como "Lo que aprendí en la semana más dura antes de Valdivia y que te sirve para la tuya". Si lo que cuentas es solo cómo te sentiste, no funciona.</div></li>
+  </ol>
+
+  <h3 id="proximos">Tus próximos reels, ajustados</h3>
+  <p class="n">Tus temas, reescritos con los pilares y los hooks del informe. Los hooks y cierres son propuestas mías. Fechas pensando en Valdivia el 29-nov; tus mejores horas son de 20 h en adelante.</p>
+  <ol class="find rec">
+    <li><div><strong>El test de VO2 máx y lactato dentro del próximo resumen semanal</strong>El resumen queda con su formato de siempre; esto es solo cómo contar la parte del test. Ojo: "Test VO2 Max + lactato en @gomove" (13-jun-2024) llegó a 83 personas porque se contó como "me hice un test". Lo que interesa es qué reveló y qué decidiste.<br>La parte del test en 3 tiempos: 1) 3 segundos del test (la máscara, el pinchazo en el dedo), que es lo que engancha a la vista; 2) un solo número en grande, tu umbral en watts o en pulso, y qué significa en simple; 3) la decisión: "por eso en Valdivia voy a ir a X watts y no voy a pasar de X pulsaciones".<br>Para la primera línea del texto o la portada del resumen: <b>"Resumen a 2 semanas de Valdivia… y mira lo que me salió en el test de lactato"</b><br>Cierre: <b>"¿A cuántas pulsaciones crees que está tu umbral?"</b>, que se contesta con un número. O, para captar alumnos: <b>"Comenta ZONAS y te explico cómo sacar las tuyas."</b><br>El laboratorio va etiquetado, pero no es el protagonista.</div></li>
+    <li><div><strong>Cuando un entreno no sale · Pilar 1 · jueves 13-nov</strong>Riesgo: que quede como "Semana de baja, muy cansado" (873 vistas), que habla de ti. Hay que darlo vuelta hacia quien mira.<br>Hook en pantalla: <b>"Si hoy tu entreno no salió, tranqui. Esto hago yo."</b><br>Cuerpo: tu regla concreta para decidir si lo repites, lo cortas o lo sueltas, con un caso real tuyo de esta preparación.<br>Cierre: <b>"¿Team lo repito o team lo suelto?"</b>, que se contesta con una palabra.</div></li>
+    <li><div><strong>Qué como durante una carrera · Pilar 3 · domingo 16-nov</strong>Es contenido para guardar y copiar, así que necesita números: gramos de carbohidrato por hora, cada cuánto comes y qué cambia entre la bici y el trote. Funciona como reel o como carrusel con música.<br>Hook en pantalla: <b>"Lo que voy a comer en Valdivia, hora por hora."</b><br>Primera línea del texto (palabras que se buscan): "Nutrición para un Ironman: mi plan para Valdivia".<br>Cierre: <b>"¿Cuántos geles aguantas antes de que te den asco?"</b>, que se contesta con un número.<br>Si quieres captar alumnos: "Comenta PLAN y te mando mi plan por DM", como el "Comenta HYROX" de Pickering (743 comentarios).<br>Si hay una marca, va dentro del plan, nunca como protagonista.</div></li>
+    <li><div><strong>Las zapatillas que usaré en Valdivia · Pilar 3 · miércoles 19-nov</strong>Riesgo: que quede como reseña de producto, que no funciona a tu escala. Cuéntalo como una decisión con su porqué.<br>Hook en pantalla: <b>"Qué zapatilla usar para correr 42 km después de 180 km de bici. Esta elegí yo."</b><br>Cuerpo: el criterio de la elección (comodidad con las piernas cargadas, drop, si las probaste en fondos largos). Si descartaste tus zapatillas más rápidas, ese es el hook: "Por qué no voy a usar mis zapatillas más rápidas en Valdivia".<br>Cierre: <b>"¿Con qué zapatilla corres tus fondos?"</b> Responden con una marca y se arma conversación en los comentarios. Ojo: la reseña de zapatillas de Pickering sacó 187 likes, contra 4,4 mil de su reel con palabra clave.</div></li>
+    <li><div><strong>Visualizar la carrera · Pilar 1 · lunes 24-nov</strong>Que quien mira lo haga contigo, en vez de explicarlo. Es lo que se manda por mensaje directo a otro que corre.<br>Hook en pantalla: <b>"Si a días de tu carrera los nervios no te dejan dormir, haz esto conmigo: 30 segundos."</b><br>Cuerpo: voz calmada guiando la largada, el agua y el primer kilómetro de bici, con imágenes del recorrido de Valdivia si las tienes.<br>Cierre: <b>"Mándaselo a quien corre el domingo."</b> y <b>"¿Qué parte de la carrera te da más nervios?"</b><br>Etiqueta @trichile.cl.</div></li>
+    <li><div><strong>Haciendo la maleta para Valdivia · Pilar 2, humor · miércoles 26-nov</strong>Es tu fórmula de la altimetría. Menos de 30 segundos, cortes rápidos, sin explicar.<br>Hook en pantalla: <b>"Haciendo la maleta para Valdivia: el trisuit… y ropa como para ir a la Antártica."</b><br>Cuerpo: va entrando el trisuit, los guantes, el gorro, otra capa y otra más; el último objeto tiene que ser el más absurdo.<br>Cierre: <b>"¿Te pasa? Etiqueta al que lleva todo."</b> Es el cierre del dorsal de @zizu.play (10,1 mil likes): cada etiqueta es un envío.<br>Primera línea del texto: "Qué llevar a Ironman Valdivia", que es lo que la gente busca esa semana. Etiqueta @trichile.cl y la cuenta oficial del Ironman Valdivia.</div></li>
+  </ol>
+  <p class="n">Para los 6: el hook va dicho o escrito en el primer segundo, sin intro ni logo. Si alguno te da dudas, publícalo primero como Trial Reel, que solo ven personas que no te siguen.</p>
+
+  <h3>Qué dejar de hacer</h3>
+  <ol class="find">
+    <li><div><strong>Entrenamiento con paisaje o ánimo y sin nada que contar.</strong>"Las 2 vistas del entrenamiento" se vio 6 segundos en promedio; "Mañana productiva" tuvo 852 vistas y 13 likes.</div></li>
+    <li><div><strong>La marca como protagonista.</strong>El reel de Prologo tuvo 28 guardados, pero 70 likes. La marca va dentro del pilar 1, como solución a lo que la persona siente, no como presentación del producto.</div></li>
+    <li><div><strong>Preguntas abiertas al cierre</strong>("¿algún dato?", "¿qué te falta?"). Pregunta por algo que la persona está sintiendo o algo que se conteste con una palabra ("team calle o team rodillo").</div></li>
+  </ol>
+
+  <div class="note"><b>Límites.</b> Clasifiqué a mano leyendo cada texto y sus comentarios; no vi los videos. En los últimos 28 días, el 27% de tus reproducciones vino de anuncios, y no sé cuáles reels fueron pautados. La altimetría, "explicarle a un no ciclista" y el giro de más quedan marcados para revisar: si alguno tuvo pauta, sus números no son orgánicos.</div>
+</section>
+
+<!-- ============ A RUEDA ============ -->
+<section>
+  <h2>arueda.cl</h2>
+  <div class="kpis">
+    <div class="kpi"><b>12.280</b><span>seguidores · 78% hombres · 70% entre 35 y 54 años</span></div>
+    <div class="kpi"><b>1.353</b><span>alcance mediano por publicación</span></div>
+    <div class="kpi warn"><b>0</b><span>publicaciones en octubre y noviembre 2026</span></div>
+    <div class="kpi warn"><b>1,8%</b><span>de los seguidores alcanzados en 28 días (221 de 12.280)</span></div>
+    <div class="kpi warn"><b>+69</b><span>seguidores netos en 28 días (159 nuevos, 90 se fueron)</span></div>
+    <div class="kpi"><b>3,8</b><span>compartidos por cada 1.000 alcanzados (personal: 21,1)</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="chart" id="aTema"></div>
+    <div class="chart" id="aFormato"></div>
+  </div>
+  <div class="chart" id="aMes"></div>
+
+  <h3>Top 6 por alcance</h3>
+  <div class="posts" id="aTop"></div>
+  <h3>Las 5 peores</h3>
+  <div class="posts" id="aBot"></div>
+
+  <h3>Conclusiones</h3>
+  <ol class="find">
+    <li><div><strong>La cuenta está dormida.</strong>Hubo 14 publicaciones en 2026 y ninguna desde septiembre. En 28 días llegó a 581 cuentas, de las cuales solo 221 la siguen. Con 12.280 seguidores, el algoritmo ya casi no la muestra.</div></li>
+    <li><div><strong>Se está perdiendo gente.</strong>Por cada 100 seguidores nuevos se van 57. En la cuenta personal se van 9.</div></li>
+    <li><div><strong>Las historias de personas ganan lejos.</strong>"Seba… de su peor momento" llegó a 17.788 personas, 3 veces más que la siguiente. Los temas de historias y podcast tienen una mediana de 2.504; los episodios del podcast rinden 3 veces la mediana de la cuenta.</div></li>
+    <li><div><strong>Bike fit es el peor tema, aunque es el servicio.</strong>Tiene una mediana de 690 en 26 publicaciones. La excepción confirma la regla: "unas malas calzas pueden arruinar tu posición" (6.773) habla del problema del ciclista, no del servicio. "¿Ya conoces nuestro servicio de Bike Fit?" llegó a 130.</div></li>
+    <li><div><strong>Anunciar marcas no le importa a nadie.</strong>"Te presentamos la marca…", "Damos la bienvenida a una nueva marca" y "¿Sabías que tenemos geles…?" llegaron a entre 60 y 100 personas. Las promociones tienen la interacción más baja de la cuenta (2,2%).</div></li>
+    <li><div><strong>Las rutas son lo que más se guarda:</strong>9,1 guardados por cada 1.000, el doble que cualquier otro tema. Es contenido de referencia.</div></li>
+    <li><div><strong>No se comparte.</strong>3,8 compartidos por cada 1.000 alcanzados, 5 veces menos que tu cuenta personal con la misma audiencia (hombres de 35 a 54 años). El contenido habla de la tienda, no del ciclista.</div></li>
+  </ol>
+
+  <h3>Recomendaciones</h3>
+  <ol class="find rec">
+    <li><div><strong>Volver con 2 reels por semana, jueves y lunes,</strong>y subir a 3-5 cuando el ritmo esté firme. Antes, ordenar la bio y fijar 3 posts; sin post de disculpas.</div></li>
+    <li><div><strong>Historias de personas y de origen, no catálogo.</strong>La historia de Seba llegó a 17.788 personas y "¿conoces nuestro bike fit?", a 130. En Chile pasa lo mismo: Blitz sacó 2,2 mil likes contando cómo nacieron sus geles; un reel de catálogo de Oxford, 92. Sacar 3 a 5 cortes de cada capítulo del podcast.</div></li>
+    <li><div><strong>Que hable una persona, nunca la marca.</strong>Nada de material de marca tal como llega: desde abril de 2026 Instagram le quita alcance a eso. Los productos y las marcas nuevas se muestran puestos en uso.</div></li>
+    <li><div><strong>Bike fit como el antes y después de una persona:</strong>su dolor, un número ("subimos el sillín 12 mm") y cómo le fue. No encontré ningún estudio de fit en Santiago haciendo contenido.</div></li>
+    <li><div><strong>Rutas con nombre y lugar</strong>(Farellones, Yerba Loca, San Cristóbal). Ya son lo que más se guarda en la cuenta, y en Chile el lugar es protagonista.</div></li>
+    <li><div><strong>Collabs que publica A Rueda,</strong>con Pablo o atletas chilenos de coautor, como hace Trek Chile. Así A Rueda recibe el alcance de la cuenta personal, que comparte 5 veces más.</div></li>
+    <li><div><strong>Club con medio propio:</strong>subirse a la carrera de la semana, una rodada con nombre fijo y un desafío de kilómetros del 24 al 31 de diciembre.</div></li>
+    <li><div><strong>Sorteos, solo con "like y etiqueta a 2 amigos" y un bike fit de premio,</strong>para que entre gente con interés real.</div></li>
+  </ol>
+</section>
+
+<div class="note"><b>Límites de estos datos.</b> Varios grupos tienen pocas publicaciones (pregunta n=3, humor n=3, ciclismo pro n=4): son señales, no leyes. Los temas se asignaron por palabras clave del texto, no viendo el video. No incluye historias (stories), que la API solo entrega por 24 horas.</div>
+
+<!-- ============ MERCADO ============ -->
+<section id="mercado">
+  <h2>El mercado: qué funciona fuera de tus cuentas</h2>
+  <p class="sub">Investigación del 11-nov-2026, con dos tercios dedicados a Chile. Instagram no muestra las reproducciones de otras cuentas sin sesión iniciada, así que en Instagram comparo por likes y comentarios. En TikTok y YouTube sí hay reproducciones. Lo marcado "inferido" es lectura mía; las fuentes están al final.</p>
+
+  <div class="kpis">
+    <div class="kpi ok"><b>10,1 mil</b><span>likes de @zizu.play (11,8 mil seguidores) con "Yo cada vez que quiero colocar bien mi número de corredor… ¿TE PASA?". Es tu fórmula de la altimetría</span></div>
+    <div class="kpi ok"><b>743</b><span>comentarios de @vicentepickering con "Comenta HYROX y te mando un DM"</span></div>
+    <div class="kpi ok"><b>2,2 mil vs. 92</b><span>likes: Blitz contando cómo nacieron sus geles, contra un reel de catálogo de Oxford Chile</span></div>
+    <div class="kpi"><b>218 mil</b><span>vistas de "Santiago a Mendoza en bicicleta sin dormir", de un canal con 6,4 mil suscriptores</span></div>
+  </div>
+
+  <!-- ---------- CHILE ---------- -->
+  <h3>Chile: el humor de endurance</h3>
+  <p class="n">cuenta · qué hace y qué le funcionó · seguidores (11-nov-2026)</p>
+  <div class="posts wrapc">
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@zizu.play</b> (Samuel Loyola, fundador de Corramos en Chile, 8 maratones). Es la cuenta más parecida a lo que te funciona: corredor real con humor de ritual. "NUNCA DIGAN ESTO ‼️ 😂", un sketch de pareja corriendo, tuvo 12,1 mil likes y 459 comentarios. "Yo cada vez que quiero colocar bien mi número de corredor 😂… ¿TE PASA?" tuvo 10,1 mil likes y 636 comentarios, casi todos etiquetando a un amigo. Según Modash, sus reels de humor llegan a 545 mil y 310 mil reproducciones. Publica casi a diario.</div><div class="r">11.800</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@andresalfarocollarte</b>. Su bio dice "Deporte fusionado con Humor"; corre maratón y triatlón olímpico. Hace doblajes, varios personajes interpretados por él mismo ("Mismo café, distinto personaje", 83 comentarios) y un personaje fijo, "Tío Leopoldo". Su peak (97,6 mil likes) fue un doblaje de humor general, no de deporte. Su humor de corredor anda entre cientos y 1,2 mil likes: "La Ruta de la Piscola… la más difícil y nociva" tuvo 1,2 mil likes y 226 comentarios. Mete a Skechers dentro del chiste, exagerando: "nadie me ha dado tanta estabilidad, apoyo y ese impulso…". Publica un reel cada 1,5 días.</div><div class="r">21.800</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@vicentepickering</b>, coach de running y Hyrox. Según Modash, sus posts de humor de running tienen 485 mil y 304 mil reproducciones. "HYROX LLEGA A CHILE", con el cierre "Comenta HYROX y te mando un DM", sacó 4,4 mil likes y 743 comentarios. Su reseña de zapatillas, en cambio, tuvo 187 likes.</div><div class="r">24.200</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Easy Run / Seba Campos</b>. Su short "Así es como no hay que comenzar las carreras // #running #humor" tiene 316 mil vistas. Su video largo de consejos para el primer maratón, 62 mil.</div><div class="r">20 mil</div></div>
+    <div class="post"><div class="d">Prensa</div><div class="c"><b>Juan Pablo López</b>, comediante. Se burló de los que trotan en su rutina del Festival de Viña 2025 y después se viralizó trotando en el San Cristóbal. "El runner que postea todo" es un estereotipo que el público chileno reconoce.</div><div class="r">—</div></div>
+  </div>
+  <ol class="find">
+    <li><div><strong>Un personaje fijo que vuelve.</strong>El "Tío Leopoldo" de Andrés. Tu equivalente podría ser "el cliente del bike fit" o "el triatleta que lleva todo" (ejemplos míos).</div></li>
+    <li><div><strong>La marca dentro del chiste.</strong>Andrés con Skechers. Un comentario le preguntó "¿Le da a sus zapatillas???": eso es atención, no rechazo.</div></li>
+    <li><div><strong>Lo que no te sirve de Andrés:</strong>el doblaje genérico. Le da alcance, pero no le habla al triatleta de 35 a 54 años.</div></li>
+  </ol>
+
+  <h3>Chile: otras cuentas de endurance y qué les funciona</h3>
+  <div class="posts wrapc">
+    <div class="post"><div class="d">TikTok</div><div class="c"><b>Gaspar Blest</b>. Trotó de Santiago a Algarrobo por Lo Vázquez. Hook: "hace un año exacto no podía caminar". Sacó 440 mil reproducciones en un día, según T13.</div><div class="r">440 mil vistas</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Benjamin Menar</b>. "Santiago a Mendoza en bicicleta sin dormir" (218 mil vistas) y "Santiago a La Serena sin dormir" (187 mil). Es un desafío de una línea entre lugares que todos conocen, en un canal de 6,4 mil suscriptores.</div><div class="r">6.400</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Mtb Enduro Chile</b>. "Bicicleta Trek Marlin con Mejoras muy Dudosas! Barata Negra #3!" tiene 3 M de vistas; "Accidente de Mountain Bike en el Bike Park La Parva! Crónica de una Caída!", 2,5 M; y el downhill en el San Cristóbal, 1,5 M.</div><div class="r">792 mil</div></div>
+    <div class="post"><div class="d">TikTok</div><div class="c"><b>@xicokine</b>. "Subí el cerro San Cristóbal en bicicleta por primera vez 🚴‍♂️⛰️🔥": 123,7 mil reproducciones en 67 segundos.</div><div class="r">124 mil vistas</div></div>
+    <div class="post"><div class="d">TikTok</div><div class="c"><b>@rookierunner_</b>. "Acompañé a vivir los últimos 400 mts de la maratón de Santiago": 24,5 mil reproducciones y 2.175 likes.</div><div class="r">24,5 mil vistas</div></div>
+    <div class="post"><div class="d">TikTok</div><div class="c"><b>@elmanquecorre</b>. "…fue un planzaso", sobre una corrida segura para mujeres, sacó 21,7 mil reproducciones y 2.178 likes. Su video técnico "Capacidad Aeróbica vs Anaeróbica" sacó 12,7 mil y solo 367 likes. La experiencia le gana a la clase.</div><div class="r">21,7 mil vistas</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@marceloguvi</b> (downhill). "Durante años les he compartido la técnica, los viajes y mis victorias.", con el cierre "comenta ESTOY FIRME", sacó 1,7 mil likes y alimenta su lista de correo.</div><div class="r">161.000</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@__delfina__</b>. "Logradísimo mi primera maratón 42k 👏🏻🏅" (2,5 mil likes) cuenta la vuelta de una lesión y le dedica cada kilómetro a alguien. Su post con más likes no es de running.</div><div class="r">106.000</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@trichile.cl</b>. "El C-H-I se escuchó fuerte en Francia" (1,1 mil likes) y "Chilenos en el IRONMAN HAWAII 2026:" (706 likes, una lista de tiempos). Funciona por el orgullo país y por los nombres propios que la gente etiqueta.</div><div class="r">45.400</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@runchile.cl</b>. El recap del Maratón de Santiago 2026 sacó 1,3 mil likes; un post pagado de Compressport, 143.</div><div class="r">82.000</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@runbellacl</b>, triatleta amateur y coach, tu par en tamaño. "3era!!!!!!!! No puedo explicar la emoción…" (602 likes, 104 comentarios) y "Misión cumplida!!!… La meta con la bandera de Chile 🇨🇱 que soñé" (383).</div><div class="r">7.300</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>@gravelchile</b>. "EBI 2026 – Lago Maihue" sacó 137 comentarios porque para tomar cupo había que dar like y etiquetar a 2 amigos.</div><div class="r">11.600</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Diego Moya</b>, ganador del 70.3 Pucón 2026 con récord. Su canal tiene 342 suscriptores y su video más visto, 1,3 mil. El triunfo circuló por la prensa, no por sus redes: en Chile, ni los triatletas élite hacen contenido.</div><div class="r">342</div></div>
+  </div>
+
+  <h3>Lo que se repite en Chile</h3>
+  <ol class="find">
+    <li><div><strong>El lugar que todos conocen como protagonista.</strong>San Cristóbal (123 mil y 1,5 M), La Parva (2,5 M), Farellones y Yerba Loca ("Una de las subidas más DURAS y CLÁSICAS de Chile 🥶"), Lo Vázquez. Un consejo de posición grabado en las curvas de Farellones se ve más que el mismo consejo grabado en el estudio (inferido).</div></li>
+    <li><div><strong>El desafío de una línea, de un lugar a otro.</strong>"Santiago a Mendoza sin dormir", "Santiago a Algarrobo trotando". Se entiende en un segundo.</div></li>
+    <li><div><strong>El hito con historia detrás.</strong>"Hace un año no podía caminar", "Logradísimo" después de una lesión, "la meta con la bandera que soñé". El resultado solo no funciona (tus resultados de carrera tienen 0,6 compartidos por cada 1.000); sí funciona con la historia que lo explica.</div></li>
+    <li><div><strong>El orgullo país y los nombres propios.</strong>"El C-H-I", "Chilenos en…". La gente etiqueta a los que conoce.</div></li>
+    <li><div><strong>Palabras que vi en hooks que funcionaron:</strong>"¿te pasa?", "planzaso", "logradísimo", "estoy firme", "pedaleable", "Barata Negra", "sin dormir", "por primera vez". Un estudio de la U. de Chile describe a corredores que "sacan pecho" y al maratón como "el Lollapalooza de los runners".</div></li>
+    <li><div><strong>Lo que no encontré:</strong>el taco, la Costanera, el asado post fondo, el smog o el calor no aparecen en ningún contenido viral verificable. Si los usas, es una apuesta, no un patrón probado. Tu reel "El asadito, la chelita, la vida social" (3.418 vistas, 36 likes) apunta a lo mismo.</div></li>
+  </ol>
+
+  <h3>Chile: tiendas y marcas (referencia para arueda.cl)</h3>
+  <div class="posts wrapc">
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>BLITZ Nutrición Deportiva</b>, marca chilena. "Te cuento cómo nacieron nuestros Geles Energéticos con frutos de la Patagonia 🌿🗻" sacó 2,2 mil likes, el mejor post de marca chilena que encontré. También se suben a las carreras de la semana ("Solo 4 días!!", 371 likes).</div><div class="r">30.100</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>Specialized Chile</b>. Un embajador explicando la bici en primera persona ("Clemente Delano nos cuenta…") sacó 250 likes; el reel de marca puro, 229. En YouTube, el video del distribuidor "Specialized Rockhopper - Todo lo que tienes que saber" tiene 145 mil vistas.</div><div class="r">108.000</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>Trek Chile</b>. La mitad de sus posts son collabs con atletas y eventos. El evento de 50 años, con bike fittings en Mall Sport, sacó 462 likes; una convocatoria a un evento en Concepción, 67.</div><div class="r">77.500</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>Oxford Chile</b>. Un reel de catálogo de Kona sacó 92 likes. Su campaña #pasaelcambio, con talleres gratis, ganó un premio Eikon. La gente responde a lo que enseña, no a lo que vende.</div><div class="r">86.400</div></div>
+    <div class="post"><div class="d">TikTok</div><div class="c"><b>cyclingstore</b>. Unboxing de una Oxford Merak con upgrade, nombrando comunas (Ñuñoa, Macul): 30,2 mil reproducciones.</div><div class="r">30,2 mil vistas</div></div>
+    <div class="post"><div class="d">Web</div><div class="c"><b>Multibike Vitacura</b> vende bike fit Retül a $130.000. No encontré ningún estudio de bike fit en Santiago que haga contenido; lo que aparece en TikTok sobre bike fit es colombiano.</div><div class="r">—</div></div>
+  </div>
+
+  <!-- ---------- AFUERA ---------- -->
+  <h3>Afuera: lo que vale la pena traer</h3>
+  <p class="n">Solo lo que no apareció en Chile o que confirma lo de Chile.</p>
+  <div class="posts wrapc">
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Cam Nicholls</b>, ciclista de más de 40, tu misma audiencia. "Be careful of dudes in white cycling shorts" (6,05 M vistas) es humor de tribu, igual que @zizu.play. "10 Tips I Wish I Knew as a Beginner Cyclist" tiene 1,48 M.</div><div class="r">210 mil</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>GTN</b>. El dolor del principiante: "Why Am I Exhausted After Swimming 50m!?" (1,43 M vistas).</div><div class="r">1,1 M</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Ben Parkes</b>, coach. La paradoja: "How to Run Fast at a Low Heart Rate" (1,48 M). Vende planes por nivel desde el canal.</div><div class="r">374 mil</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Lionel Sanders</b>. El sufrimiento sin filtro ("7.5 Hours of Ironman Training", 913 mil) y un solo auspiciador fijo (Whoop en 51 videos).</div><div class="r">210 mil</div></div>
+    <div class="post"><div class="d">YouTube</div><div class="c"><b>Mikael Eriksson</b>. Un canal chico que crece con invitados de autoridad: "Coach of 7 Triathlon World Titles: You Need Less Intensity Than You Think".</div><div class="r">4.300</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>Stotts Bicycles</b> (EE.UU.). Una tienda chica que se presenta como "Sales, Service, and Media", con sketches de humor y su rodada "Sunday Crew". Es el modelo de club con medio propio.</div><div class="r">40.700</div></div>
+    <div class="post"><div class="d">Instagram</div><div class="c"><b>Rapha</b>. Casi no muestra producto. Su motor es el Festive 500, un desafío de 500 km en Strava entre el 24 y el 31 de diciembre, con más de 400 mil participantes.</div><div class="r">749.000</div></div>
+  </div>
+
+  <h3>Hooks para ti, con evidencia de Chile primero</h3>
+  <p class="n">Plantilla · dónde funcionó · ejemplo para ti (los ejemplos son míos)</p>
+  <ol class="find rec">
+    <li><div><strong>"¿Te pasa?" sobre un detalle del ritual.</strong>@zizu.play: 10,1 mil likes; tu altimetría: 66 mil vistas. Para ti: "Yo cada vez que intento ponerme el neopreno rápido… ¿te pasa?"</div></li>
+    <li><div><strong>El que no entiende al deportista.</strong>@zizu.play con "NUNCA DIGAN ESTO" (12,1 mil likes); tu "explicarle a un no ciclista" (14,6 mil vistas). Para ti: "Cuando tu pareja ve que te inscribiste en otro Ironman."</div></li>
+    <li><div><strong>El hito con la historia detrás.</strong>Gaspar Blest ("hace un año no podía caminar"), @__delfina__ ("Logradísimo"). Para ti: "17 Ironman 70.3 y en el primero casi no termino la natación", si es cierto.</div></li>
+    <li><div><strong>El desafío de una línea en un lugar conocido.</strong>"Santiago a Mendoza sin dormir" (218 mil), "Subí el San Cristóbal por primera vez" (124 mil). Para ti: "Subí Farellones con el sillín 2 cm más abajo: esto pasó."</div></li>
+    <li><div><strong>El síntoma de quien mira.</strong>Tu tapering (9.957 vistas); GTN afuera (1,43 M). Para ti: "¿Te duele la rodilla en la segunda hora de bici? No es la rodilla."</div></li>
+    <li><div><strong>"Lo que me hubiera gustado saber".</strong>Easy Run (consejos para el primer maratón, 62 mil) y Cam Nicholls afuera (1,48 M). Para ti: "Lo que me hubiera gustado saber antes de mi primer 70.3. Llevo 17."</div></li>
+    <li><div><strong>La paradoja.</strong>Ben Parkes afuera (1,48 M); no la vi en Chile. Para ti: "Cómo ir más rápido en la bici sin entrenar ni una hora más."</div></li>
+    <li><div><strong>Cierre con palabra clave.</strong>"Comenta HYROX" (743 comentarios), "ESTOY FIRME". Para ti: "Comenta FIT y te mando el checklist de posición."</div></li>
+  </ol>
+
+  <h3>Cómo decide Instagram hoy</h3>
+  <ol class="find">
+    <li><div><strong>Tres señales: tiempo de visualización, likes por alcance y envíos por alcance</strong>(Adam Mosseri, jefe de Instagram, enero de 2025). Cuenta la tasa sobre las personas alcanzadas, no el total. Los envíos por mensaje directo pesan más para llegar a no seguidores. Por eso los "¿te pasa?", que se mandan etiquetando a alguien, viajan tanto.</div></li>
+    <li><div><strong>Trial Reels.</strong>Un reel de prueba se muestra solo a no seguidores; a las 24 horas ves cómo le fue y, si funciona, puede pasar a tus seguidores. Sirve para probar hooks sin gastar tu cuenta.</div></li>
+    <li><div><strong>Collabs.</strong>Hasta 3 coautores, y el post llega a la audiencia de cada uno. Conviene que publique la cuenta con más alcance.</div></li>
+    <li><div><strong>Originalidad (desde el 30-abr-2026).</strong>Las cuentas que suben sobre todo material que no es suyo quedan fuera de las recomendaciones. Es un riesgo directo para A Rueda si sube las fotos de las marcas tal como llegan.</div></li>
+  </ol>
+
+  <h3>Calendario de picos de conversación</h3>
+  <div class="posts wrapc">
+    <div class="post"><div class="d">29-nov-2026</div><div class="c"><b>Ironman y 70.3 Valdivia.</b> Es el primer Ironman de distancia completa en Chile.</div><div class="r">~2.200</div></div>
+    <div class="post"><div class="d">24 al 31-dic</div><div class="c"><b>Ventana tipo Festive 500:</b> un desafío de kilómetros en Strava. Es una idea para A Rueda.</div><div class="r">—</div></div>
+    <div class="post"><div class="d">10-ene-2027</div><div class="c"><b>Ironman 70.3 Pucón.</b> Lo transmite Chilevisión, y en 2026 Diego Moya ganó con récord.</div><div class="r">2.000+</div></div>
+    <div class="post"><div class="d">abr-2027</div><div class="c"><b>Maratón de Santiago.</b> Tus 3 mejores reels del año salieron en esas dos semanas.</div><div class="r">35.000+</div></div>
+    <div class="post"><div class="d">abr</div><div class="c"><b>Desafío Gran Santiago:</b> de La Moneda a Farellones, 85 km.</div><div class="r">~12.000</div></div>
+  </div>
+  <p class="n">La columna de la derecha muestra cuántos participan en cada evento.</p>
+
+  <h3>Qué cambia para pablo.contri</h3>
+  <ol class="find rec">
+    <li><div><strong>Un "¿te pasa?" de triatlón o bike fit por semana</strong>(pilar 2), cerrando con "etiqueta al que…". No encontré a nadie en Chile haciéndolo con el triatlón.</div></li>
+    <li><div><strong>Un personaje o una serie fija,</strong>como el "Tío Leopoldo" de Andrés: "el cliente del bike fit" o "el triatleta que lleva todo" (ideas mías).</div></li>
+    <li><div><strong>Los consejos de bike fit, grabados en lugares conocidos</strong>(Farellones, San Cristóbal), no en el estudio.</div></li>
+    <li><div><strong>Cerrar con "Comenta FIT"</strong>para convertir seguidores en alumnos.</div></li>
+    <li><div><strong>3 reels por semana.</strong>Las cuentas chilenas que crecen publican cada 1 a 1,5 días; tú promedias 1,5 al mes. Buffer midió +12% de alcance por post al pasar de 1-2 a 3-5 por semana.</div></li>
+    <li><div><strong>Ir de invitado a #TrichileTV y etiquetar a @trichile.cl</strong>en los reels de carrera.</div></li>
+  </ol>
+
+  <div class="note"><b>Límites del análisis de mercado.</b> En Instagram comparé likes y comentarios, no alcance: sin sesión iniciada no se ven las reproducciones. Los visores públicos y los perfiles de TikTok bloquearon las consultas. No pude abrir los perfiles de Diego Moya ni de Bárbara Riveros. Las cifras de Modash son de terceros. Que no haya encontrado algo no prueba que no exista.</div>
+
+  <h3>Fuentes principales</h3>
+  <ol class="src">
+    <li>@zizu.play: <a href="https://www.instagram.com/zizu.play/reel/DXknvYtDWFG/">número de corredor</a> · <a href="https://www.instagram.com/zizu.play/reel/DVjD_ZRDfWK/">NUNCA DIGAN ESTO</a></li>
+    <li>@andresalfarocollarte: <a href="https://www.instagram.com/andresalfarocollarte/">perfil</a> · <a href="https://www.instagram.com/reel/DMlvhskv_fe/">Ruta de la Piscola</a> · <a href="https://www.instagram.com/reel/DfDZoyuhxHg/">Skechers</a></li>
+    <li>@vicentepickering: <a href="https://www.instagram.com/vicentepickering/reel/DffsCToCLmG/">Comenta HYROX</a> · Modash: <a href="https://www.modash.io/find-influencers/chile/running">running Chile</a></li>
+    <li>Easy Run: <a href="https://youtu.be/f6Ueqcp2Hvg">short de humor</a> · Benjamin Menar: <a href="https://youtu.be/nLgR-2fO4w8">Santiago a Mendoza</a> · Mtb Enduro Chile: <a href="https://youtu.be/5olVsjaYsJ4">Barata Negra</a></li>
+    <li>Gaspar Blest: <a href="https://www.t13.cl/noticia/tendencias/hace-ano-no-podia-caminar-joven-se-viraliza-por-trotar-desde-santiago-hasta-algarrobo">T13</a> · @xicokine: <a href="https://www.tiktok.com/@xicokine/video/7298514691381316869">San Cristóbal</a> · @elmanquecorre: <a href="https://www.tiktok.com/@elmanquecorre/video/7313276931498151174">planzaso</a></li>
+    <li>@marceloguvi: <a href="https://www.instagram.com/marceloguvi/reel/DUtRbAvASlf/">ESTOY FIRME</a> · @trichile.cl: <a href="https://www.instagram.com/trichile.cl/reel/DdEcqaUJO9O/">El C-H-I</a> · @gravelchile: <a href="https://www.instagram.com/gravelchile/p/DVOBDJ_kaJ1/">EBI 2026</a></li>
+    <li>Blitz: <a href="https://www.instagram.com/blitz_nutrition/reel/DJP9xU6spfO/">origen de los geles</a> · Oxford: <a href="https://www.instagram.com/oxford.chile/reel/DezytMhK1SQ/">reel de catálogo</a> · Specialized Chile: <a href="https://www.instagram.com/specialized_chi/reel/DfSlV6QtNS6/">embajador</a></li>
+    <li>Juan Pablo López: <a href="https://www.chilevision.cl/noticias/tendencias/y-la-rutina-de-vina-juan-pablo-lopez-olvida-su-rencor-contra-los-que-trotan-con-hilarante-video/">CHV</a> · Running en la era digital: <a href="https://doble-espacio.uchile.cl/el-boom-del-running-en-la-era-digital/">U. de Chile</a></li>
+    <li>Instagram: <a href="https://www.socialmediatoday.com/news/instagram-shares-algorithm-insights-2025/738034/">señales de Mosseri</a> · <a href="https://creators.instagram.com/blog/instagram-trial-reels">Trial Reels</a> · <a href="https://creators.instagram.com/blog/rewarding-original-creators-on-instagram">originalidad</a> · <a href="https://buffer.com/resources/how-often-to-post-on-instagram/">Buffer, frecuencia</a></li>
+    <li>Afuera: <a href="https://vidiq.com/youtube-stats/channel/@CamNicholls/">Cam Nicholls</a> · <a href="https://vidiq.com/youtube-stats/channel/@gtn/">GTN</a> · <a href="https://vidiq.com/youtube-stats/channel/@BenParkes/">Ben Parkes</a> · <a href="https://sponsorradar.com/channels/lionel-sanders">Lionel Sanders</a> · <a href="https://cdn.road.cc/content/news/rapha-festive-500-returns-12th-year-288357">Rapha Festive 500</a></li>
+  </ol>
+</section>
+</div>
+
+<script>
+const fmt=n=>n==null?'–':Math.round(n).toLocaleString('es-CL');
+function bars(id,title,note,rows,opt={}){
+  const el=document.getElementById(id);const max=Math.max(...rows.map(r=>r[1]));
+  const best=Math.max(...rows.map(r=>r[1]));const worst=Math.min(...rows.map(r=>r[1]));
+  el.innerHTML='<div class="t">'+title+'</div><div class="n">'+note+'</div>'+rows.map(r=>{
+    const cls=r[1]===best?(opt.c||'hi'):(r[1]===worst&&rows.length>2?'lo':'');
+    return '<div class="row"><div class="lab" title="'+r[0]+'">'+r[0]+(r[2]!=null?' <small>n='+r[2]+'</small>':'')+'</div><div class="track"><div class="fill '+cls+'" style="width:'+Math.max(1.5,100*r[1]/max)+'%"></div></div><div class="val">'+(opt.dec?r[1].toFixed(1):fmt(r[1]))+'</div></div>'}).join('');
+}
+function line(id,title,note,pts,color){
+  const el=document.getElementById(id);const W=820,H=200,L=50,R=10,T=12,B=34;
+  const lv=pts.map(p=>Math.log10(Math.max(10,p[2])));const mn=1,mx=5;
+  const x=i=>L+i*(W-L-R)/(pts.length-1),y=v=>T+(H-T-B)*(1-(v-mn)/(mx-mn));
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="'+title+'">';
+  [10,100,1000,10000,100000].forEach(v=>{const yy=y(Math.log10(v));s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--line)"/><text x="'+(L-6)+'" y="'+(yy+4)+'" text-anchor="end">'+fmt(v)+'</text>'});
+  s+='<polyline fill="none" stroke="'+color+'" stroke-width="2" points="'+pts.map((p,i)=>x(i)+','+y(lv[i])).join(' ')+'"/>';
+  pts.forEach((p,i)=>{s+='<circle cx="'+x(i)+'" cy="'+y(lv[i])+'" r="'+(2+Math.min(6,p[1]))+'" fill="'+color+'" opacity=".85"/>';if(i%2===0||i===pts.length-1)s+='<text x="'+x(i)+'" y="'+(H-14)+'" text-anchor="middle">'+p[0]+'</text>'});
+  s+='</svg>';el.innerHTML='<div class="t">'+title+'</div><div class="n">'+note+'</div><div style="overflow-x:auto">'+s+'</div>';
+}
+function posts(id,rows){document.getElementById(id).innerHTML=rows.map(r=>'<div class="post"><div class="d">'+r[0]+'</div><div class="c" title="'+r[3].replace(/"/g,'')+'">'+(r[4]?'<span class="tag paid">revisar pauta</span>':'')+'<span class="tag">'+r[1]+'</span>'+r[3]+'</div><div class="r">'+fmt(r[2])+'</div></div>').join('')}
+
+bars('pFormato','Alcance mediano por formato','personas por publicación',[['Reel',1150,46],['Carrusel',509,17],['Foto',185,3]]);
+bars('pGancho','Alcance mediano por tipo de contenido','último año, clasificado a mano leyendo cada publicación',[['Lo que todo triatleta vive',5385,4],['Error contado como lección',5140,1],['Consejo',2146,6],['Semana con números',1483,5],['Anuncio de club o marca',952,2],['Entreno sin números',612,5],['Resultado de carrera',584,7]]);
+bars('pTema','Publicaciones que pasan tu vara','2.000 vistas y 100 likes · último año',[['Error contado como lección',1,1],['Lo que todo triatleta vive',2,4],['Consejo',2,6],['Resultado de carrera',2,7],['Semana con números',0,5],['Entreno sin números',0,5],['Anuncio de club o marca',0,2]]);
+bars('pShare','Compartidos por cada 1.000 alcanzados','por tipo · último año',[['Lo que todo triatleta vive',38.4,4],['Consejo',5.8,6],['Semana con números',5.5,5],['Entreno sin números',2,5],['Error contado como lección',1.9,1],['Resultado de carrera',0.6,7]],{dec:1});
+bars('pHora','Alcance mediano por hora de publicación','hora de Chile',[['Noche (20 h o más)',1299,15],['17 a 20 h',948,18],['Mañana',604,4],['Tarde (13 a 17 h)',564,29]]);
+bars('pLargo','Alcance mediano por largo del texto','caracteres del texto',[['Corto (<80)',1184,7],['Medio (80-250)',931,35],['Largo (>250)',604,24]]);
+line('pMes','Alcance mediano por mes, pablo.contri','escala logarítmica · tamaño del punto = publicaciones del mes',[["may-24",3,71],["jun-24",2,95],["ago-24",1,58],["sep-24",2,277],["nov-24",3,153],["dic-24",1,509],["ene-25",2,838],["feb-25",1,775],["mar-25",3,1558],["abr-25",1,2301],["may-25",4,948],["jul-25",1,353],["ago-25",3,538],["sep-25",1,5140],["oct-25",2,5808],["nov-25",2,649],["ene-26",2,53498],["feb-26",3,649],["mar-26",2,1184],["abr-26",3,5480],["may-26",3,612],["jun-26",1,1185],["jul-26",3,866],["oct-26",13,1483],["nov-26",4,1091]],'var(--accent)');
+posts('pPasan',[['13-abr-26','Reel',66343,'Mirando la altimetría del maratón. ¿A quién más le pasa? · 1.805 likes',1],['12-jul-26','Reel',14654,'¿Cómo explicarle a un no ciclista lo que es volver a la rueda de adelante? · 283 likes',1],['22-abr-26','Reel',9957,'Si estos días pre maratón sientes que no vas bien… tranqui, es el tapering · 159 likes',0],['10-sep-25','Reel',9224,'Dar un giro de más en la bici, un error que nunca pensé · 173 likes',1],['30-oct-26','Reel',4627,'A un mes de la carrera te recomiendo probar TODO · 126 likes',0],['01-nov-25','Carrusel',2565,'Campeonato Nacional Viña, 1° de mi categoría · 108 likes',0],['26-abr-26','Carrusel',2161,'8va maratón: no la más rápida pero la más inteligente · 102 likes',0]]);
+posts('pCasi',[['21-oct-26','Reel',3445,'¿Te cuesta mantener la posición? Prologo CPC · 70 likes, 28 guardados',0],['09-oct-26','Reel',3418,'El asadito, la chelita, la vida social · 36 likes',0],['02-nov-26','Reel',3036,'A 4 semanas de Valdivia: 19 h, 70 km · 70 likes',0],['19-oct-26','Reel',2342,'El resumen a 6 semanas de Valdivia · 57 likes',0],['15-oct-26','Reel',2250,'Lo que opino del rodillo: ¿team calle o rodillo? · 53 likes',0],['23-oct-26','Reel',2219,'Cocinando con Ironman · 62 likes',0],['12-oct-26','Reel',2015,'Semana de baja a 7 semanas de Valdivia · 57 likes',0]]);
+posts('pNo',[['09-nov-26','Reel',873,'Semana de baja, muy cansado · 29 likes',0],['27-oct-26','Reel',1623,'Las 2 vistas del entrenamiento · 22 likes, visto 6 s',0],['08-may-26','Reel',852,'Mañana productiva 6am con 3k · 13 likes',0],['16-may-26','Reel',275,'Mañana de trail preparando Torrencial · 17 likes',0],['07-jul-26','Foto',354,'Último spam de Torrencial · 19 likes',0],['01-jul-26','Reel',1065,'Resumen de Valdivia · 44 likes',0]]);
+
+bars('aTema','Alcance mediano por tema, arueda.cl','una publicación puede tener varios temas',[['Historia de atleta / podcast',2504,9],['Rutas y lugares',1799,8],['Promoción / descuento',1684,4],['Consejo / educativo',1520,46],['Evento / carrera',1520,33],['Producto / llegó',1510,38],['Bike fit',690,26]],{c:'hi2'});
+bars('aFormato','Alcance mediano por formato, arueda.cl','personas por publicación',[['Reel',1370,63],['Carrusel',1133,11],['Foto',525,5]],{c:'hi2'});
+line('aMes','Alcance mediano por mes, arueda.cl','escala logarítmica · tamaño del punto = publicaciones del mes · sin publicaciones desde septiembre 2026',[["ene-24",4,271],["feb-24",1,102],["abr-24",2,220],["may-24",3,133],["jun-24",4,158],["jul-24",3,170],["ago-24",7,335],["sep-24",1,409],["oct-24",5,690],["nov-24",4,662],["dic-24",2,2696],["feb-25",1,2431],["mar-25",4,1584],["abr-25",5,1892],["may-25",3,1677],["jun-25",3,2641],["jul-25",3,3783],["ago-25",5,1794],["nov-25",2,1860],["dic-25",3,1684],["feb-26",1,950],["abr-26",1,1370],["jun-26",4,988],["jul-26",5,2504],["ago-26",2,17788],["sep-26",1,1510]],'var(--accent2)');
+posts('aTop',[['20-ago-26','Reel',17788,'Seba nos compartió cómo de su peor momento nació una nueva vida',1],['15-jul-25','Reel',6773,'¿Sabías que unas malas calzas pueden arruinar tu posición?',0],['13-ago-26','Reel',5319,'Capítulo 2 del podcast A Rueda de… Sebastián',0],['13-jul-26','Reel',4532,'¿Un mariscal pre carrera? Geles Raceclean y paciencia',0],['18-jun-25','Reel',4025,'¿De dónde viene esa energía? Llegó My Athlete',0],['31-jul-26','Reel',3815,'Un pin-pon con @tamyveliz8',0]]);
+posts('aBot',[['03-ene-24','Foto',58,'Más actividades en Espacio TRI Pucón',0],['16-may-24','Reel',62,'Te presentamos la marca de sillines…',0],['13-nov-24','Reel',77,'¿Ya tienes todo preparado para el Triatlón de Valdivia?',0],['17-abr-24','Carrusel',81,'Damos la bienvenida a una nueva marca…',0],['21-feb-24','Carrusel',102,'¿Sabías que tenemos geles, pastillas…?',0]]);
+</script>
+
+</body></html>
