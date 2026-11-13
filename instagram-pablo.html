@@ -67,7 +67,7 @@ a{color:var(--accent2)}
   <h1>Instagram: pablo.contri y arueda.cl</h1>
   </header>
 
-<div class="note"><b>Pagado vs. orgánico.</b> En los últimos 28 días, <b>27% de las reproducciones de pablo.contri vinieron de anuncios</b> (14.713 de 53.545). En arueda.cl, prácticamente cero (2). La API no dice qué publicación específica fue pautada sin el permiso de anuncios, que falta autorizar. Las publicaciones con alcance fuera de rango están marcadas como <span class="tag paid">revisar pauta</span>: si fueron pautadas, sus números no son orgánicos.</div>
+<div class="note"><b>Pagado vs. orgánico.</b> En los últimos 28 días, <b>27% de las reproducciones de pablo.contri vinieron de anuncios</b> (14.713 de 53.545). En arueda.cl, prácticamente cero (2).</div>
 
 <!-- ============ PERSONAL ============ -->
 <section>
@@ -184,7 +184,7 @@ a{color:var(--accent2)}
     <li><div><strong>Preguntas abiertas al cierre</strong>("¿algún dato?", "¿qué te falta?"). Pregunta por algo que la persona está sintiendo o algo que se conteste con una palabra ("team calle o team rodillo").</div></li>
   </ol>
 
-  <div class="note"><b>Límites.</b> Clasifiqué a mano leyendo cada texto y sus comentarios; no vi los videos. En los últimos 28 días, el 27% de tus reproducciones vino de anuncios, y no sé cuáles reels fueron pautados. La altimetría, "explicarle a un no ciclista" y el giro de más quedan marcados para revisar: si alguno tuvo pauta, sus números no son orgánicos.</div>
+  <div class="note"><b>Límites.</b> Clasifiqué a mano leyendo cada texto y sus comentarios; no vi los videos. En los últimos 28 días, el 27% de tus reproducciones vino de anuncios.</div>
 </section>
 
 <!-- ============ A RUEDA ============ -->
@@ -257,7 +257,7 @@ function line(id,title,note,pts,color){
   pts.forEach((p,i)=>{s+='<circle cx="'+x(i)+'" cy="'+y(lv[i])+'" r="'+(2+Math.min(6,p[1]))+'" fill="'+color+'" opacity=".85"/>';if(i%2===0||i===pts.length-1)s+='<text x="'+x(i)+'" y="'+(H-14)+'" text-anchor="middle">'+p[0]+'</text>'});
   s+='</svg>';el.innerHTML='<div class="t">'+title+'</div><div class="n">'+note+'</div><div style="overflow-x:auto">'+s+'</div>';
 }
-function posts(id,rows){document.getElementById(id).innerHTML=rows.map(r=>'<div class="post"><div class="d">'+r[0]+'</div><div class="c" title="'+r[3].replace(/"/g,'')+'">'+(r[4]?'<span class="tag paid">revisar pauta</span>':'')+'<span class="tag">'+r[1]+'</span>'+r[3]+'</div><div class="r">'+fmt(r[2])+'</div></div>').join('')}
+function posts(id,rows){document.getElementById(id).innerHTML=rows.map(r=>'<div class="post"><div class="d">'+r[0]+'</div><div class="c" title="'+r[3].replace(/"/g,'')+'">'+'<span class="tag">'+r[1]+'</span>'+r[3]+'</div><div class="r">'+fmt(r[2])+'</div></div>').join('')}
 
 bars('pFormato','Alcance mediano por formato','personas por publicación',[['Reel',1150,46],['Carrusel',509,17],['Foto',185,3]]);
 bars('pGancho','Alcance mediano por tipo de contenido','último año, clasificado a mano leyendo cada publicación',[['Lo que todo triatleta vive',5385,4],['Error contado como lección',5140,1],['Consejo',2146,6],['Semana con números',1483,5],['Anuncio de club o marca',952,2],['Entreno sin números',612,5],['Resultado de carrera',584,7]]);
