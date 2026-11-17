@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lechoc Digital Lab — Logo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0E14;--card:#16161F;--line:#262633;--txt:#F5F3EF;--mut:#A3A1AE;--rosa:#E8466F;--rosa2:#FF5C8A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 "Space Grotesk",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:56px 20px 96px}
+.tag{font:500 12px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa)}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.02;margin:14px 0 18px;letter-spacing:-.02em}
+h2{font-size:28px;letter-spacing:-.01em;margin:64px 0 18px}
+h3{font-size:21px;margin:0 0 6px}
+p{margin:0 0 12px;color:var(--txt)}
+.lead{font-size:19px;color:var(--mut);max-width:720px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.img{border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.img img{display:block;width:100%;height:auto}
+.cap{font:12px/1.4 "JetBrains Mono",monospace;color:var(--mut);margin-top:8px}
+ul.k{list-style:none;padding:0;margin:0}
+ul.k li{padding:9px 0;border-top:1px solid var(--line)}
+ul.k li:first-child{border-top:0}
+.ok b{color:#6EE7A8}.ko b{color:#FF8A8A}
+.opt{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:26px;margin-bottom:16px}
+.n{width:56px;height:56px;border-radius:16px;background:var(--rosa);color:#fff;display:grid;place-items:center;font-weight:700;font-size:22px}
+.rec{display:inline-block;font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.1em;background:rgba(232,70,111,.15);color:var(--rosa2);padding:6px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.meta div{font-size:14px;color:var(--mut)}.meta b{color:var(--txt);font-weight:500}
+.prompt{position:relative;background:#0A0A0F;border:1px solid var(--line);border-radius:12px;padding:16px 16px 16px;margin-top:12px;font:13px/1.55 "JetBrains Mono",monospace;color:#D7D5E0;white-space:pre-wrap}
+.copy{position:absolute;top:10px;right:10px;font:500 12px "Space Grotesk";background:var(--rosa);color:#fff;border:0;border-radius:8px;padding:7px 12px;cursor:pointer}
+.copy.done{background:#2E7D5B}
+.sw{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.sw div{flex:1 1 140px;border-radius:14px;padding:16px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;font:12px/1.4 "JetBrains Mono",monospace}
+.steps li{margin-bottom:8px}
+.src{font-size:13px;color:var(--mut)}.src a{color:var(--mut)}
+@media(max-width:720px){.grid2,.meta{grid-template-columns:1fr}.opt{grid-template-columns:1fr}.wrap{padding-top:36px}}
+</style>
+</head>
+<body><div class="wrap">
+
+<div class="tag">Lechoc Digital Lab · Identidad</div>
+<h1>Logo: modernizar sin perder la liebre</h1>
+<p class="lead">Diagnóstico del logo actual, 5 caminos de diseño y un prompt listo para ChatGPT por cada uno. Al final, el paso a paso para llegar al logo definitivo en vector.</p>
+
+<h2>1 · Diagnóstico del logo actual</h2>
+<div class="grid2">
+  <div><div class="img"><img src="lechoc/logo-actual.jpg" alt="Logo Lechoc Sports"></div><div class="cap">Lechoc Sports · rosado 191-C sobre negro</div></div>
+  <div><div class="img"><img src="lechoc/logo-running.jpg" alt="Logo Lechoc Running"></div><div class="cap">Lechoc Running · versión anterior</div></div>
+</div>
+<div class="grid2" style="margin-top:16px">
+  <div class="card ok"><h3>Lo que se queda</h3><ul class="k">
+    <li><b>La liebre.</b> Es el activo más valioso: dice velocidad, energía y avance (corre hacia la derecha, hacia adelante). Ninguna agencia web usa una liebre, así que es recordable desde el día uno.</li>
+    <li><b>La silueta en carrera.</b> La pose estirada se reconoce incluso como mancha; eso es oro para un ícono chico.</li>
+    <li><b>El rosado.</b> Es poco común en tecnología (todos usan azul o violeta) y contrasta 5:1 sobre fondo oscuro.</li>
+  </ul></div>
+  <div class="card ko"><h3>Lo que envejeció</h3><ul class="k">
+    <li><b>El detalle fino.</b> Las puntas del pelo, la cola deshilachada y la pata trasera fina desaparecen bajo 64 px. Como favicon (16 px) la liebre se vuelve una mancha rosada.</li>
+    <li><b>La tipografía Arkitech.</b> Es el "futurista" de 2010–2015 (esquinas redondas, letras extendidas). Hoy se lee a ropa deportiva o videojuego, no a agencia digital.</li>
+    <li><b>Un solo formato.</b> Es un logo horizontal ancho. No hay versión compacta ni ícono, que son lo que más se usa en web: pestaña, avatar, app, firma de correo.</li>
+  </ul></div>
+</div>
+<p style="margin-top:16px">Hay que simplificar la liebre, nunca reemplazarla. Las marcas que modernizaron su mascota (Mailchimp, Tripadvisor, Pringles) la dejaron más plana y simple y les funcionó. Cracker Barrel la sacó en 2025 y tuvo que volver atrás en una semana.</p>
+
+<h2>2 · Lo que tiene que cumplir el logo nuevo (criterio UX y digital)</h2>
+<div class="card"><ul class="k">
+  <li><b>Se lee a 16 px.</b> La liebre tiene que funcionar como favicon: 1 sola forma sólida, sin líneas finas, sin degradado.</li>
+  <li><b>Funciona en 1 color.</b> Blanco sobre foto, negro sobre papel, rosado sobre carbono. Si necesita 3 colores para entenderse, no sirve.</li>
+  <li><b>Modo oscuro y claro.</b> Hoy la mitad de las pantallas están en modo oscuro; el logo se diseña para los dos desde el inicio.</li>
+  <li><b>Sistema, no un archivo.</b> 4 piezas: <b>Completo</b> (liebre + Lechoc + Digital Lab), <b>Principal</b> (liebre + Lechoc), <b>Compacto</b> (apilado) e <b>Ícono</b> (solo liebre, cuadrado).</li>
+  <li><b>Construido en grilla.</b> Curvas y esquinas con el mismo radio, grosores parejos. Es lo que hace que un logo se vea "de app" y no dibujado a mano.</li>
+  <li><b>Listo para animarse.</b> En una agencia web el logo se mueve: la liebre que entra corriendo al cargar la página o como barra de carga. Formas simples = animación fácil.</li>
+</ul></div>
+
+<h2>3 · Paleta propuesta</h2>
+<div class="sw">
+  <div style="background:#E8466F;color:#fff">Rosa Liebre<br>#E8466F · 191-C</div>
+  <div style="background:#0E0E14;color:#F5F3EF;border:1px solid #262633">Carbono<br>#0E0E14</div>
+  <div style="background:#F5F3EF;color:#0E0E14">Hueso<br>#F5F3EF</div>
+  <div style="background:#C42E57;color:#fff">Rosa profundo<br>#C42E57 · para texto sobre blanco</div>
+</div>
+<p class="cap" style="margin-top:10px">Rosa sobre Carbono: contraste 5,1:1 (cumple accesibilidad AA). Rosa sobre blanco: 3,8:1, sirve para la liebre pero no para texto chico; para eso va el Rosa profundo (5,4:1).</p>
+
+<h2>4 · 5 opciones de diseño</h2>
+<p class="lead">Cada una con la idea, por qué funciona y el prompt para ChatGPT. <b>Antes de pegar el prompt, adjunta en ChatGPT la imagen del logo actual</b> (la de arriba) para que respete la liebre.</p>
+
+<div class="card opt"><div class="n">1</div><div>
+<h3>Liebre geométrica <span class="rec">RECOMENDADA</span></h3>
+<p>La misma liebre en carrera, redibujada con pocas formas sólidas, curvas del mismo radio y un punto como ojo. "lechoc" en minúscula con una sans geométrica moderna y "digital lab" chico en letra de código.</p>
+<div class="meta"><div><b>Por qué funciona:</b> es la evolución natural; se reconoce como Lechoc y se ve 2026.</div><div><b>Riesgo:</b> bajo. Si se simplifica demasiado puede parecer un conejo genérico; el truco es mantener la oreja larga hacia atrás.</div></div>
+<div class="prompt"><button class="copy">Copiar</button>Act as a senior brand designer specialized in tech and digital agencies. I'm attaching my current logo: a pink running hare above the word "Lechoc". Redesign it as a modern, minimalist logo for "LECHOC DIGITAL LAB", a web design studio (Shopify, WordPress, WooCommerce).
+
+Keep the essence: the same hare in full running pose, facing right, with the long ear swept back. Rebuild the hare as a flat geometric mark made of a few solid shapes on a grid, consistent corner radius, uniform curves, a single dot for the eye, no fur details, no thin lines. It must stay recognizable at 16x16 px.
+
+Wordmark: "lechoc" in lowercase, clean geometric sans-serif (like Space Grotesk / Satoshi), medium-bold, tight but comfortable spacing. Below it, "digital lab" small, uppercase, wide letter-spacing, monospace font.
+
+Colors: hare in #E8466F, text #F5F3EF, on a flat #0E0E14 background. Flat vector style, no gradients, no shadows, no 3D, no mockups. Centered on a plain background, generous margin. Show: 1) the full logo, 2) the hare alone as a square app icon.</div>
+</div></div>
+
+<div class="card opt"><div class="n">2</div><div>
+<h3>Monograma L + liebre</h3>
+<p>La oreja larga y el lomo de la liebre forman una "L". Funciona como ícono de app y favicon; el nombre completo va al lado.</p>
+<div class="meta"><div><b>Por qué funciona:</b> doble lectura (letra + animal) es lo más "marca tech"; ícono muy fuerte.</div><div><b>Riesgo:</b> medio. Si la L domina, se pierde la liebre; hay que probar varias versiones.</div></div>
+<div class="prompt"><button class="copy">Copiar</button>Act as a senior brand designer. I'm attaching my current logo (a pink running hare above the word "Lechoc"). Create a monogram for "LECHOC DIGITAL LAB", a web design studio.
+
+Concept: a stylized running hare whose long swept-back ear and back form a clean letter "L". It must read as both the letter L and a hare at first glance. Geometric construction, solid shapes, consistent stroke and corner radius, a single dot for the eye, no fur details. Must work at 16x16 px as a favicon.
+
+Place the monogram inside a rounded-square app icon (iOS style squircle), pink #E8466F mark on #0E0E14. Next to it, the wordmark "lechoc" in a lowercase geometric sans-serif, with "digital lab" small in monospace uppercase underneath.
+
+Flat vector, no gradients, no shadows, no mockups, plain background. Show 4 different variations of the L-hare monogram side by side.</div>
+</div></div>
+
+<div class="card opt"><div class="n">3</div><div>
+<h3>Liebre en un solo trazo</h3>
+<p>La liebre dibujada con una línea continua de grosor parejo, como si fuera un cable o una línea de código. Liviana, elegante, muy de estudio de diseño.</p>
+<div class="meta"><div><b>Por qué funciona:</b> se ve sofisticada y se anima precioso (la línea se "dibuja" sola al cargar).</div><div><b>Riesgo:</b> a 16 px una línea se pierde; necesita una versión sólida para favicon.</div></div>
+<div class="prompt"><button class="copy">Copiar</button>Act as a senior brand designer. I'm attaching my current logo (a pink running hare above "Lechoc"). Redesign the hare for "LECHOC DIGITAL LAB", a web design studio.
+
+Draw the same hare in full running pose, facing right, long ear swept back, using ONE continuous monoline stroke of uniform weight with rounded ends, like a single cable or a line of code. Minimal, elegant, geometric, no fur details.
+
+Wordmark: "lechoc" lowercase in a light-to-regular geometric sans-serif matching the stroke weight; "digital lab" small in monospace uppercase with wide tracking.
+
+Colors: stroke #E8466F, text #F5F3EF, background #0E0E14. Flat vector, no gradients, no shadows, no mockups. Also show a bold filled version of the hare for small sizes.</div>
+</div></div>
+
+<div class="card opt"><div class="n">4</div><div>
+<h3>Ícono con liebre en negativo</h3>
+<p>Un cuadrado redondeado rosado (como ícono de app) con la liebre recortada en negativo, saliendo por el borde derecho como si corriera fuera del cuadro.</p>
+<div class="meta"><div><b>Por qué funciona:</b> es el formato que más se usa (avatar, pestaña, app); muy impactante y moderno.</div><div><b>Riesgo:</b> depende del cuadrado; el logo horizontal queda más "app" que "agencia".</div></div>
+<div class="prompt"><button class="copy">Copiar</button>Act as a senior brand designer. I'm attaching my current logo (a pink running hare above "Lechoc"). Create an app-icon style logo for "LECHOC DIGITAL LAB", a web design studio.
+
+A rounded square (squircle) in solid #E8466F, with the running hare cut out in negative space (showing the #0E0E14 background through it). The hare runs to the right and its front paws and ear slightly break out of the right edge of the square, suggesting speed and moving forward. Simplified geometric hare, solid shapes, single eye dot, no fur details, readable at 16x16 px.
+
+Next to the icon: "lechoc" in a lowercase geometric sans-serif (#F5F3EF) and "digital lab" small in monospace uppercase. Flat vector, no gradients, no shadows, no mockups, plain #0E0E14 background. Show the full lockup and the icon alone.</div>
+</div></div>
+
+<div class="card opt"><div class="n">5</div><div>
+<h3>Liebre digital (módulos)</h3>
+<p>La silueta de la liebre construida con módulos cuadrados de esquinas redondeadas, como píxeles grandes, y la cola convertida en el cursor de texto "_". Es la que más grita "digital".</p>
+<div class="meta"><div><b>Por qué funciona:</b> conecta liebre + código de forma directa y es muy divertida para animar (los módulos se arman).</div><div><b>Riesgo:</b> el estilo pixel puede leerse a videojuego retro si se exagera; hay que mantenerlo fino.</div></div>
+<div class="prompt"><button class="copy">Copiar</button>Act as a senior brand designer. I'm attaching my current logo (a pink running hare above "Lechoc"). Redesign it for "LECHOC DIGITAL LAB", a web design studio.
+
+Build the same running hare (facing right, long ear swept back) out of a grid of square modules with slightly rounded corners, like large refined pixels, minimal and elegant (not retro 8-bit). Replace the tail with a blinking text cursor shape "_" to suggest code. Single eye module.
+
+Wordmark: "lechoc" lowercase in a geometric sans-serif; "digital lab" small in monospace uppercase with wide tracking.
+
+Colors: modules #E8466F, text #F5F3EF, background #0E0E14. Flat vector, no gradients, no shadows, no mockups, plain background. Show the full logo and the hare alone as a square icon.</div>
+</div></div>
+
+<h2>5 · Cómo llegar al logo definitivo</h2>
+<div class="card"><ol class="steps">
+  <li>En ChatGPT: adjunta el logo actual, pega el prompt de la opción y pide 3–4 variaciones. Si una te gusta, pídele ajustes sobre esa ("más simple", "oreja más larga", "sin el ojo").</li>
+  <li>Elijan con Leo 1 o 2 finalistas. Pruébenlas en chico: ¿se entiende la liebre del tamaño de un ícono de WhatsApp?</li>
+  <li>ChatGPT entrega una imagen, no un archivo vectorial, y suele deformar las letras. Con la imagen elegida, yo la redibujo en vector (SVG), con la tipografía real y el sistema completo: logo completo, principal, compacto, ícono, favicon, versiones claro/oscuro y 1 color.</li>
+</ol></div>
+
+<p class="src" style="margin-top:40px">Fuentes de tendencias: <a href="https://www.creativebloq.com/design/logos-icons/these-logo-design-trends-will-define-2026">Creative Bloq, tendencias 2026</a> · <a href="https://www.vistaprint.com/hub/logo-design-trends">Vistaprint, mascotas simplificadas</a> · <a href="https://dmletterstudio.com/logo-trends-2026/">DM Letter Studio, sistemas adaptables</a> · <a href="https://www.logodesignvalley.com/blog/cracker-barrel-new-logo/">Caso Cracker Barrel</a> · <a href="https://www.relevantaudience.com/web-design/responsive-logo/">Sistema de logo responsivo</a> · <a href="https://wildandfreetools.com/blog/favicon-design-contrast-readability">Favicon a 16 px</a></p>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{const t=b.parentElement.innerText.replace(/^Copiar\s*/,'').replace(/^Copiado\s*/,'');navigator.clipboard.writeText(t).then(()=>{b.textContent='Copiado';b.classList.add('done');setTimeout(()=>{b.textContent='Copiar';b.classList.remove('done')},1800)})}));
+</script>
+</body></html>
