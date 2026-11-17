@@ -26,9 +26,143 @@ details{margin-top:40px;border-top:1px solid var(--linea);padding-top:16px}summa
 </head>
 <body><div class="w">
 <div class="tag">Efecto Espejo · Preparación Cyber</div>
-<h1>Etapa 1: plan técnico <span class="v">VERSIÓN 2</span></h1>
-<p class="lead">Incorpora las precisiones del 17-nov-2026. Todavía no se modifica código y nada va a producción sin aprobación explícita de Pablo.</p>
+<h1>Etapa 1: plan técnico <span class="v">VERSIÓN 3</span></h1>
+<p class="lead">Respuestas a las 5 precisiones y plan definitivo, 17-nov-2026. Todavía no se modifica código y nada va a producción sin aprobación explícita de Pablo.</p>
 
+<div class="res"><b>En simple (versión 3)</b>
+<ol>
+<li><b>GA4:</b> la identificación de la visita se lee solo si la clienta aceptó analítica. Se guarda con el pedido y se borra una vez enviada la venta. Si no aceptó, no se envía nada.</li>
+<li><b>Duplicados:</b> GA4 elimina las compras repetidas que llegan con el mismo número de transacción, así que reintentar con el mismo número es seguro. Se reintenta solo cuando la respuesta se pierde y hay un tope de intentos.</li>
+<li><b>Cookies:</b> las lee solo el servidor, viajan solo a nuestras API, se validan en cada uso y se borran al terminar. Los registros (logs) no guardan códigos ni correos.</li>
+<li><b>Agenda:</b> la base de datos impide confirmar dos citas que se crucen. Si un pago llega y la hora ya está tomada, la plata se conserva, Leo recibe un aviso y la clienta elige otra hora o pide devolución.</li>
+<li><b>Meta y Google Ads:</b> se conectan después sobre la misma cola, solo con consentimiento de publicidad y con un único identificador de compra para que no se dupliquen.</li>
+</ol></div>
+
+<h2>Respuestas a las 5 precisiones</h2>
+
+<h3>1 · GA4: client_id y session_id</h3>
+<ul>
+<li><b>Cómo se obtienen:</b> en <code>/comprar/</code>, al apretar "Pagar", la página revisa la preferencia guardada.
+  <ul>
+  <li>Solo si dice <code>analitica = sí</code>, lee las cookies que GA ya creó: <code>_ga</code> (formato <code>GA1.1.&lt;client_id&gt;</code>) y <code>_ga_&lt;ID del flujo&gt;</code> (de donde sale el <code>session_id</code>; se aceptan los formatos <code>GS1</code> y <code>GS2</code>).</li>
+  <li>No se crea ninguna cookie nueva para esto.</li>
+  </ul></li>
+<li><b>Cómo viajan:</b> van dentro de la misma solicitud <code>POST /api/pago/crear</code> que ya existe, junto a <code>consentimiento: {analitica, publicidad}</code>.</li>
+<li><b>Validación en el servidor:</b> el servidor acepta el <code>client_id</code> solo si cumple el formato <code>dígitos.dígitos</code> (40 caracteres como máximo) y el <code>session_id</code> solo si son dígitos. Si <code>analitica</code> no es verdadero, los descarta aunque vengan.</li>
+<li><b>Dónde se guardan y por cuánto tiempo:</b> en columnas del pedido (<code>ga_client_id</code>, <code>ga_session_id</code>, <code>consentimiento</code>). Se borran (quedan en NULL) cuando GA4 confirma la venta, o a las 72 horas si no se pudo enviar. No se guardan más tiempo del necesario.</li>
+<li><b>Cómo se unen a la compra:</b> el <code>purchase</code> se envía con ese <code>client_id</code> y con <code>session_id</code> y <code>engagement_time_msec</code> en los parámetros. Así GA4 lo asocia a la misma visita y a la campaña de donde llegó la clienta.</li>
+<li><b>Sin consentimiento de analítica:</b> no se crea tarea de GA4 para ese pedido, y la venta solo queda en nuestra base y en el panel. Si el consentimiento es "solo analítica", el envío lleva <code>consent: {ad_user_data: DENIED, ad_personalization: DENIED}</code>, para que Google no lo use en publicidad.</li>
+</ul>
+
+<h3>2 · Deduplicación cuando la respuesta se pierde</h3>
+<ul>
+<li><b>El dato clave:</b> GA4 elimina las compras repetidas que llegan con el mismo <code>transaction_id</code> en flujos web, que es nuestro caso, según la <a href="https://support.google.com/analytics/answer/12313109?hl=en">ayuda oficial de Google</a>.
+  <ul>
+  <li>Nuestro <code>transaction_id</code> es el buy_order de Webpay: único, nunca vacío y nunca reutilizado.</li>
+  <li>Por eso, si GA4 recibió el evento y la respuesta se perdió, el reintento llega con el mismo <code>transaction_id</code> y GA4 lo descarta como duplicado.</li>
+  </ul></li>
+<li><b>No se asume nada:</b> una respuesta perdida o un error de conexión no se interpreta como "no llegó". La tarea pasa al estado <code>incierto</code> y se reintenta con exactamente el mismo contenido: mismo <code>transaction_id</code>, mismo <code>timestamp_micros</code> y mismos valores.</li>
+<li><b>Cuándo se reintenta:</b>
+  <ul>
+  <li>Error de conexión, tiempo agotado o 5xx: sí.</li>
+  <li>4xx: no. Pasa a <code>fallido</code> con alerta en el panel.</li>
+  <li>2xx: <code>enviado</code>.</li>
+  </ul></li>
+<li><b>Tope de intentos:</b> como máximo 6, y solo dentro de las 72 horas que GA4 acepta eventos atrasados.</li>
+<li><b>Nunca dos vías:</b> la compra se envía solo desde el servidor. La etiqueta "Compra" de GTM se desactiva, para que el navegador y el servidor no manden la misma venta.</li>
+<li><b>Revisión semanal:</b> un proceso compara los <code>transaction_id</code> pagados en nuestra base con las compras que reporta GA4 (Data API). Muestra en el panel cualquier diferencia, faltante o sobrante.</li>
+</ul>
+
+<h3>3 · Cookies ee_enc y ee_age</h3>
+<ul>
+<li><b>Alcance mínimo:</b> <code>Path=/api/</code>, sin atributo <code>Domain</code> (solo www.efectoespejo.cl) y con el prefijo <code>__Secure-</code>.
+  <ul>
+  <li>Solo viajan a nuestras API, nunca a las páginas ni a ningún otro sitio.</li>
+  <li>Las páginas no las necesitan: piden los datos a las API.</li>
+  </ul></li>
+<li><b>Protección:</b> <code>HttpOnly</code> (ningún script las lee), <code>Secure</code> (solo HTTPS) y <code>SameSite=Strict</code> (no viajan si la solicitud la inicia otro sitio).
+  <ul>
+  <li>El link del correo funciona igual: el servidor recibe <code>?c=</code>, crea la cookie y redirige a la página limpia.</li>
+  <li>Las llamadas a la API salen desde nuestra propia página.</li>
+  </ul></li>
+<li><b>Duración:</b>
+  <ul>
+  <li><code>ee_enc</code>: hasta que vence el link, 30 días como máximo. Se borra al enviar la encuesta.</li>
+  <li><code>ee_age</code>: hasta el día siguiente a la cita.</li>
+  </ul></li>
+<li><b>Validación en cada uso:</b> formato exacto del código (<code>[a-hj-km-np-z2-9]{18}</code>), que exista en la base, estado válido y no vencido. Si algo falla, la cookie se borra y la clienta ve "usa el link de tu correo". Además se limita la frecuencia de intentos de canje por IP, para que nadie pueda probar códigos al azar.</li>
+<li><b>Logs y mensajes de error:</b>
+  <ul>
+  <li>Ningún <code>console.log</code> ni <code>console.error</code> va a contener un código, un correo, un nombre ni un teléfono. Se agrega una función <code>limpiarParaLog</code> que reemplaza esos datos por <code>***</code>.</li>
+  <li>Hay líneas actuales que hoy sí registran el correo de la clienta: <code>src/correo.js:10</code>, <code>src/correo.js:23</code>, <code>src/index.js:131-132</code>, <code>src/oferta.js:134</code> y <code>src/isi.js:225</code>. Se corrigen.</li>
+  <li>Los mensajes de error que ve la clienta nunca repiten el código.</li>
+  <li>Cloudflare registra la URL de la primera visita (<code>?c=</code>) en sus logs de solicitudes. Esos logs son solo de la cuenta de Leo y el código queda invalidado al usarse o vencer. Si quieres eliminar incluso eso, la alternativa es mandar el link con <code>#c=</code>: el servidor nunca lo ve y la página lo canjea una sola vez.</li>
+  </ul></li>
+</ul>
+
+<h3>4 · Agenda presencial: nunca dos pagos en la misma hora</h3>
+<ul>
+<li><b>Riesgo actual:</b> la hora se retiene 15 minutos y se revisa antes de confirmar el pago, pero la confirmación final (<code>confirmarHora</code> en <code>src/agenda.js:296</code>) no vuelve a comprobar choques.
+  <ul>
+  <li>Si la retención vence mientras la clienta sigue en Webpay, otra clienta puede tomar esa hora y las dos terminar pagando.</li>
+  <li>Lo mismo con la conciliación automática del plan v2, cuando la clienta paga y vuelve tarde.</li>
+  </ul></li>
+<li><b>Garantía en la base de datos:</b> tabla nueva <code>citas_bloques</code> con <b>UNIQUE (bloque)</b>.
+  <ul>
+  <li>Cada cita confirmada ocupa sus bloques de 15 minutos, desde el inicio hasta el fin más el traslado.</li>
+  <li>Confirmar una cita significa insertar todos sus bloques en un <code>DB.batch</code>, que es una sola transacción. Si un bloque ya está tomado, la transacción completa falla y no se confirma nada.</li>
+  <li>Es imposible que dos citas confirmadas se crucen, aunque lleguen en el mismo milisegundo.</li>
+  </ul></li>
+<li><b>Orden en el retorno:</b> primero se intenta asegurar los bloques y recién después se confirma el pago con Transbank.
+  <ul>
+  <li>Si la hora ya no está, no se confirma el pago y no se cobra. Es el comportamiento actual, pero ahora garantizado.</li>
+  <li>Si el pago después falla, los bloques se liberan.</li>
+  </ul></li>
+<li><b>Si igual llega un pago autorizado sin hora disponible</b> (conciliación tardía: Transbank ya cobró):
+  <ul>
+  <li>El pedido queda <code>pagado</code> con la marca <code>hora_en_conflicto</code>. El pago no se pierde ni se reembolsa solo.</li>
+  <li>Se encolan un aviso inmediato a Leo (correo y alerta roja en el panel) y un correo a la clienta: "tu pago está confirmado; la hora que elegiste se ocupó, elige otra aquí o pide la devolución".</li>
+  <li>El link de agenda le muestra solo horas libres.</li>
+  <li>Si pide devolución, Leo la hace con el botón de reembolso que ya existe.</li>
+  </ul></li>
+<li><b>Funciones que cambian:</b> <code>retenerHora</code>, <code>horaRetenidaLibre</code>, <code>confirmarHora</code>, <code>liberarCita</code> y los cambios de hora desde <code>/agendar/</code>. Todas pasan por los bloques.</li>
+<li><b>Migración:</b> las citas ya agendadas se cargan una vez en <code>citas_bloques</code>, y si hubiera choques existentes se informan antes de activar el cambio.</li>
+</ul>
+
+<h3>5 · Meta y Google Ads después, sin duplicados</h3>
+<ul>
+<li><b>Misma cola:</b> la tabla <code>envios</code> ya tiene la columna <code>destino</code>. Conectar Meta o Ads es agregar un destino (<code>meta_capi</code>, <code>google_ads</code>) y su función de envío, sin tocar pagos.</li>
+<li><b>Consentimiento:</b> esas tareas se crean solo si el pedido tiene <code>publicidad = sí</code>.
+  <ul>
+  <li>En el navegador, Pixel y etiquetas de Ads cargan solo con consentimiento de publicidad (Consent Mode v2) y nunca en <code>/encuesta/</code>, <code>/agendar/</code> ni <code>/panel/</code>.</li>
+  </ul></li>
+<li><b>Meta:</b> Conversions API con <code>event_name = Purchase</code> y <code>event_id = buy_order</code>.
+  <ul>
+  <li>Si también se instala el Pixel, Meta descarta el duplicado porque ambos llevan el mismo <code>event_id</code>.</li>
+  <li>Datos de coincidencia: solo las cookies <code>_fbp</code> y <code>_fbc</code>, guardadas con el pedido igual que las de GA.</li>
+  <li>Enviar el correo con hash solo con una decisión explícita tuya, porque es dato personal.</li>
+  </ul></li>
+<li><b>Google Ads:</b> se recomienda una sola vía, importar la compra desde GA4 vinculado a Ads.
+  <ul>
+  <li>Si más adelante se prefiere la etiqueta de conversión de Ads, se envía con el mismo <code>transaction_id</code> y se deja de importar desde GA4. Nunca las dos a la vez.</li>
+  </ul></li>
+</ul>
+
+<h2>Plan definitivo</h2>
+<ol>
+<li><b>Ambiente de prueba:</b> worker <code>efecto-espejo-prueba</code> con su propia base D1 y KV, Transbank de integración, correos a una casilla de prueba y un flujo o propiedad GA4 de prueba.</li>
+<li><b>Webpay y agenda:</b> verificación completa, estados condicionados, bloques con UNIQUE, conciliación y "hora en conflicto".</li>
+<li><b>Cola <code>envios</code>:</b> correo, aviso a Leo y GA4 por Measurement Protocol, con reintentos e "incierto".</li>
+<li><b>Privacidad:</b> cookies <code>__Secure-</code> con HttpOnly y Strict en <code>/api/</code>, páginas privadas sin GTM, <code>Referrer-Policy</code>, MediaPipe y fuentes alojadas en el sitio, logs sin datos personales, banner de dos opciones y Consent Mode.</li>
+<li><b>Pruebas automáticas</b> (Vitest con Transbank simulado): pagos simultáneos (2, 5 y 10), commit con error o tiempo agotado, rechazo y cancelación tardíos, monto, orden y sesión que no cuadran, dos pagos por la misma hora, reintentos de GA4 con respuesta perdida, dos crons a la vez y compras falsas por URL.</li>
+<li><b>Pruebas de privacidad</b> con navegador automatizado, registrando todas las solicitudes externas en tres escenarios: cookies aceptadas, solo analítica y rechazadas.</li>
+<li><b>Informe de resultados.</b></li>
+<li><b>Producción</b> solo con tu autorización explícita, con respaldo previo y una compra real de prueba que después se reembolsa.</li>
+</ol>
+<p><b>Archivos:</b> <code>src/pagos.js</code>, <code>src/agenda.js</code>, <code>src/index.js</code>, <code>src/correo.js</code>, <code>src/oferta.js</code>, <code>src/isi.js</code>, nuevo <code>src/envios.js</code>, nuevo <code>src/privacidad.js</code> (cookies y <code>limpiarParaLog</code>), <code>esquema.sql</code>, <code>wrangler.jsonc</code>, <code>encuesta.html</code>, <code>encuesta-generar.js</code>, <code>camara-guiada.html</code>, <code>propuesta-b.html</code>, <code>construir.js</code>, la página <code>/comprar/</code>, la carpeta nueva <code>sitio-b/vendor/</code> y la carpeta nueva <code>tests/</code>.</p>
+<div class="ok"><b>Para partir en el ambiente de prueba necesito:</b> (1) tu aprobación de este plan; (2) el secreto del Measurement Protocol de GA4; (3) decidir si el link del correo sigue con <code>?c=</code> o pasa a <code>#c=</code> (recomiendo <code>#c=</code>, con <code>?c=</code> aceptado para los links ya enviados).</div>
+
+<details><summary>Ver versión 2 del plan (17-nov)</summary>
 <div class="res"><b>En simple</b>
 <ol>
 <li><b>Compras:</b> la venta se registra desde el servidor, no desde la página. Así no se pierde si la clienta cierra la ventana, se reintenta si Google falla y cada compra se cuenta una sola vez.</li>
@@ -187,6 +321,7 @@ details{margin-top:40px;border-top:1px solid var(--linea);padding-top:16px}summa
 </ol>
 <div class="ok"><b>Pendiente:</b> tu aprobación del plan. Para el punto 1 necesito el secreto del Measurement Protocol de GA4.</div>
 
+</details>
 <details><summary>Ver versión 1 del diagnóstico (17-nov)</summary>
 <p style="margin-top:12px">Problemas detectados: (1) cualquier URL con <code>?compra=&amp;m=</code> en <code>/encuesta/</code> o <code>/agendar/</code> registraba una compra en GA4 (<code>sitio-b/encuesta/index.html:865-869</code>, <code>sitio-b/agendar/index.html:258-262</code>, redirect en <code>src/pagos.js:204</code> y <code>:212</code>); (2) el código personal <code>?c=</code> llegaba a GA4 en <code>page_location</code> y <code>page_referrer</code> cuando la clienta ya había aceptado cookies (GTM se carga en la línea 5 del head), y ese código da acceso al nombre, correo, respuestas y agenda; (3) en <code>src/pagos.js:169-212</code>, dos retornos simultáneos podían dejar como "rechazado" un pedido pagado y liberar la hora presencial (<code>catch</code> de la línea 185 y <code>UPDATE</code> sin condición de estado en 188 y 207).</p>
 </details>
