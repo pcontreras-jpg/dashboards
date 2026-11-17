@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cyber EE — Etapa 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--neg:#1A1A1A;--fondo:#FAF5F4;--mal:#9D637E;--linea:#E8DCDF;--suave:#6B6166}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--neg);font:300 16px/1.65 Poppins,Arial,sans-serif}
+.w{max-width:820px;margin:0 auto;padding:40px 18px 80px}
+.tag{font:500 12px/1 Poppins;letter-spacing:.14em;text-transform:uppercase;color:var(--mal)}
+h1{font:600 34px/1.15 "Playfair Display",serif;margin:10px 0 8px}
+h2{font:600 24px/1.25 "Playfair Display",serif;margin:44px 0 12px;padding-top:20px;border-top:1px solid var(--linea)}
+h3{font:500 16px/1.4 Poppins;margin:22px 0 8px;color:var(--mal)}
+p{margin:0 0 10px}
+.lead{color:var(--suave)}
+.res{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px 20px;margin:22px 0}
+.res ol{margin:0;padding-left:20px}.res li{margin:6px 0}
+ol,ul{padding-left:22px}li{margin:6px 0}
+code{font:13px/1.4 ui-monospace,Consolas,monospace;background:#F1E8EA;padding:1px 5px;border-radius:5px;word-break:break-word}
+.ok{background:#fff;border-left:4px solid var(--mal);padding:12px 16px;border-radius:8px;margin-top:30px}
+</style>
+</head>
+<body><div class="w">
+<div class="tag">Efecto Espejo · Preparación Cyber</div>
+<h1>Etapa 1: seguridad y estabilidad</h1>
+<p class="lead">Diagnóstico y plan. Todavía no se ha cambiado código. 17 de noviembre de 2026.</p>
+
+<div class="res"><b>En simple</b>
+<ol>
+<li><b>Ventas falsas:</b> hoy cualquiera puede inventar una venta en Analytics abriendo un link. Arreglo: la venta se registra solo si el servidor confirma que el pago fue real, y una sola vez.</li>
+<li><b>Datos privados:</b> el link personal de la encuesta llega a Google Analytics, y ese link da acceso al nombre, correo y respuestas de la clienta. Arreglo: el sitio borra el código de la dirección antes de que Analytics la registre.</li>
+<li><b>Pago marcado como rechazado:</b> si Webpay avisa dos veces al mismo tiempo, una compra pagada puede quedar como rechazada (y en presenciales se libera la hora). Arreglo: un pago confirmado nunca se puede pisar.</li>
+</ol>
+<p style="margin-top:10px">El pago no cambia para la clienta. Todo se prueba en un sitio de prueba antes de publicar.</p></div>
+
+<h2>1 · Compras falsas por URL</h2>
+<h3>Qué pasa hoy</h3>
+<ul>
+<li>Cuando Webpay aprueba, <code>src/pagos.js</code> → <code>rutasPago</code>, rama <code>retorno</code> (líneas 204 y 212), redirige a <code>/encuesta/?c=…&amp;compra=&lt;servicio&gt;&amp;m=&lt;monto&gt;</code> (o a <code>/agendar/</code>).</li>
+<li><code>sitio-b/encuesta/index.html:865-869</code> y <code>sitio-b/agendar/index.html:258-262</code> leen <code>compra</code> y <code>m</code> desde la URL y mandan el evento <code>compra</code> a GTM, que lo envía a GA4 como <code>purchase</code>.</li>
+<li>Cualquiera que abra <code>efectoespejo.cl/encuesta/?compra=guia&amp;m=500000</code> crea una venta de $500.000 en GA4. Cuando se conecten Meta y Google Ads, esa venta falsa también llegaría a las campañas.</li>
+</ul>
+<h3>Solución</h3>
+<ul>
+<li>En el retorno aprobado, en vez de <code>&amp;compra=&amp;m=</code>, el redirect lleva un token de un solo uso (<code>&amp;ev=&lt;token&gt;</code>) guardado en <code>pedidos</code> (columnas nuevas <code>evento_token</code> y <code>evento_at</code>).</li>
+<li>La página llama a un endpoint nuevo, <code>POST /api/pago/evento</code>, con ese token. El servidor responde servicio, monto y <code>transaction_id</code> (el buy_order) solo si el pedido está pagado, el pago tiene menos de 30 minutos y el evento no se usó antes. Al responder, marca <code>evento_at</code>.</li>
+<li>Recién ahí la página manda <code>compra</code> a GTM, ahora con <code>transaction_id</code>. En GTM se agrega ese campo a la etiqueta de compra, y GA4 tampoco cuenta dos veces la misma transacción.</li>
+</ul>
+<h3>Efectos secundarios</h3>
+<ul>
+<li>Hay una llamada extra al servidor después de volver de Webpay. Si la clienta cierra la página en menos de un segundo, el evento se pierde. Eso ya puede pasar hoy.</li>
+<li>Las URLs antiguas con <code>compra=</code> dejan de generar eventos, que es lo que se busca.</li>
+<li>El pago y el código de la encuesta no cambian.</li>
+</ul>
+<h3>Cómo se prueba</h3>
+<ul>
+<li>Con la vista previa de GTM y DebugView de GA4: abrir <code>/encuesta/?compra=guia&amp;m=999</code> a mano no debe generar ningún evento.</li>
+<li>En un worker de prueba, hacer una compra en el ambiente de integración de Transbank, con tarjeta de prueba. Debe salir un solo <code>purchase</code>, con el monto y el <code>transaction_id</code> correctos.</li>
+<li>Al recargar la página no debe salir un segundo evento.</li>
+</ul>
+
+<h2>2 · Datos de la clienta llegando a Analytics</h2>
+<h3>Qué pasa hoy</h3>
+<ul>
+<li>El link personal es <code>/encuesta/?c=CODIGO</code> o <code>/agendar/?c=CODIGO</code>.</li>
+<li>Si la clienta ya aceptó cookies, GTM se carga en el <code>&lt;head&gt;</code> (línea 5 de cada página) antes de cualquier limpieza. El <code>page_view</code> le manda a Google la URL completa con el código, y el código también aparece en el <code>page_referrer</code> de la página siguiente.</li>
+<li>Con ese código, <code>/api/pago/codigo</code> devuelve el nombre y el correo de la clienta, y <code>/api/pago/avance</code> devuelve sus respuestas de la encuesta. En la agenda, el código da acceso a la cita y a la dirección.</li>
+<li>Las librerías externas de la encuesta (MediaPipe vía jsdelivr y Google Fonts) también reciben la URL completa como referrer.</li>
+</ul>
+<h3>Solución (3 capas)</h3>
+<ul>
+<li><b>Limpiar antes de medir:</b> en el <code>&lt;head&gt;</code>, antes de que GTM pueda cargar, un script toma <code>c</code>, lo guarda en <code>localStorage</code> (<code>ee-codigo</code>) y lo borra de la barra de direcciones con <code>history.replaceState</code>. El resto de la página lee el código desde ahí (encuesta líneas 330, 357 y 429; agendar línea 139). La encuesta funciona igual.</li>
+<li><b>Respaldo en GTM:</b> la etiqueta de configuración de GA4 envía <code>page_location</code> y <code>page_referrer</code> sin parámetros. Las etiquetas futuras de Meta y Google Ads quedan bloqueadas en <code>/encuesta/</code> y <code>/agendar/</code>.</li>
+<li><b>Encabezado de seguridad:</b> <code>Referrer-Policy: strict-origin</code> en esas rutas, desde <code>src/index.js</code>. Así las librerías externas solo ven el dominio.</li>
+<li>Los cambios van en las fuentes que generan las páginas (<code>encuesta.html</code>, <code>encuesta-generar.js</code>, <code>propuesta-b.html</code>, <code>construir.js</code>), no solo en <code>sitio-b</code>, para que no se pierdan al publicar.</li>
+</ul>
+<h3>Efectos secundarios</h3>
+<ul>
+<li>Si la clienta copia la URL de la barra y la abre en otro equipo, ya no lleva el código. Tiene que usar el link de su correo, que sigue funcionando igual.</li>
+<li>Los códigos que ya llegaron a GA4 siguen ahí. Se pueden borrar con una solicitud de eliminación de datos de GA4 (Administrar → Solicitudes de eliminación de datos). Es un paso aparte.</li>
+</ul>
+<h3>Cómo se prueba</h3>
+<ul>
+<li>Con la vista previa de GTM y la pestaña Red del navegador: ninguna llamada a <code>google-analytics.com</code> ni a <code>googletagmanager.com</code> debe llevar <code>c=</code>, y el referrer hacia jsdelivr y Google Fonts debe ser solo <code>https://www.efectoespejo.cl/</code>.</li>
+<li>La encuesta sigue cargando el nombre, guardando el avance y enviándose. La agenda sigue mostrando la cita y permitiendo cambiarla.</li>
+</ul>
+
+<h2>3 · Una compra pagada puede quedar como rechazada</h2>
+<h3>Qué pasa hoy (src/pagos.js:169-212)</h3>
+<ul>
+<li>El retorno lee el pedido y, si no está pagado, lo confirma con Transbank (<code>PUT</code>). Si llegan dos retornos al mismo tiempo (doble envío, recarga o reintento del navegador), ambos ven el pedido como "pendiente".</li>
+<li>El primero confirma y lo marca "pagado". El segundo recibe un error de Transbank, porque la transacción ya estaba confirmada, y el <code>catch</code> de la línea 185 lo marca "rechazado", pisando el "pagado".</li>
+<li>En las presenciales, además, se llama a <code>soltarHora</code> y la cita pagada queda libre.</li>
+<li>Las líneas 188 y 207 tienen el mismo problema: los <code>UPDATE</code> no revisan el estado actual del pedido.</li>
+</ul>
+<h3>Solución (sin cambiar el flujo de pago)</h3>
+<ul>
+<li><b>Escrituras condicionadas:</b> "rechazado" y "cancelado" se marcan solo si el pedido sigue pendiente (<code>WHERE id = ? AND estado = 'pendiente'</code>). "Pagado" se permite desde "pendiente" o desde "rechazado": el pago confirmado siempre gana. La hora presencial se libera solo si ese <code>UPDATE</code> realmente cambió el pedido (<code>meta.changes = 1</code>).</li>
+<li><b>Consultar antes de rechazar:</b> si el <code>PUT</code> falla, antes de marcar "rechazado" se consulta a Transbank el estado de la transacción (<code>GET /transactions/{token}</code>). Si dice AUTHORIZED, con el monto y la orden correctos, se trata como pagada.</li>
+<li><b>Un solo ganador:</b> el <code>UPDATE</code> a "pagado" exige <code>estado != 'pagado'</code>. Solo quien hace el cambio genera el código, envía el correo y confirma la hora. El otro retorno vuelve a leer el pedido y redirige al mismo link. Así no salen dos correos ni dos códigos.</li>
+</ul>
+<h3>Efectos secundarios</h3>
+<ul>
+<li>Hay una consulta extra a Transbank, solo cuando el <code>PUT</code> falla. En el camino normal no cambia nada.</li>
+<li>El panel y el cron no dependen de ese orden.</li>
+</ul>
+<h3>Cómo se prueba</h3>
+<ul>
+<li>En un worker de prueba con Transbank de integración: pagar con tarjeta de prueba, tomar el <code>token_ws</code> y disparar dos retornos simultáneos con un script.</li>
+<li>Resultado esperado: el pedido queda "pagado", con un solo código y un solo correo, la cita confirmada y sin liberar, y ambos retornos llevan al mismo link.</li>
+<li>Repetir con un rechazo real (tarjeta de prueba rechazada) y con una cancelación en Webpay, para confirmar que siguen marcándose bien.</li>
+</ul>
+
+<h2>Orden propuesto</h2>
+<ol>
+<li>Primero el punto 3, porque protege la plata real.</li>
+<li>Después los puntos 1 y 2, que van juntos porque tocan las mismas páginas.</li>
+<li>Todo se prueba en un worker de prueba con Transbank de integración antes de publicar, con un respaldo de los archivos en <code>respaldos-17nov</code>.</li>
+<li>El cambio en GTM (etiqueta de compra y <code>page_location</code>) va al final y se muestra antes de publicarlo.</li>
+</ol>
+<div class="ok"><b>Pendiente:</b> aprobación de Pablo para implementar.</div>
+</div></body></html>
