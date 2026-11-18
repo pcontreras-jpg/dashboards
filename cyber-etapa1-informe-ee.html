@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cyber EE · Informe etapa 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--negro:#1A1A1A;--crema:#FAF5F4;--fucsia:#9D637E;--fucsia-suave:#F1E4E9;--texto2:#5E5057;--linea:#E7D9DE;--verde:#2E7D5B;--verde-suave:#E6F3EC;--rojo:#A32B24;--rojo-suave:#FBE9E6;--ambar:#8A5A00;--ambar-suave:#FFF4DC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--negro);font:300 15px/1.65 Poppins,Arial,sans-serif}
+main{max-width:880px;margin:0 auto;padding:28px 16px 80px}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:500;line-height:1.25}
+h1{font-size:32px;margin:6px 0 6px}
+h2{font-size:24px;margin:44px 0 10px;padding-top:14px;border-top:1px solid var(--linea)}
+h3{font-size:18px;margin:24px 0 6px}
+.ceja{text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--fucsia);font-weight:500;margin:0}
+.bajada{color:var(--texto2);margin:0 0 18px}
+.simple{background:#fff;border:1px solid var(--linea);border-left:4px solid var(--fucsia);border-radius:12px;padding:16px 20px}
+.simple ol{margin:6px 0 0;padding-left:20px}
+.simple li{margin:6px 0}
+.chip{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12.5px;font-weight:500}
+.ok{background:var(--verde-suave);color:var(--verde)}
+.mal{background:var(--rojo-suave);color:var(--rojo)}
+.pend{background:var(--ambar-suave);color:var(--ambar)}
+.caja{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:14px 18px;margin:12px 0}
+code,pre{font-family:Consolas,Menlo,monospace;font-size:12.5px}
+code{background:var(--fucsia-suave);padding:1px 5px;border-radius:4px;word-break:break-word}
+pre{background:#211d1f;color:#f3e9ee;padding:12px 14px;border-radius:10px;overflow-x:auto;white-space:pre}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+details{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:10px 16px;margin:10px 0}
+summary{cursor:pointer;font-weight:500}
+.prueba{margin:2px 0;font-size:13.5px}
+.prueba::before{content:"✓ ";color:var(--verde);font-weight:600}
+.nota{font-size:13px;color:var(--texto2)}
+.inventado{background:var(--ambar-suave);border-radius:8px;padding:2px 6px}
+@media (max-width:560px){h1{font-size:26px}h2{font-size:21px}body{font-size:14.5px}}
+</style>
+</head>
+<body>
+<main>
+<p class="ceja">Efecto Espejo · Cyber etapa 1</p>
+<h1>Informe de implementación en ambiente de prueba</h1>
+<p class="bajada">17-nov-2026. Todo se hizo en una copia aparte y en un sitio de prueba. <b>Producción no se tocó</b>: ni archivos, ni worker, ni base de datos, ni GTM, ni GA4.</p>
+
+<div class="simple">
+<p class="ceja" style="margin-bottom:4px">En simple</p>
+<ol>
+<li><b>Pagos:</b> un pago confirmado ya no se puede pisar. Si llegan varios retornos a la vez, sale un solo código, un solo correo y una sola venta. Si Transbank no responde, el pedido queda "pendiente" y el sistema lo revisa solo cada 5 minutos.</li>
+<li><b>Agenda:</b> la base de datos impide que dos citas pagadas se crucen. Lo probé con 300 operaciones al azar al mismo tiempo y nunca se cruzaron. Si un pago llega y la hora ya se ocupó, el pago se conserva, Leo recibe un aviso y la clienta elige otra hora.</li>
+<li><b>Ventas a GA4:</b> las manda el servidor, una sola vez, con reintentos y sin datos personales. Solo si la clienta aceptó analítica.</li>
+<li><b>Privacidad:</b> el código del link ya no queda en la dirección ni en el JavaScript; vive en una cookie que solo lee el servidor. La encuesta, la agenda y el panel ya no cargan Google. Las tipografías y la cámara guiada se sirven desde el propio sitio.</li>
+<li><b>Pruebas:</b> 85 pruebas automáticas, todas OK. Pruebas con navegador real y tarjetas de prueba de Transbank: pago aprobado, rechazado, cancelado y doble retorno, todo OK. Resultado de privacidad: en los 3 escenarios de cookies, ningún dato personal ni código salió a terceros.</li>
+<li><b>Lo que falta y depende de ti:</b> la propiedad de prueba de GA4 y las credenciales de la Data API, revisar GTM y aprobar los textos nuevos (marcados como inventados más abajo).</li>
+</ol>
+</div>
+
+<h2>1 · Dónde quedó todo</h2>
+<ul>
+<li>Copia de trabajo: <code>C:/Users/Pablo/efecto-espejo-cyber</code> (repositorio git con 5 commits; el primero es la copia exacta de producción, así <code>git diff d63c75e</code> muestra todo lo cambiado).</li>
+<li>Sitio de prueba: <code>https://efecto-espejo-prueba-cyber.efecto-espejo-web.workers.dev</code> (solo workers.dev, sin dominio propio).</li>
+<li>Recursos nuevos en la cuenta de Cloudflare de Leo, solo de prueba: worker <code>efecto-espejo-prueba-cyber</code>, D1 <code>efecto-espejo-prueba-cyber</code> (fbe18a91…), KV <code>efecto-espejo-prueba-cyber-fotos</code> (4883995a…), secreto <code>PANEL_CLAVE</code> de prueba. Cron cada 5 minutos.</li>
+<li>Configuración de prueba (<code>wrangler.prueba.jsonc</code>): Transbank de integración, <code>CORREO_PRUEBA=1</code> (ningún correo sale: quedan anotados en la tabla <code>correos_prueba</code>), sin <code>GMAIL_CLAVE</code> ni <code>send_email</code>, GA4 al servidor de validación con ids de mentira.</li>
+</ul>
+<details><summary>Cambios en archivos (git diff --stat contra producción)</summary>
+<pre>src/envios.js (nuevo)          326 +++   cola de envíos, GA4 Measurement Protocol, conciliación con Data API
+src/privacidad.js (nuevo)      111 +     cookies, limpiarParaLog, Referrer-Policy, límite de canje
+src/pagos.js                   335 ++-   retorno verificado y condicionado, conciliarPendientes, canje
+src/agenda.js                  184 +-    citas_bloques UNIQUE, retención/confirmación/cambios con bloques, migración
+src/index.js                    85 +-    canje ?c= en host canónico, /api/canje, cron cada 5 min, alertas
+src/correo.js                   45 +-    CORREO_PRUEBA, logs sin datos, correo "hora en conflicto"
+src/guia.js, isi.js, oferta.js   2 c/u   tipografías locales / logs sin correo ni nombre
+esquema.sql                     68 +     pedidos completa, citas_bloques, envios, alertas, canje_intentos
+privacidad-sitio.js (nuevo)    212 +     banner, Consent Mode, páginas privadas, canje #c=, /comprar/, panel
+construir.js                     4 +-    ruta relativa + llama a privacidad-sitio.js al final
+sitio-b/ (19 páginas)         ~450 +-    resultado de privacidad-sitio.js
+sitio-b/vendor/ (nuevo)        ~20 MB    tipografías (OFL) y MediaPipe 0.10.14 + modelo (Apache 2.0), con licencias
+panel/index.html               333 +     fuente desactualizada: se igualó a la que está publicada
+tests/ (nuevo)               ~1.900 +    Vitest (5 archivos) + navegador (6 scripts)
+wrangler.prueba.jsonc, wrangler.vitest.jsonc, vitest.config.mjs, bajar-vendor.js, esquema-base-nueva.sql
+TOTAL: 84 files changed, 7505 insertions(+), 319 deletions(-)   (sin vendor: 54 files, 6799 +, 319 −)</pre></details>
+
+<h2>2 · Qué se construyó</h2>
+<h3>Webpay y agenda</h3>
+<ul>
+<li><b>Verificación completa</b> (<code>verificarTbk</code>): token conocido, AUTHORIZED, response_code 0, monto, buy_order y session_id. Si algo no cuadra con un AUTHORIZED, nunca queda pagado y aparece una alerta "Transbank no cuadra".</li>
+<li><b>Estados condicionados:</b> pagado gana siempre (<code>WHERE estado IN ('pendiente','rechazado','cancelado')</code>); rechazado/cancelado solo desde pendiente. Un solo proceso "ganador" genera el código y, en la misma transacción (<code>DB.batch</code>), confirma la hora y encola correo, aviso y GA4 (<code>marcarPagado</code>).</li>
+<li><b>Commit que falla:</b> se pregunta el estado (<code>GET /transactions/{token}</code>). Si Transbank no responde, queda pendiente y la clienta ve "estamos confirmando tu pago".</li>
+<li><b>Conciliación</b> (<code>conciliarPendientes</code>, cron cada 5 min): pendientes con más de 10 min; el pedido se "toma" con un UPDATE condicionado para que dos crons no lo revisen a la vez. Abandonados (más de 1 h sin pagar) pasan a cancelado.</li>
+<li><b>Bloques de 15 minutos</b> (<code>citas_bloques</code>, <code>UNIQUE(bloque)</code>), de inicio a fin + traslado. Los usan <code>retenerHora</code>, <code>horaRetenidaLibre</code> (asegura los bloques antes del commit), <code>confirmarHora</code>, <code>liberarCita</code>, <code>soltarHora</code>, el cambio de hora de la clienta, y en el panel: compra a mano, mover y anular cita.</li>
+<li><b>Hora en conflicto:</b> pago conservado, marca <code>hora_en_conflicto</code>, alerta roja en el panel, aviso a Leo y correo a la clienta para elegir otra hora o pedir devolución.</li>
+<li><b>Migración</b> (<code>migrarCitasABloques</code>, panel <code>POST /api/panel/agenda-migrar-bloques</code>): primero informa los choques sin aplicar nada; con <code>?aplicar=1</code> carga las que no chocan.</li>
+</ul>
+<h3>Cola de envíos</h3>
+<ul>
+<li>Tabla <code>envios</code> con <code>UNIQUE(pedido_id, destino)</code>; destinos correo_encuesta, correo_agenda, aviso_leo, ga4 (listo para meta_capi y google_ads, sin implementar).</li>
+<li>Primer intento al tiro (<code>ctx.waitUntil</code>), reintentos 1, 5, 15 y 60 min desde el cron; se toma con UPDATE condicionado + arriendo de 2 min. Estados pendiente / enviado / incierto / fallido; máximo 6 intentos y 72 h.</li>
+<li>GA4: transaction_id = buy_order, value = monto de Transbank, CLP, items, client_id/session_id solo con analítica, <code>consent</code> DENIED si no hay publicidad. Sin nombre, correo, teléfono ni código.</li>
+<li>Se quitó el aviso "compra" del dataLayer en /encuesta/ y /agendar/.</li>
+</ul>
+<h3>Privacidad</h3>
+<ul>
+<li>Cookies <code>__Secure-ee_enc</code> y <code>__Secure-ee_age</code>: Path=/api/, sin Domain, HttpOnly, Secure, SameSite=Strict, duración hasta el vencimiento del link (encuesta ≤ 30 días; agenda hasta el día siguiente a la cita). Se validan en cada uso y se borran si no sirven o al enviar la encuesta.</li>
+<li>Links nuevos con <code>#c=</code> (el servidor nunca los ve; la página los canjea una vez en <code>POST /api/canje</code>). Los viejos <code>?c=</code> se canjean en el servidor y redirigen a la página limpia. Límite: 10 intentos fallidos o 60 en total por hora por IP.</li>
+<li>/encuesta/, /agendar/ y /panel/ sin GTM ni banner, con <code>Referrer-Policy: no-referrer</code>; el resto con <code>strict-origin-when-cross-origin</code>.</li>
+<li>Banner de dos opciones (Analítica / Publicidad) + Consent Mode v2 con todo denegado por defecto. Quien ya había aceptado el banner antiguo queda con "solo analítica".</li>
+<li>/comprar/ manda el consentimiento y, solo con analítica, los ids de GA en el <code>POST /api/pago/crear</code> que ya existía.</li>
+<li><code>limpiarParaLog</code> y corrección de los logs que guardaban correos o nombres (correo.js:10 y 23, index.js:131-132, oferta.js:134, isi.js:225, además de avisos y asuntos de correo).</li>
+</ul>
+
+<h2>3 · Las 4 precisiones de Pablo</h2>
+<h3>1 y 4 · GA4: verificación y conciliación <span class="chip ok">implementado</span> <span class="chip pend">verificación real pendiente</span></h3>
+<ul>
+<li>Una respuesta perdida no se da por perdida ni por entregada: queda <b>incierto</b> y se reintenta con el <b>mismo contenido exacto</b> (mismo transaction_id y timestamp_micros). Probado: los 2 envíos son idénticos byte a byte.</li>
+<li><code>conciliarGA4</code> (cada hora) consulta la Data API (runReport, dimensión transactionId, métricas transactions y purchaseRevenue) solo para ventas de <b>más de 48 h</b>: 1 → confirmado_ga4 (y se borran client_id/session_id), más de 1 → duplicado (alerta), 0 entre 48 y 72 h → pendiente, 0 después de 72 h → faltante (alerta, sin reenvío automático). Menos de 48 h → "en proceso", nunca faltante.</li>
+<li>Configuración: <code>GA4_DATA_PROPERTY</code> y secreto <code>GA4_SA_JSON</code> (cuenta de servicio, firma JWT RS256 en el worker). <b>Probado solo con la Data API simulada</b>: las credenciales no existen todavía.</li>
+</ul>
+<h3>2 · Canje solo en el host canónico <span class="chip ok">probado</span></h3>
+<ul>
+<li>Pruebas automáticas con Host: <code>http://efectoespejo.cl</code>, <code>https://efectoespejo.cl</code>, <code>http://www.efectoespejo.cl</code>, <code>/encuesta?c=</code> sin barra y un workers.dev ajeno: todos responden 301 a <code>https://www.efectoespejo.cl/…?c=…</code> con la consulta intacta y <b>sin cookie</b>. Recién en www se canjea, se pone la cookie y se redirige a <code>/encuesta/</code> limpia. La cadena completa raíz → www → canje está probada.</li>
+<li><code>POST /api/canje</code> en otro host: rechazado, sin cookie.</li>
+<li>En el sitio de prueba real (workers.dev, que hace de host canónico): la cookie quedó con Path=/api/, HttpOnly, Secure, SameSite=Strict y sin dominio compartido; <code>document.cookie</code> no la ve.</li>
+</ul>
+<h3>3 · Agenda <span class="chip ok">probado</span></h3>
+<ul>
+<li>Reservas simultáneas a la misma hora y a horas que se solapan, duraciones distintas (90, 120, 180 min) y traslados distintos (30 y 60 min), cambios a hora libre, a hora ocupada y simultáneos, anulación, reembolso y anulación de cita en el panel, retenciones vencidas, pago tardío con la hora tomada.</li>
+<li>Prueba aleatoria: 300 operaciones en 30 rondas de 10 simultáneas (compras, pagos, rechazos, retenciones vencidas, cambios, anulaciones y reembolsos). Revisando la <b>tabla citas</b> después de cada ronda: <b>nunca dos citas confirmadas cruzadas</b>, y cada cita tiene exactamente sus bloques. Resultado de la corrida: 44 pagos, 90 reservas rechazadas por choque, 62 cambios hechos, 42 cambios rechazados por choque.</li>
+</ul>
+
+<h2>4 · Pruebas automáticas <span class="chip ok">85 de 85 OK</span></h2>
+<p class="nota">Vitest 4.1.12 + @cloudflare/vitest-pool-workers 0.23.0: el worker real con D1 local y Transbank, GA4 y Data API simulados. Comando <code>npx vitest run</code>. Salida: <code>Test Files 5 passed (5) · Tests 85 passed (85) · Duration 50.73s</code>.</p>
+<details><summary>Webpay (20)</summary>
+<p class="prueba">2, 5 y 10 retornos al mismo tiempo → 1 pagado, 1 código, 1 fila por destino, todos al mismo link</p>
+<p class="prueba">presencial: 5 retornos simultáneos → 1 cita agendada, 1 correo, 1 aviso a Leo</p>
+<p class="prueba">commit OK y después error (segundo retorno): no puede quedar rechazado</p>
+<p class="prueba">Transbank confirma pero la respuesta se corta → GET dice AUTHORIZED → pagado</p>
+<p class="prueba">commit agota el tiempo y el GET dice AUTHORIZED → pagado</p>
+<p class="prueba">commit y GET fallan → queda pendiente (no rechazado) → el cron lo concilia como pagado</p>
+<p class="prueba">pendiente con menos de 10 minutos: el cron no lo toca; con Transbank caído sigue pendiente</p>
+<p class="prueba">dos crons de conciliación a la vez → un solo pago, un solo correo</p>
+<p class="prueba">pago abandonado (INITIALIZED por más de 1 hora) → cancelado</p>
+<p class="prueba">cancelación después de un pago confirmado: sigue pagado y con su hora</p>
+<p class="prueba">cancelación que llega mientras se confirma el pago (carrera): gana el pago</p>
+<p class="prueba">rechazo tardío sobre un pedido pagado: no cambia nada</p>
+<p class="prueba">rechazo normal: queda rechazado y suelta la hora</p>
+<p class="prueba">cancelación con una sesión que no cuadra: no toca el pedido</p>
+<p class="prueba">monto, buy_order o session_id distinto → nunca pagado, alerta para Leo (3 pruebas)</p>
+<p class="prueba">token desconocido → no se toca nada</p>
+</details>
+<details><summary>Envíos y GA4 (17)</summary>
+<p class="prueba">contenido del purchase: transaction_id, value, CLP, items, client_id/session_id, sin datos personales</p>
+<p class="prueba">con publicidad aceptada no va consent DENIED; sin analítica no hay tarea de GA4; client_id inválido se descarta</p>
+<p class="prueba">GA4 responde 5xx dos veces y después 2xx → un envío exitoso, mismo payload, 3 intentos</p>
+<p class="prueba">respuesta perdida → incierto → reintento con el MISMO payload</p>
+<p class="prueba">error de red → incierto, y se reintenta</p>
+<p class="prueba">4xx → fallido, sin reintento, con alerta en el panel</p>
+<p class="prueba">dos (tres) crons al mismo tiempo → cada tarea se envía una sola vez</p>
+<p class="prueba">corte de 72 h y máximo 6 intentos</p>
+<p class="prueba">correos: nunca dos filas por destino aunque lleguen dos retornos</p>
+<p class="prueba">compras falsas por URL (compra= y m=) no generan envíos; solo un pago confirmado crea la fila de GA4</p>
+<p class="prueba">conciliación: &lt;48 h en proceso, 48–72 h pendiente, &gt;72 h faltante con alerta, &gt;1 duplicado, 1 confirmado</p>
+<p class="prueba">solo ventas de menos de 48 h → no se consulta la Data API; sin credenciales no marca faltantes</p>
+</details>
+<details><summary>Privacidad, cookies y hosts (21)</summary>
+<p class="prueba">6 combinaciones de host/protocolo → 301 a www con la consulta intacta y sin cookie</p>
+<p class="prueba">cadena completa raíz http → www https → canje → /encuesta/ limpia con cookie</p>
+<p class="prueba">atributos de la cookie y duración ≤ 30 días; #c= por POST /api/canje; ?c= viejo sigue funcionando</p>
+<p class="prueba">canje en otro host no entrega cookie</p>
+<p class="prueba">código inválido, usado o vencido: cookie borrada, mensaje sin el código</p>
+<p class="prueba">al enviar la encuesta el código queda usado y la cookie se borra</p>
+<p class="prueba">límite de intentos de canje por IP</p>
+<p class="prueba">cookie de agenda hasta el día siguiente a la cita; anulada → 410 y cookie borrada</p>
+<p class="prueba">Referrer-Policy por página; páginas privadas sin GTM, Google Fonts ni jsdelivr; /vendor/ se sirve</p>
+<p class="prueba">logs: sin correos, códigos, teléfonos ni nombres (también en el asunto de los correos)</p>
+</details>
+<details><summary>Agenda (19) y regresión (8)</summary>
+<p class="prueba">reservas simultáneas, solapes, duraciones y traslados, cambios, anulaciones, reembolsos, retenciones vencidas (15)</p>
+<p class="prueba">hora en conflicto completa: pagado + marca + aviso a Leo + correo + alerta, y la clienta elige otra hora</p>
+<p class="prueba">migración a bloques: informa choques sin aplicar; al aplicar carga solo las que no chocan</p>
+<p class="prueba">prueba aleatoria de 300 operaciones concurrentes</p>
+<p class="prueba">regresión: páginas, servicios, panel (compras, link a mano, reenviar, recrear), encuesta con link a mano, agenda del panel, recordatorio de 48 h, test y contacto, crons</p>
+</details>
+
+<h2>5 · Pruebas manuales en el sitio de prueba <span class="chip ok">OK</span></h2>
+<p class="nota">Edge sin ventana (puppeteer-core), Webpay de integración, tarjeta VISA de prueba 4051 8856 0044 6623, RUT 11.111.111-1, clave 123. Sin plata real.</p>
+<ul>
+<li><b>Aprobado</b> (solo analítica): vuelve a <code>/encuesta/</code> sin código en la dirección; pedido pagado; consentimiento y ids de GA guardados con formato válido; correo y GA4 enviados (el servidor de validación de GA4 respondió 200 sin mensajes de error).</li>
+<li><b>Rechazado</b> (opción Rechazar del banco): vuelve a <code>/comprar/?s=guia&estado=rechazado</code> con "El pago no se pudo completar…"; pedido rechazado, sin código.</li>
+<li><b>Cancelado</b> ("Anular compra y volver"): vuelve a <code>/comprar/?s=guia&estado=cancelado</code>; pedido cancelado.</li>
+<li><b>Doble retorno</b>: el mismo token_ws llegó 3 veces más (2 POST a la vez + 1 GET): los 3 respondieron 303 a <code>/encuesta/</code> con el mismo código; el código no cambió; seguía 1 fila de correo y 1 de GA4.</li>
+<li><b>Flujos completos</b> en los 3 consentimientos: compra online → encuesta de 8 pasos con foto (guardado de avance en el servidor) → envío; compra presencial → /agendar/ → cambio de hora. Todo funcionó. Además: 5 encuestas analizadas por la IA ("lista para revisar"), avisos a Leo y correos anotados en <code>correos_prueba</code> (ninguno salió).</li>
+<li><b>Panel:</b> la caja roja de alertas aparece arriba y desaparece al marcar "Listo".</li>
+</ul>
+
+<h2 id="privacidad">6 · Prueba de privacidad con navegador</h2>
+<p><span class="chip ok">OK en los 3 escenarios</span></p>
+<p class="nota">Edge sin ventana contra el sitio de prueba, con Webpay de integración real. Por escenario: banner → compra online aprobada → encuesta completa (8 pasos, foto, avance guardado) → envío → compra presencial aprobada → /agendar/ → cambio de hora → /panel/ → /blog/. Se registraron todas las solicitudes (unas 310 a 325 por escenario). En cada solicitud a otro host se buscaron, en URL, encabezados y cuerpo: los 2 códigos reales del escenario (leídos de la base de prueba), nombre, apellido, los 2 correos, el teléfono en 3 formatos, la comuna, la dirección y la marca de las respuestas de la encuesta. Para no ensuciar la propiedad real de GA4, gtm.js se reemplazó por un simulador local que se comporta como GA4 (manda dirección de la página, referrer, eventos e id del formulario) a una URL de Google que se intercepta y no sale.</p>
+<ul>
+<li><b>Todo aceptado:</b> 0 fugas. GTM y GA solo en páginas públicas (4 cargas de GTM, 6 hits simulados). 0 solicitudes a Google, Meta o jsdelivr desde /encuesta/, /agendar/ o /panel/.</li>
+<li><b>Solo analítica:</b> 0 fugas, mismo resultado. La primera corrida se cayó esperando la página de Webpay; la repetí y pasó completa.</li>
+<li><b>Rechazado:</b> 0 fugas y <b>0 solicitudes a Google desde nuestras páginas</b>.</li>
+<li>En los 3: después del pago la dirección es <code>/encuesta/</code> sin código; <code>document.cookie</code> no ve las cookies del código; la de la encuesta desaparece al enviarla y la de la agenda queda con Path=/api/, HttpOnly, Secure y SameSite=Strict.</li>
+<li>Otros terceros vistos: <code>w.behold.so</code> y <code>feeds.behold.so</code> (Instagram del inicio, en todos los escenarios) y, dentro de las páginas de Transbank, Google Fonts, GTM y GA de Transbank (pendientes 5 y 6).</li>
+<li>Prueba de peor caso, aparte: con un simulador que lee los valores de los formularios, en /comprar/ salían nombre, correo, teléfono, comuna y dirección. La medición normal de GA4 no hace eso, pero muestra por qué hay que auditar GTM antes de producción (pendiente 3).</li>
+<li>Foto: en los 3 la encuesta quedó como <code>ovalo-sin-detector</code>, porque en Edge sin ventana el detector tarda más que los 8 s que espera la página. Aparte comprobé que el detector alojado en el sitio carga y funciona (pendiente 7).</li>
+</ul>
+
+<h2>7 · Errores encontrados y cómo se arreglaron</h2>
+<ol>
+<li><b>Carrera cancelación + pago</b> (lo encontró una prueba automática): si la cancelación de Webpay llegaba mientras se confirmaba el pago, se borraba la retención y el pedido quedaba pagado sin cita. Arreglo: al cancelar, la retención queda vencida (los bloques se sueltan) en vez de borrarse, y justo antes de marcar pagado se vuelve a asegurar la hora; si ya es de otra, pasa a "hora en conflicto".</li>
+<li><b>Bloques huérfanos:</b> al reintentar una compra, la retención anterior se borraba sin soltar sus bloques. Arreglo: se borran juntos, y cada inserción limpia bloques de citas que ya no existen.</li>
+<li><b>Nombres en logs por el asunto del correo</b> (lo encontré revisando la base de prueba): "¡Listo, Nombre Apellido! Recibí tu encuesta". Arreglo: al log solo va el tipo de correo ("¡Listo"); prueba agregada.</li>
+<li><b>Fuentes del sitio desactualizadas:</b> <code>node construir.js</code> sobre las fuentes actuales cambia 19 páginas publicadas y pisa el panel con una versión vieja (producción se ha ido ajustando con otros scripts). No reconstruí: los cambios están en <code>privacidad-sitio.js</code>, que se aplica sobre lo publicado y también sobre las fuentes, y <code>construir.js</code> lo llama al final. <code>panel/index.html</code> se igualó al publicado en la copia.</li>
+<li><code>construir.js</code> tenía la ruta de producción escrita a mano; en la copia usa su propia carpeta.</li>
+<li>La tabla <code>pedidos</code> no estaba en <code>esquema.sql</code> (se creó a mano en producción); la reconstruí desde el código para la base de prueba.</li>
+<li>Herramienta: el workerd de vitest-pool-workers 0.23 llega hasta la fecha de compatibilidad 2026-08-22; solo las pruebas automáticas usan esa fecha (el sitio de prueba usa la de producción, 2026-09-18). El paquete además avisa que cambió de nombre a <code>@cloudflare/vitest-plugin</code>.</li>
+</ol>
+
+<h2>8 · Pendientes</h2>
+<ol>
+<li><span class="chip pend">Pablo</span> <b>Propiedad o flujo de prueba de GA4</b> para revisar en DebugView. Hoy solo se validó contra el servidor de validación con ids de mentira (respuesta 200, sin mensajes de error). No pedí ni usé el secreto real.</li>
+<li><span class="chip pend">Pablo</span> <b>Data API de GA4</b>: id de la propiedad + cuenta de servicio con acceso de lector. La conciliación solo está probada con la API simulada.</li>
+<li><span class="chip pend">Pablo</span> <b>GTM</b> (sin acceso): desactivar la etiqueta "Compra", revisar el Consent Mode de cada etiqueta y auditar que nada lea campos de formularios ni la URL completa. Hoy /comprar/ carga GTM (con consentimiento) en la misma página donde la clienta escribe nombre, correo, teléfono y dirección: con la medición normal de GA4 no se envían esos valores, pero una etiqueta mal configurada podría hacerlo. Lo comprobé con un simulador "peor caso" que sí los leía.</li>
+<li><span class="chip pend">Pablo</span> <b>Textos nuevos, inventados por mí</b> (hay que aprobarlos o cambiarlos): <span class="inventado">texto del banner y sus botones</span>, <span class="inventado">"Estamos confirmando tu pago con Webpay. No vuelvas a pagar…"</span>, <span class="inventado">el correo y el aviso de "hora en conflicto"</span>, <span class="inventado">el aviso a Leo de pago con hora en conflicto</span> y <span class="inventado">"Este link no es válido. Usa el link que te llegó por correo o escríbeme."</span></li>
+<li><span class="chip pend">Decisión</span> El widget de Instagram (Behold) del inicio carga <code>w.behold.so</code> y <code>feeds.behold.so</code> aunque se rechacen las cookies. No es Google ni Meta directo, pero es un tercero sin consentimiento.</li>
+<li><span class="chip pend">Nota</span> Las páginas de Webpay (de Transbank) cargan Google Tag Manager, Google Analytics y Google Fonts de Transbank. Está fuera de nuestro sitio y de nuestro control; conviene mencionarlo en la política de privacidad.</li>
+<li><span class="chip pend">Nota</span> Cámara guiada: el detector de rostros alojado en el sitio carga y funciona, pero en Edge sin ventana tardó unos 14 s la primera vez (desde jsdelivr tardó 18,6 s; con caché, 5,8 s). La página espera 8 s y después sigue sin detector (ya era así). En teléfonos reales no lo pude medir. Dejé caché de 7 días para /vendor/.</li>
+<li><span class="chip pend">Nota</span> Meta Conversions API y Google Ads: no implementados (no hay credenciales); la cola ya está preparada.</li>
+<li><span class="chip pend">Limpieza</span> Cuando no se necesite el ambiente de prueba: borrar el worker <code>efecto-espejo-prueba-cyber</code>, la D1 y el KV de prueba (tienen datos inventados y 5 fotos de prueba, la foto pública de Leo del sitio).</li>
+</ol>
+
+<h2>9 · Pasos para pasar a producción <span class="chip pend">no ejecutados</span></h2>
+<ol>
+<li>Aprobación explícita de Pablo y de los textos nuevos.</li>
+<li>Respaldo: copiar <code>efecto-espejo-web</code> a <code>respaldos-AAAAMMDD-cyber</code> y exportar la base: <code>npx wrangler d1 export efecto-espejo-datos --remote --output respaldo-cyber.sql</code>.</li>
+<li>Copiar desde <code>efecto-espejo-cyber</code> a <code>efecto-espejo-web</code>: <code>src/</code> (envios.js, privacidad.js, pagos.js, agenda.js, index.js, correo.js, guia.js, isi.js, oferta.js), las 19 páginas de <code>sitio-b/</code>, la carpeta <code>sitio-b/vendor/</code>, <code>privacidad-sitio.js</code>, <code>construir.js</code>, <code>bajar-vendor.js</code>, <code>esquema.sql</code>, <code>panel/index.html</code>, <code>propuesta-b.html</code>, <code>encuesta.html</code>, <code>camara-guiada.html</code>. Antes, comparar fechas y tamaños con producción por si alguien cambió algo después del 17-nov.</li>
+<li><code>wrangler.jsonc</code> de producción: cron <code>"*/5 * * * *"</code>; variable <code>GA4_MEASUREMENT_ID</code> y secreto <code>GA4_API_SECRET</code> (y después <code>GA4_DATA_PROPERTY</code> + secreto <code>GA4_SA_JSON</code>). Revisar que <b>no</b> tenga <code>CORREO_PRUEBA</code> ni <code>SITIO_URL</code>.</li>
+<li>Tablas nuevas: <code>npx wrangler d1 execute efecto-espejo-datos --remote --file esquema.sql</code> (todo es CREATE IF NOT EXISTS; las columnas nuevas de pedidos las agrega el worker solo).</li>
+<li>Publicar: <code>npx wrangler deploy</code> desde <code>efecto-espejo-web</code>.</li>
+<li>Migración de la agenda: <code>POST /api/panel/agenda-migrar-bloques</code> (solo informa) → revisar choques con Leo → <code>?aplicar=1</code>. Si el índice <code>citas_una_agendada</code> no se pudo crear (pedidos con dos citas), queda anotado en el log y se revisa a mano.</li>
+<li>Revisiones: encabezados, /vendor/, un link viejo <code>?c=</code> y uno nuevo <code>#c=</code> creados desde el panel, y el banner.</li>
+<li>Compra real de bajo monto con reembolso desde el panel.</li>
+<li>GTM (Pablo): desactivar "Compra", Consent Mode, auditoría; y pedir a GA4 el borrado de las URLs con códigos ya registradas.</li>
+<li>Revisar alertas y la cola de envíos en el panel durante 72 h. Para volver atrás: <code>npx wrangler rollback</code> y restaurar el respaldo de archivos.</li>
+</ol>
+<p class="nota">Archivos de evidencia (capturas, solicitudes registradas, JSON de resultados): <code>C:/Users/Pablo/efecto-espejo-cyber/artefactos-prueba/</code> (no están en git).</p>
+</main>
+</body>
+</html>
