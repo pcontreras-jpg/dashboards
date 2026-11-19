@@ -8,149 +8,241 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FAF9F7;--card:#FFFFFF;--line:#E7E4DF;--txt:#16161F;--mut:#6B6977;--rosa:#E8466F;--rosa-s:#FDECF1;--dark:#16161F}
+:root{--bg:#FAF9F7;--card:#FFFFFF;--line:#E7E4DF;--txt:#110221;--mut:#6B6977;--rosa:#D10BC4;--rosa-s:#FCE8FA;--dark:#110221}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 "Space Grotesk",system-ui,sans-serif}
 .wrap{max-width:900px;margin:0 auto;padding:48px 20px 80px}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--dark);padding-bottom:22px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:#110221;border-radius:20px;padding:18px 28px}
+header img{display:block;height:120px;width:auto}
+header .meta{color:#B9B3C7}header .meta b{color:#fff}
 .brand{font-weight:700;font-size:22px;letter-spacing:-.01em}.brand span{color:var(--rosa)}
-.meta{font-size:14px;color:var(--mut);text-align:right}.meta b{color:var(--txt);font-weight:500}
+.meta{font-size:14px;text-align:right}.meta b{font-weight:500}
 h1{font-size:clamp(30px,5vw,44px);line-height:1.08;letter-spacing:-.02em;margin:36px 0 10px}
 .lead{font-size:18px;color:var(--mut);margin:0 0 8px;max-width:720px}
 h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa);margin:48px 0 16px}
 .needs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:0;padding:0;list-style:none}
 .needs li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:15px}
 .needs b{display:block;margin-bottom:2px}
-.opt{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:16px;break-inside:avoid}
-.opt.extra{border-style:dashed}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:18px}
+.opt.pro{border:2px solid var(--dark)}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px}
 .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:500}
 .opt h3{font-size:22px;margin:4px 0 0;letter-spacing:-.01em}
 .price{text-align:right}
-.price .v{font-size:28px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.price .v{font-size:22px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
 .price .s{font-size:13px;color:var(--mut)}
 .desc{color:var(--mut);margin:8px 0 14px}
 ul.inc{margin:0;padding:0;list-style:none}
 ul.inc li{position:relative;padding:7px 0 7px 26px;border-top:1px solid var(--line);font-size:15px}
 ul.inc li:first-child{border-top:0}
 ul.inc li::before{content:"";position:absolute;left:4px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--rosa)}
-.sub{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin:18px 0 6px;font-weight:500}
+ul.no li::before{background:none;border:1.5px solid var(--mut);width:8px;height:8px}
+ul.no li{color:var(--mut)}
+.sub{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin:20px 0 6px;font-weight:500}
+.apps{display:grid;gap:12px;margin-top:6px}
+.app{border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.app .h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.app .n{font-weight:700;font-size:17px}
+.app .r{font-size:13px;color:var(--mut)}
+.app .u{font-size:14px;margin:4px 0 8px}
+.app .p{font-size:14px;background:var(--bg);border-radius:10px;padding:10px 12px}
+.app .p b{font-weight:600}
 .note{background:var(--rosa-s);border-radius:12px;padding:12px 16px;font-size:14px;margin-top:14px}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:15px}
-th,td{padding:13px 16px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
-thead th{border-top:0;background:var(--dark);color:#fff;font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
-td.n{text-align:right;white-space:nowrap;font-weight:500}
-.mut{color:var(--mut);font-size:14px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+th,td{padding:12px 14px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;background:var(--dark);color:#fff;font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+td:first-child{font-weight:500}
+.tw{overflow-x:auto}
 ol.req{margin:0;padding-left:20px}ol.req li{margin-bottom:6px}
 footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--mut)}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.card3{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column}
+.card3.pro{background:var(--dark);color:#fff;border-color:var(--dark)}
+.card3 .lbl{margin-bottom:4px}.card3.pro .lbl{color:#B9B3C7}
+.card3 h3{font-size:20px;line-height:1.2;margin:0 0 8px;letter-spacing:-.01em}
+.card3 .d{font-size:14px;color:var(--mut);margin:0 0 14px;min-height:62px}.card3.pro .d{color:#CFC9DC}
+.card3 .pr{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.card3 .pr small{font-size:13px;font-weight:500;color:var(--mut)}.card3.pro .pr small{color:#B9B3C7}
+.card3 .mo{font-size:13px;color:var(--mut);margin:6px 0 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}.card3.pro .mo{color:#CFC9DC;border-color:#2E2140}
+.card3 ul{list-style:none;margin:0;padding:0;font-size:14px}
+.card3 li{position:relative;padding:5px 0 5px 20px}
+.card3 li::before{content:"";position:absolute;left:2px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--rosa)}
+.card3 .fit{margin-top:auto;padding-top:14px;font-size:13px}.card3 .fit b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--rosa);margin-bottom:2px}.card3.pro .fit b{color:#FA0CE9}
+@media(max-width:820px){.cards{grid-template-columns:1fr}.card3 .d{min-height:0}}
 @media(max-width:640px){.needs{grid-template-columns:1fr}.meta,.price{text-align:left}.wrap{padding-top:32px}}
-@media print{body{background:#fff}.wrap{padding:0}.opt,.needs li,table{border-color:#ccc}h2{margin-top:28px}}
+@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{background:#fff}.wrap{padding:0}.opt{break-inside:avoid}h2{margin-top:28px}}
 </style>
 </head>
 <body><div class="wrap">
 
 <header>
-  <div class="brand">LECHOC <span>Digital Lab</span></div>
+  <img src="lechoc/logo-lechoc-digital-lab.png" alt="Lechoc Digital Lab">
   <div class="meta">Para <b>Luz · La Tiendita de tus Ideas</b><br>19 de noviembre de 2026<br>Valores en pesos chilenos + IVA</div>
 </header>
 
 <h1>Propuesta: tienda online para La Tiendita de tus Ideas</h1>
-<p class="lead">Una tienda que tú misma administras, donde tus clientas eligen su producto, suben sus fotos y pagan en el mismo paso. Te proponemos dos opciones de tienda y, como extra, un editor de photobooks hecho por nosotros.</p>
+<p class="lead">Una página donde tus clientas eligen su recuerdo (un álbum, un imán, un photobook o un pack de fotos), ponen sus fotos en el lugar que les ofrece la plantilla, ven cómo queda, pagan, y a ti te llega listo para producir.</p>
 
 <h2>Lo que nos pediste</h2>
 <ul class="needs">
-  <li><b>Tienda autogestionable</b>Subir y bajar productos, cambiar precios y crear promociones tú sola.</li>
+  <li><b>Diseño en la plantilla</b>Que la clienta ponga cada foto en su lugar y vea el resultado antes de comprar, para que dejes de mandar PDF para aprobación.</li>
   <li><b>Fotos por tamaño y pack</b>Polaroid 6x9, 10x10, 10x15 y 13x18, en packs de 25, 50 o 100 fotos.</li>
-  <li><b>Subida de fotos en la compra</b>Solo fotos, sin videos, Live Photos ni Boomerang, y en su resolución original.</li>
-  <li><b>Photobooks armados por la clienta</b>Que vea cómo queda antes de pagar, y tú dejes de mandar PDF para aprobación.</li>
+  <li><b>Solo fotos, sin perder calidad</b>Nada de videos, Live Photos ni Boomerang, y todo en su resolución original.</li>
+  <li><b>Tienda autogestionable</b>Subir y bajar productos, cambiar precios y crear promociones tú sola.</li>
 </ul>
 
-<h2>Opciones</h2>
+<h2>Tres opciones</h2>
+<div class="cards">
+  <div class="card3">
+    <div class="lbl">Opción 1</div>
+    <h3>Tienda Shopify con apps</h3>
+    <p class="d">Tu tienda en Shopify con apps especializadas para diseñar y subir fotos.</p>
+    <div class="pr">$800.000 <small>+ IVA</small></div>
+    <div class="mo">Pagas aparte cada mes: Shopify y las apps (desde unos US$70) y comisiones por venta.</div>
+    <ul>
+      <li>Plantillas para imanes, recuerdos y álbumes</li>
+      <li>Photobooks con editor y vista 3D</li>
+      <li>Subida de fotos por pack</li>
+      <li>Administras todo desde Shopify</li>
+    </ul>
+    <div class="fit"><b>Ideal si</b>quieres partir rápido y con menos inversión inicial.</div>
+  </div>
+  <div class="card3">
+    <div class="lbl">Opción 2</div>
+    <h3>Desarrollo propio con panel administrable</h3>
+    <p class="d">Un sitio hecho a tu medida, simple de usar, sin apps ni comisiones por venta.</p>
+    <div class="pr">$700.000 <small>+ IVA</small></div>
+    <div class="mo">Mantención $45.000 + IVA al mes. Solo pagas la comisión de Webpay.</div>
+    <ul>
+      <li>Editor de plantillas propio para todos tus productos</li>
+      <li>Subida de fotos con recorte y aviso de baja calidad</li>
+      <li>Archivo listo para imprimir en cada pedido</li>
+      <li>Panel propio: productos, precios, promociones y plantillas</li>
+    </ul>
+    <div class="fit"><b>Ideal si</b>quieres un costo mensual bajo y un sistema pensado para tu negocio.</div>
+  </div>
+  <div class="card3 pro">
+    <div class="lbl">Opción 3</div>
+    <h3>Desarrollo pro</h3>
+    <p class="d">Todo lo de la Opción 2 con la experiencia de las grandes tiendas de fotografía.</p>
+    <div class="pr">$2.490.000 <small>+ IVA</small></div>
+    <div class="mo">Mantención $90.000 + IVA al mes. Solo pagas la comisión de Webpay.</div>
+    <ul>
+      <li>Diseño libre de páginas y textos</li>
+      <li>Álbum que se arma solo con tus fotos</li>
+      <li>Vista como libro y en 3D</li>
+      <li>Cuenta de clienta, proyectos guardados e importar desde Instagram</li>
+    </ul>
+    <div class="fit"><b>Ideal si</b>quieres competir de igual a igual con las tiendas grandes.</div>
+  </div>
+</div>
 
+<h2>Detalle de cada opción</h2>
+
+<!-- OPCIÓN 1 -->
 <div class="opt">
   <div class="top">
-    <div><div class="lbl">Opción 1</div><h3>Shopify con app de subida de fotos</h3></div>
-    <div class="price"><div class="v">$850.000</div><div class="s">+ IVA · pago único</div></div>
+    <div><div class="lbl">Opción 1</div><h3>Tienda Shopify con apps</h3></div>
+    <div class="price"><div class="v">$800.000</div><div class="s">+ IVA · pago único</div></div>
   </div>
-  <p class="desc">La tienda en Shopify, con una app ya existente para la subida de fotos.</p>
+  <p class="desc">Tu tienda en Shopify, con apps especializadas para el diseño y la subida de fotos. Es la opción más rápida de implementar.</p>
   <ul class="inc">
     <li>Tienda Shopify con diseño adaptado a tu marca: logo, colores e Instagram.</li>
     <li>Carga de tu catálogo con fotos, precios, descripciones y SEO.</li>
-    <li>Subida de fotos por pack con la app Upload-Lift: cada pack acepta su cantidad de fotos y solo imágenes.</li>
+    <li>Instalación y configuración de las apps con tus plantillas y formatos.</li>
     <li>Configuración de medios de pago y despacho.</li>
-    <li>Capacitación para que manejes la tienda sola.</li>
+    <li>Capacitación para que manejes la tienda y las apps sola.</li>
   </ul>
-  <div class="note"><b>Costo de la app (lo pagas tú directo):</b> Upload-Lift es gratis hasta 50 pedidos con fotos al mes y después cuesta US$9 mensuales.</div>
+
+  <div class="sub">Apps que usaríamos</div>
+  <div class="apps">
+    <div class="app">
+      <div class="h"><span class="n">Customily</span><span class="r">4,9 ★ · 280 reseñas</span></div>
+      <div class="u"><b>Para imanes, recuerdos y álbumes de pocas páginas.</b> La clienta pone sus fotos y textos en tu plantilla, ve el resultado en vivo y a ti te llega el archivo listo para imprimir. En español.</div>
+      <div class="p"><b>US$49 al mes</b> + US$1 por producto personalizado vendido (US$0,50 desde el producto 101 del mes). Prueba gratis de 9 días.</div>
+    </div>
+    <div class="app">
+      <div class="h"><span class="n">Upload-Lift</span><span class="r">4,9 ★ · 181 reseñas</span></div>
+      <div class="u"><b>Para los packs de fotos impresas.</b> La clienta sube sus fotos, las recorta con la proporción del tamaño de impresión y se controla el tamaño mínimo de cada foto.</div>
+      <div class="p"><b>Gratis</b> hasta 50 fotos vinculadas a pedidos · <b>US$9 al mes</b> hasta 500 · <b>US$19 al mes</b> hasta 2.000 · <b>US$29 al mes</b> sin límite.</div>
+    </div>
+    <div class="app">
+      <div class="h"><span class="n">Bindl</span><span class="r">Lanzada en septiembre de 2026 · aún sin reseñas</span></div>
+      <div class="u"><b>Para photobooks de varias páginas.</b> Editor en español con armado automático, vista previa en 3D y PDF listo para tu imprenta.</div>
+      <div class="p"><b>Sin mensualidad.</b> Cobra 5% de cada photobook vendido.</div>
+    </div>
+  </div>
+  <div class="note"><b>Importante:</b> las apps quedan sujetas a una prueba previa con algunos de tus productos. Si alguna no responde a lo que necesitas, te proponemos una alternativa antes de implementar. Las apps las pagas tú directo, junto con Shopify.</div>
 </div>
 
+<!-- OPCIÓN 2 -->
 <div class="opt">
   <div class="top">
-    <div><div class="lbl">Opción 2</div><h3>Shopify con sistema propio de subida de fotos</h3></div>
-    <div class="price"><div class="v">$1.100.000</div><div class="s">+ IVA · pago único<br>+ $60.000 + IVA al mes de mantención</div></div>
+    <div><div class="lbl">Opción 2</div><h3>Desarrollo propio con panel administrable</h3></div>
+    <div class="price"><div class="v">$700.000</div><div class="s">+ IVA · pago único<br>+ $45.000 + IVA al mes de mantención</div></div>
   </div>
-  <p class="desc">La misma tienda, pero la subida de fotos es un sistema hecho a tu medida: sin apps de fotos y sin comisiones. La mantención mensual cubre el cuidado de ese sistema.</p>
+  <p class="desc">Un sitio hecho a tu medida, con todo lo que necesitas para vender tus recuerdos de forma simple. Sin apps y sin comisiones por venta.</p>
+
+  <div class="sub">Incluye</div>
   <ul class="inc">
-    <li>Todo lo de la Opción 1, salvo la app.</li>
-    <li>La clienta sube sus fotos antes de pagar: el botón "Agregar al carro" se activa recién cuando subió la cantidad exacta de su pack.</li>
-    <li>Solo acepta fotos (ni videos, ni Live Photos, ni Boomerang) y las guarda en su resolución original.</li>
-    <li>Vista de recorte en cada foto: la clienta elige entre llenar el formato (se corta un poco) o foto completa con borde blanco.</li>
-    <li>Aviso antes de pagar si una foto tiene poca resolución para el tamaño elegido, por ejemplo una foto de WhatsApp en 13x18.</li>
-    <li>Si se corta la señal, la subida sigue desde donde quedó, con barra de avance.</li>
-    <li>La clienta ve las miniaturas de lo que subió, y tú recibes exactamente eso.</li>
-    <li>Panel con cada pedido y sus fotos, con un botón para descargarlas todas juntas.</li>
-    <li>Las fotos de compras que no se terminaron se borran solas a los 7 días (plazo ajustable).</li>
+    <li><b>Tienda:</b> catálogo, fichas de producto, precios por tamaño y pack, y códigos de descuento.</li>
+    <li><b>Carro y pago con Webpay</b>, correo de confirmación y opciones de despacho o retiro.</li>
+    <li><b>Editor de plantillas:</b> la clienta pone sus fotos en los cuadros de la plantilla, en orden, y puede acercar o mover cada foto dentro de su cuadro.</li>
+    <li><b>Textos personalizables:</b> la clienta elige entre 4 o 5 fuentes, una paleta corta de colores y el tamaño, todo definido por ti.</li>
+    <li><b>Vista previa</b> del resultado, página por página, antes de pagar.</li>
+    <li><b>Subida de fotos:</b> la cantidad exacta del pack, solo fotos (ni videos, ni Live Photos, ni Boomerang) y en resolución original.</li>
+    <li><b>Recorte a la vista:</b> la clienta elige entre llenar el formato o foto completa con borde blanco.</li>
+    <li><b>Aviso de baja resolución</b> antes de pagar, por ejemplo una foto de WhatsApp en 13x18.</li>
+    <li><b>Subida que no se pierde:</b> si se corta la señal, sigue desde donde quedó.</li>
+    <li><b>Archivo listo para imprimir</b> en cada pedido, con las medidas de tu imprenta.</li>
+    <li><b>Tu panel:</b> productos, precios, promociones y pedidos con sus fotos para descargar.</li>
+    <li><b>Plantillas nuevas sin depender de nadie:</b> subes el fondo que diseñas en Canva, marcas dónde van las fotos y los textos, y lo conectas a un producto.</li>
+    <li>Capacitación para que manejes todo sola.</li>
+  </ul>
+
+  <div class="sub">No incluye</div>
+  <ul class="inc no">
+    <li>Cambiar el diseño de cada página ni agregar o quitar páginas: la plantilla viene fija.</li>
+    <li>Armado automático del álbum.</li>
+    <li>Vista como libro o en 3D.</li>
+    <li>Proyectos guardados para terminar otro día.</li>
+    <li>Importar fotos desde Instagram o Google Fotos.</li>
+    <li>Filtros y retoques automáticos.</li>
   </ul>
 </div>
 
-<div class="opt extra">
+<!-- OPCIÓN 3 -->
+<div class="opt pro">
   <div class="top">
-    <div><div class="lbl">Extra · se suma a cualquiera de las dos opciones</div><h3>Editor de photobooks propio</h3></div>
-    <div class="price"><div class="v">+ $400.000</div><div class="s">+ IVA · pago único</div></div>
+    <div><div class="lbl">Opción 3</div><h3>Desarrollo pro</h3></div>
+    <div class="price"><div class="v">$2.490.000</div><div class="s">+ IVA · pago único<br>+ $90.000 + IVA al mes de mantención</div></div>
   </div>
-  <p class="desc">Un editor hecho por nosotros con tus plantillas: sin apps, sin comisión por libro y sin mensualidad de editor.</p>
-  <div class="sub">Para tu clienta</div>
+  <p class="desc">Todo lo de la Opción 2, más la experiencia completa de las grandes tiendas de fotografía.</p>
+
+  <div class="sub">Incluye todo lo de la Opción 2, más</div>
   <ul class="inc">
-    <li>Entra al producto, por ejemplo "Photobook 20x20, 24 páginas", y aprieta "Crear".</li>
-    <li>Sube sus fotos de una vez y quedan en una bandeja.</li>
-    <li>Recorre la plantilla página por página: toca cada cuadro, elige una foto, la acerca o la mueve, y escribe sus textos donde corresponde.</li>
-    <li>Recibe un aviso si una foto tiene poca resolución para su cuadro.</li>
-    <li>Ve el libro completo antes de agregarlo al carro.</li>
-    <li>A ti te llega el pedido con el PDF listo para imprimir, con las medidas que pide tu imprenta.</li>
-  </ul>
-  <div class="sub">Para ti</div>
-  <ul class="inc">
-    <li>Lanzas productos nuevos sola: diseñas los fondos en Canva, los subes al editor y marcas dónde van las fotos y los textos.</li>
-    <li>Eliges el tamaño y la cantidad de páginas, y lo conectas con el producto de tu tienda.</li>
+    <li><b>Diseño libre:</b> la clienta cambia el diseño de cada página, arrastra fotos entre páginas y agrega o quita páginas.</li>
+    <li><b>Textos con estilo completo:</b> fuentes, colores, tamaños y adornos.</li>
+    <li><b>Armado automático:</b> sube todas sus fotos y el álbum se arma solo, ordenado por fecha, apartando las fotos borrosas y las repetidas.</li>
+    <li><b>Vista realista:</b> hojear el álbum como un libro, o ver el imán en un refrigerador y la foto en su marco.</li>
+    <li><b>Cuenta de clienta:</b> guarda su proyecto, lo termina otro día y repite pedidos anteriores.</li>
+    <li><b>Fotos desde cualquier lado:</b> desde Instagram o Google Fotos, o del celular al computador con un código QR.</li>
+    <li><b>Mejoras automáticas:</b> filtros, corrección de color y recorte inteligente que respeta las caras.</li>
+    <li><b>Producción profesional:</b> archivos con sangrado, marcas de corte y perfil de color de tu imprenta, y pedidos agrupados por día de producción.</li>
+    <li><b>Más ventas:</b> recordatorio a quien dejó un proyecto sin pagar, opción de regalo con mensaje y seguimiento del envío.</li>
   </ul>
 </div>
-
-<h2>Resumen</h2>
-<table>
-  <thead><tr><th>Alternativa</th><th style="text-align:right">Pago único</th><th style="text-align:right">Mensual</th></tr></thead>
-  <tbody>
-    <tr><td>Opción 1 · Shopify con app de subida de fotos</td><td class="n">$850.000 + IVA</td><td class="n">—</td></tr>
-    <tr><td>Opción 2 · Shopify con subida de fotos propia</td><td class="n">$1.100.000 + IVA</td><td class="n">$60.000 + IVA</td></tr>
-    <tr><td>Opción 1 + editor de photobooks</td><td class="n">$1.250.000 + IVA</td><td class="n">—</td></tr>
-    <tr><td>Opción 2 + editor de photobooks</td><td class="n">$1.500.000 + IVA</td><td class="n">$60.000 + IVA</td></tr>
-  </tbody>
-</table>
-
-<h2>Costos que pagas directo, en cualquier opción</h2>
-<ul class="inc">
-  <li><b>Plan de Shopify:</b> desde US$25 al mes.</li>
-  <li><b>Comisión de Shopify:</b> 2% por venta, porque en Chile se usa una pasarela de pago externa.</li>
-  <li><b>Pasarela de pago:</b> la comisión por venta de la que elijas, Webpay o Flow.</li>
-</ul>
 
 <h2>Lo que necesitamos de ti</h2>
 <ol class="req">
   <li>Tu catálogo con precios (podemos tomar como base tu página de Canva).</li>
   <li>Tu logo y las fotos de tus productos.</li>
+  <li>Los diseños de tus plantillas y las medidas que pide tu imprenta (tamaño, margen y resolución).</li>
   <li>La pasarela de pago que vas a usar y tu dominio, si ya tienes uno.</li>
-  <li>Para el editor: las medidas que pide tu imprenta (tamaño, margen y resolución) y los diseños que quieres ofrecer.</li>
 </ol>
 
-<footer>LECHOC Digital Lab · Valores en pesos chilenos, más IVA. Los costos de Shopify, la app y la pasarela de pago los cobra directamente cada proveedor.</footer>
+<footer>LECHOC Digital Lab · Valores en pesos chilenos, más IVA. Los precios de Shopify y de las apps están en dólares, los cobra directamente cada proveedor y corresponden a sus sitios oficiales al 19 de noviembre de 2026.</footer>
 
 </div></body>
 </html>
